@@ -1,8 +1,10 @@
 {
   "expo": {
-    "name": "react_native",
-    "slug": "react_native",
+    "name": "Rownd Sandbox",
+    "slug": "rownd_sandbox",
     "version": "1.0.0",
+    "icon": "./assets/rownd-icon.png",
+    "jsEngine": "hermes",
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -13,5 +15,5 @@
       "bundleIdentifier": "io.rownd.example"
     }
   },
-  "name": "react_native"
+  "name": "Rownd Sandbox"
 }

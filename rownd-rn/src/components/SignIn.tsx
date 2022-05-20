@@ -13,7 +13,7 @@ import {
     ActivityIndicator,
 } from 'react-native';
 import { SvgCssUri } from 'react-native-svg';
-import { useTailwind } from 'tailwind-rn';
+import tw from '../utils/tailwind';
 import phone, { type PhoneResult } from 'phone';
 import jwt_decode from 'jwt-decode';
 import BottomSheet, { BottomSheetBackdrop, BottomSheetBackdropProps, BottomSheetModal } from '@gorhom/bottom-sheet';
@@ -62,8 +62,6 @@ enum LoginVerificationStatus {
 }
 
 export function SignIn(props: any) {
-    const tailwind = useTailwind();
-
     const navTo = useNav();
     const { state, dispatch } = useGlobalContext();
     const { config, nav, app, user } = state;
@@ -467,8 +465,8 @@ export function SignIn(props: any) {
                 {step === LoginStep.WAITING && (
                     <>
                         <Text style={styles.dialogHeading}>Thanks! Verify your {loginType === 'phone' ? 'phone number' : 'email'} to finish</Text>
-                        <Text style={tailwind('py-6')}>
-                            Click the link in the message we just sent to <Text style={tailwind('italic')}>{userIdentifier}</Text> to verify and finish.
+                        <Text style={tw.style('py-6')}>
+                            Click the link in the message we just sent to <Text style={tw.style('italic')}>{userIdentifier}</Text> to verify and finish.
                             <Text style={[styles.link]} onPress={() => setStep(LoginStep.INIT)}>
                                 &nbsp;Re-send message
                             </Text>
@@ -498,7 +496,7 @@ export function SignIn(props: any) {
                 {step === LoginStep.FAILURE && (
 
                     <>
-                        <Text style={tailwind('text-base')}>Whoops, that didn't work!</Text>
+                        <Text style={tw.style('text-base')}>Whoops, that didn't work!</Text>
                         <Pressable style={styles.button} onPress={() => setStep(LoginStep.INIT)}>
                             <Text style={styles.buttonContent}>Try again</Text>
                         </Pressable>
@@ -507,8 +505,8 @@ export function SignIn(props: any) {
 
                 {step === LoginStep.ERROR && (
                     <>
-                        <Text style={tailwind('text-base')}>An error occurred while signing you in.</Text>
-                        {error && <Text style={tailwind('text-rose-800')}>{error}</Text>}
+                        <Text style={tw.style('text-base')}>An error occurred while signing you in.</Text>
+                        {error && <Text style={tw.style('text-rose-800')}>{error}</Text>}
                         <Pressable style={styles.button} onPress={() => setStep(LoginStep.INIT)}>
                             <Text style={styles.buttonContent}>Try again</Text>
                         </Pressable>

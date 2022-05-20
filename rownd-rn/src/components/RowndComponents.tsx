@@ -1,21 +1,17 @@
-import { TailwindProvider } from 'tailwind-rn';
-import utilities from '../../../tailwind.json';
-import React, { useState, useRef } from 'react';
-import {
-    View,
-    Text,
-    Modal,
-    StyleSheet,
-} from 'react-native';
+import React from 'react';
+import { useDeviceContext } from 'twrnc';
+
+import tw from '../utils/tailwind';
 import { SignIn } from './SignIn';
 import { useGlobalContext } from './GlobalContext';
 
 export function RowndComponents() {
-    const { state, dispatch } = useGlobalContext();
+    const { state } = useGlobalContext();
+    useDeviceContext(tw);
 
     return (
-        <TailwindProvider utilities={utilities}>
+        <>
             {state.nav.current_route === '/account/login' && <SignIn />}
-        </TailwindProvider>
+        </>
     )
 }

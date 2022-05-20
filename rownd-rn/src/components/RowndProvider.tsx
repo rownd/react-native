@@ -1,6 +1,4 @@
-import { TailwindProvider } from 'tailwind-rn';
-import utilities from '../../../tailwind.json';
-import React, { createContext, useContext, useState, useRef } from 'react';
+import React from 'react';
 import {
     View,
     Text,

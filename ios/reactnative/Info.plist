@@ -5,7 +5,7 @@
     <key>CFBundleDevelopmentRegion</key>
     <string>$(DEVELOPMENT_LANGUAGE)</string>
     <key>CFBundleDisplayName</key>
-    <string>react_native</string>
+    <string>Rownd Sandbox</string>
     <key>CFBundleExecutable</key>
     <string>$(EXECUTABLE_NAME)</string>
     <key>CFBundleIdentifier</key>
@@ -31,7 +31,7 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>exp+reactnative</string>
+          <string>exp+rowndsandbox</string>
         </array>
       </dict>
     </array>

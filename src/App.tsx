@@ -1,10 +1,6 @@
-import 'expo-dev-client';
 import 'react-native-gesture-handler';
-import { StatusBar } from 'expo-status-bar';
-import { Pressable } from 'react-native';
-import { StyleSheet, Text, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { RowndProvider, useRownd } from './rownd-rn/src';
+import { RowndProvider } from '../rownd-rn/src';
 import App from './components';
 
 function Root(props: any) {
