@@ -1,0 +1,17 @@
+{
+  "expo": {
+    "name": "react_native",
+    "slug": "react_native",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "android": {
+      "package": "io.rownd.example"
+    },
+    "ios": {
+      "bundleIdentifier": "io.rownd.example"
+    }
+  },
+  "name": "react_native"
+}
