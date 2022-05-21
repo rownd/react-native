@@ -31,14 +31,14 @@ export default function () {
             <Text>Open up App.tsx to start working on your app!</Text>
             {!auth.access_token && (
                 <Pressable onPress={requestSignIn} style={tw.style('button')}>
-                    <Text>Sign in with Rownd</Text>
+                    <Text style={tw.style('buttonContent')}>Sign in with Rownd</Text>
                 </Pressable>
             )}
             {auth.access_token && (
                 <>
                     <Text>You are signed in as {state?.user?.data?.email}</Text>
                     <Pressable onPress={signOut} style={tw.style('button')}>
-                        <Text>Sign out</Text>
+                        <Text style={tw.style('buttonContent')}>Sign out</Text>
                     </Pressable>
                 </>
             )}

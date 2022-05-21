@@ -1,6 +1,6 @@
 import { useEffect, useCallback, useRef } from 'react';
 import isEqual from 'lodash-es/isEqual';
-import { useDebounce, useApi } from '../hooks';
+import { useDebounce, useApi, useDeviceFingerprint } from '../hooks';
 import { IConfig } from '../utils/config';
 import { useGlobalContext } from './GlobalContext';
 import { ActionType } from '../data/actions';
@@ -24,6 +24,7 @@ type DefaultContextProps = {
 export function DefaultContext({ config }: DefaultContextProps) {
     const { state, dispatch } = useGlobalContext();
     const { client: api } = useApi();
+    useDeviceFingerprint();
 
     // Fetch app schema and config
     useEffect(() => {

@@ -16,9 +16,10 @@ import { SvgCssUri } from 'react-native-svg';
 import tw from '../utils/tailwind';
 import phone, { type PhoneResult } from 'phone';
 import jwt_decode from 'jwt-decode';
-import BottomSheet, { BottomSheetBackdrop, BottomSheetBackdropProps, BottomSheetModal } from '@gorhom/bottom-sheet';
+import { BottomSheetBackdrop, BottomSheetBackdropProps, BottomSheetModal } from '@gorhom/bottom-sheet';
 
-import { useApi, useInterval, useNav } from '../hooks';
+import storage from '../utils/storage';
+import { useApi, useInterval, useNav, useDeviceFingerprint } from '../hooks';
 import { useGlobalContext } from './GlobalContext';
 import { ActionType } from '../data/actions';
 import { renderField } from '../utils/form';
@@ -63,6 +64,7 @@ enum LoginVerificationStatus {
 
 export function SignIn(props: any) {
     const navTo = useNav();
+    const { getFingerprint, getChallengeIfPresent, clearFingerprint } = useDeviceFingerprint();
     const { state, dispatch } = useGlobalContext();
     const { config, nav, app, user } = state;
 
@@ -311,6 +313,15 @@ export function SignIn(props: any) {
         // Submission
         try {
             setIsSubmitting(true);
+
+            // Get the browser fingerprint for future sign-ins that don't require re-verification
+            const fingerprint = await getFingerprint();
+            const challengeEntry = await getChallengeIfPresent(app.id, [userIdentifier]);
+            payload.fingerprint = {
+                hash: fingerprint.visitorId,
+                challenge: challengeEntry?.value,
+            };
+
             const resp: LoginInitBody = await api.post('hub/auth/init', {
                 headers: {
                     'x-rownd-app-key': config?.appKey,
@@ -331,6 +342,13 @@ export function SignIn(props: any) {
 
                 setStep(LoginStep.SUCCESS);
                 return;
+            } else if (payload?.fingerprint?.challenge) {
+                // The fingerprint is probably expired, so delete the challenge for re-registration
+                try {
+                    clearFingerprint(payload.fingerprint.challenge);
+                } catch (err) {
+                    // no-op, but not likely to throw anyway
+                }
             }
 
             setRequestId(resp.challenge_id);
@@ -386,15 +404,16 @@ export function SignIn(props: any) {
     };
 
     const handleClose = useCallback(() => {
-        console.log('trying to close modal...');
-        navTo({ hide: true });
+        setTimeout(() => {
+            navTo({ hide: true });
+        }, 150);
     }, []);
 
     const snapPoints = useMemo(() => ['25%', '70%'], []);
 
     const renderBackdrop = useCallback(
         (props: BottomSheetBackdropProps) => (
-            <BottomSheetBackdrop {...props} pressBehavior="close"  />
+            <BottomSheetBackdrop {...props} pressBehavior="close" />
         ),
         []
     );
