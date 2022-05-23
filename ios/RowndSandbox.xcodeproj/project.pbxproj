@@ -173,6 +173,8 @@
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1250;
+						DevelopmentTeam = "34CNMPW6U9";
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -344,12 +346,15 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.rownd.example;
-				PRODUCT_NAME = "RowndSandbox";
+				PRODUCT_NAME = RowndSandbox;
 				SWIFT_OBJC_BRIDGING_HEADER = "RowndSandbox/RowndSandbox-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
+				DEVELOPMENT_TEAM = "34CNMPW6U9";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 			};
 			name = Debug;
 		};
@@ -370,11 +375,14 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.rownd.example;
-				PRODUCT_NAME = "RowndSandbox";
+				PRODUCT_NAME = RowndSandbox;
 				SWIFT_OBJC_BRIDGING_HEADER = "RowndSandbox/RowndSandbox-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
+				DEVELOPMENT_TEAM = "34CNMPW6U9";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 			};
 			name = Release;
 		};

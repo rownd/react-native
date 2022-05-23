@@ -16,7 +16,7 @@ import { SvgCssUri } from 'react-native-svg';
 import tw from '../utils/tailwind';
 import phone, { type PhoneResult } from 'phone';
 import jwt_decode from 'jwt-decode';
-import { BottomSheetBackdrop, BottomSheetBackdropProps, BottomSheetModal } from '@gorhom/bottom-sheet';
+import { BottomSheetBackdrop, BottomSheetBackdropProps, BottomSheetModal, BottomSheetTextInput } from '@gorhom/bottom-sheet';
 
 import storage from '../utils/storage';
 import { useApi, useInterval, useNav, useDeviceFingerprint } from '../hooks';
@@ -275,14 +275,9 @@ export function SignIn(props: any) {
         }
     }, [dispatch, nav?.options?.post_login_redirect, pollLoginStatus, state.auth.is_verified_user, state.config?.postLoginUrl, step]);
 
-    const initSignIn = useCallback(async (evt?: GestureResponderEvent) => {
+    const initSignIn = useCallback(async () => {
         if (step === LoginStep.WAITING) {
             return;
-        }
-
-        if (evt) {
-            evt.preventDefault();
-            evt.stopPropagation();
         }
 
         // Validation
@@ -440,7 +435,7 @@ export function SignIn(props: any) {
                         )}
                         <Text style={styles.dialogHeading}>Sign in or sign up</Text>
                         <Text style={styles.inputLabel}>Email or phone number</Text>
-                        <TextInput
+                        <BottomSheetTextInput
                             style={styles.identifierInput}
                             placeholder="Enter here"
                             keyboardType="email-address"
@@ -452,6 +447,7 @@ export function SignIn(props: any) {
                             onChangeText={(text) => setUserIdentifier(text.trim())}
                             onBlur={validateInput}
                             value={userIdentifier}
+                            onSubmitEditing={initSignIn}
                         />
                         {requiresAdditionalFields && app?.config?.hub?.auth?.additional_fields.map((field) => {
                             return renderField({
