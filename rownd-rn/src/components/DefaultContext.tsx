@@ -5,6 +5,8 @@ import { IConfig } from '../utils/config';
 import { useGlobalContext } from './GlobalContext';
 import { ActionType } from '../data/actions';
 import ky from 'ky';
+import * as Clipboard from 'expo-clipboard';
+import base64 from 'react-native-base64'
 
 export type UserInfoResp = {
     data: {
@@ -50,6 +52,38 @@ export function DefaultContext({ config }: DefaultContextProps) {
             }
         })();
     }, [api, config.appKey, dispatch]);
+
+    /**
+     * If not signed in, check the clipboard for an init hash we can use to auto-auth the user
+     */
+    useEffect(() => {
+        if (state.auth.access_token) {
+            return;
+        }
+
+        (async () => {
+            try {
+            let authStr = await Clipboard.getStringAsync();
+            if (!authStr?.startsWith('rph_init=')) {
+                return;
+            }
+
+            // Clear the clipboard value so we don't leak any creds
+            await Clipboard.setStringAsync('');
+
+            authStr = authStr.split('rph_init=')[1];
+
+            const authData = JSON.parse(base64.decode(authStr));
+
+            dispatch({
+                type: ActionType.LOGIN_SUCCESS,
+                payload: authData,
+            });
+        } catch (err) {
+            console.error('We found an auth string on the clipboard, but failed to authenticate with it because:', err);
+        }
+        })();
+    }, []);
 
     const retrieveUserInfo = useCallback(() => {
         if (!state.auth.access_token || !state.app.id) {

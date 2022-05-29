@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Rownd Sandbox",
+    "name": "Rownd (internal)",
     "slug": "rownd-sandbox",
     "owner": "rownd",
     "version": "1.0.0",
@@ -18,10 +18,11 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/rownd-icon.png",
         "backgroundColor": "#330C91"
-      }
+      },
+      "package": "io.rownd.internal"
     },
     "ios": {
-      "bundleIdentifier": "io.rownd.example",
+      "bundleIdentifier": "io.rownd.internal",
       "splash": {
         "image": "./assets/splash.png",
         "resizeMode": "contain",
