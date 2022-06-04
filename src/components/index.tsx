@@ -1,49 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
-import { Pressable } from 'react-native';
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useRownd } from "../../rownd-rn/src";
-import { ActionType } from '../../rownd-rn/src/data/actions';
 import tw from '../utils/tailwind';
+import { HomeScreen } from './HomeScreen';
+import { ProfileScreen } from './ProfileScreen';
+import React from 'react';
 
+const Tab = createBottomTabNavigator();
 
 export default function () {
-    const { state, dispatch } = useRownd();
-    
-    const { auth } = state;
+    const { requestSignIn, signOut, auth, user } = useRownd();
 
-    const requestSignIn = () => {
-        dispatch({
-            type: ActionType.CHANGE_ROUTE,
-            payload: {
-                route: '/account/login',
-            },
-        });
-    };
-
-    const signOut = () => {
-        dispatch({
-            type: ActionType.SIGN_OUT,
-        });
-    }
 
     return (
-        <View style={styles.container}>
-            <Text>Open up App.tsx to start working on your app!</Text>
-            {!auth.access_token && (
-                <Pressable onPress={requestSignIn} style={tw.style('button')}>
-                    <Text style={tw.style('buttonContent')}>Sign in with Rownd</Text>
-                </Pressable>
-            )}
-            {auth.access_token && (
-                <>
-                    <Text>You are signed in as {state?.user?.data?.email}</Text>
-                    <Pressable onPress={signOut} style={tw.style('button')}>
-                        <Text style={tw.style('buttonContent')}>Sign out</Text>
-                    </Pressable>
-                </>
-            )}
-            <StatusBar style="auto" />
-        </View>
+        <NavigationContainer>
+            <Tab.Navigator>
+                <Tab.Screen name="Home" component={HomeScreen} />
+                <Tab.Screen name="Profile" component={ProfileScreen} />
+            </Tab.Navigator>
+        </NavigationContainer>
     )
 }
 

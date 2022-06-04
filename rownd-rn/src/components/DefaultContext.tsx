@@ -1,12 +1,15 @@
 import { useEffect, useCallback, useRef } from 'react';
 import isEqual from 'lodash-es/isEqual';
 import { useDebounce, useApi, useDeviceFingerprint } from '../hooks';
+import { DEFAULT_USER_AGENT } from '../hooks/api';
 import { IConfig } from '../utils/config';
 import { useGlobalContext } from './GlobalContext';
 import { ActionType } from '../data/actions';
 import ky from 'ky';
 import * as Clipboard from 'expo-clipboard';
 import base64 from 'react-native-base64'
+import { Linking } from 'react-native';
+import { events, EventType } from '../utils/events';
 
 export type UserInfoResp = {
     data: {
@@ -54,36 +57,53 @@ export function DefaultContext({ config }: DefaultContextProps) {
     }, [api, config.appKey, dispatch]);
 
     /**
-     * If not signed in, check the clipboard for an init hash we can use to auto-auth the user
+     * If not signed in, check the clipboard for an init hash or auth link we can use to auto-auth the user
      */
     useEffect(() => {
-        if (state.auth.access_token) {
+        if (state.auth.access_token || !state.app.id) {
             return;
         }
 
         (async () => {
             try {
-            let authStr = await Clipboard.getStringAsync();
-            if (!authStr?.startsWith('rph_init=')) {
-                return;
+                let authData = null;
+
+                let authLink = await Linking.getInitialURL() || await Clipboard.getStringAsync();
+                if (authLink.includes('rownd.link')) {
+                    dispatch({
+                        type: ActionType.CHANGE_ROUTE,
+                        payload: {
+                            route: '/account/auto-signin',
+                            opts: {
+                                type: 'sign-in',
+                            }
+                        }
+                    });
+
+                    authData = await ky.get(authLink, {
+                        headers: {
+                            'User-Agent': DEFAULT_USER_AGENT,
+                        }
+                    }).json();
+                } else if (authLink.startsWith('rph_init=')) {
+                    const authStr = authLink.split('rph_init=')[1];
+                    authData = JSON.parse(base64.decode(authStr));
+                } else {
+                    return;
+                }
+
+                // Clear the clipboard value so we don't leak any creds
+                await Clipboard.setStringAsync('');
+
+                dispatch({
+                    type: ActionType.LOGIN_SUCCESS,
+                    payload: authData,
+                });
+            } catch (err) {
+                console.error('We found an auth link or string, but failed to authenticate with it because:', err);
             }
-
-            // Clear the clipboard value so we don't leak any creds
-            await Clipboard.setStringAsync('');
-
-            authStr = authStr.split('rph_init=')[1];
-
-            const authData = JSON.parse(base64.decode(authStr));
-
-            dispatch({
-                type: ActionType.LOGIN_SUCCESS,
-                payload: authData,
-            });
-        } catch (err) {
-            console.error('We found an auth string on the clipboard, but failed to authenticate with it because:', err);
-        }
         })();
-    }, []);
+    }, [state.auth.access_token, state.app.id]);
 
     const retrieveUserInfo = useCallback(() => {
         if (!state.auth.access_token || !state.app.id) {
@@ -208,7 +228,7 @@ export function DefaultContext({ config }: DefaultContextProps) {
                 retrieveUserInfo();
                 // TODO: Set some error state
             } finally {
-                // events.dispatch(EventType.USER_DATA_SAVED, eventDetails);
+                events.dispatch(EventType.USER_DATA_SAVED, eventDetails);
                 dispatch({
                     type: ActionType.SET_IS_SAVING_USER_DATA,
                     payload: {
@@ -228,38 +248,6 @@ export function DefaultContext({ config }: DefaultContextProps) {
         saveUserDataDebounced();
         userDataRef.current = state.user.data;
     }, [dispatch, saveUserDataDebounced, state.user.data]);
-
-    useEffect(() => {
-        if (!config.locationHash) {
-            return;
-        }
-
-        const splitHash = config.locationHash.split('rph_init=');
-        const rphInitHashBase64 = splitHash[1];
-        if (!rphInitHashBase64) {
-            return;
-        }
-
-        const rphInitHash = atob(rphInitHashBase64).toString();
-        const rphInit = JSON.parse(rphInitHash);
-        dispatch({
-            type: ActionType.LOGIN_SUCCESS,
-            payload: {
-                access_token: rphInit.access_token,
-                refresh_token: rphInit.refresh_token,
-                app_id: rphInit.app_id,
-                app_user_id: rphInit.app_user_id,
-            },
-        });
-
-        // Remove rph_init=<value> from the URL hash. If the resulting hash ends in a comma, remove it too.
-        const newHash = splitHash[0].endsWith(',') ? splitHash[0].slice(0, -1) : splitHash[0];
-
-        // If the resulting hash is empty, drop it.
-        if (newHash === '#') {
-            window.history.pushState('', document.title, window.location.pathname + window.location.search);
-        }
-    }, [config.locationHash, dispatch]);
 
     return null;
 }

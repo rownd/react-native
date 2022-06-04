@@ -4,12 +4,9 @@ import { differenceInMinutes } from 'date-fns'
 import {
     View,
     Text,
-    Modal,
     StyleSheet,
     Pressable,
-    TextInput,
     Image,
-    GestureResponderEvent,
     ActivityIndicator,
 } from 'react-native';
 import { SvgCssUri } from 'react-native-svg';
@@ -18,7 +15,6 @@ import phone, { type PhoneResult } from 'phone';
 import jwt_decode from 'jwt-decode';
 import { BottomSheetBackdrop, BottomSheetBackdropProps, BottomSheetModal, BottomSheetTextInput } from '@gorhom/bottom-sheet';
 
-import storage from '../utils/storage';
 import { useApi, useInterval, useNav, useDeviceFingerprint } from '../hooks';
 import { useGlobalContext } from './GlobalContext';
 import { ActionType } from '../data/actions';
@@ -521,7 +517,7 @@ export function SignIn(props: any) {
                 {step === LoginStep.ERROR && (
                     <>
                         <Text style={tw.style('text-base')}>An error occurred while signing you in.</Text>
-                        {error && <Text style={tw.style('text-rose-800')}>{error}</Text>}
+                        {!!error && <Text style={tw.style('text-rose-800')}>{error}</Text>}
                         <Pressable style={styles.button} onPress={() => setStep(LoginStep.INIT)}>
                             <Text style={styles.buttonContent}>Try again</Text>
                         </Pressable>

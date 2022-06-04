@@ -16,7 +16,7 @@
     ],
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/rownd-icon.png",
+        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#330C91"
       },
       "package": "io.rownd.internal"
@@ -28,7 +28,8 @@
         "resizeMode": "contain",
         "backgroundColor": "#330C91"
       }
-    }
+    },
+    "sdkVersion": "45.0.0"
   },
   "name": "Rownd Sandbox"
 }

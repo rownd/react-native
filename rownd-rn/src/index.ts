@@ -1,8 +1,10 @@
 // import { requestSignIn } from './components/SignIn';
 import { RowndProvider } from './components/RowndProvider';
-import { useGlobalContext as useRownd } from './components/GlobalContext';
+import { useRownd } from './hooks/rownd';
+import AuthenticatedComponent from './components/AuthenticatedComponent';
 
 export {
     RowndProvider,
     useRownd,
+    AuthenticatedComponent,
 }

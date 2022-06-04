@@ -1,11 +1,11 @@
 import { createContext, FunctionComponent } from 'react';
 import { useReducer, useContext, useEffect, useRef, useCallback } from 'react';
 import isEqual from 'lodash-es/isEqual';
-// import pick from 'lodash-es/pick';
+import pick from 'lodash-es/pick';
 import jwt_decode from 'jwt-decode';
 import { IConfig } from '../utils/config';
-// import * as storage from '../utils/storage';
 import storage from '../utils/storage';
+import { events, EventType } from '../utils/events';
 
 import { type TAction, ActionType } from '../data/actions';
 
@@ -215,7 +215,6 @@ const GlobalContextProvider: FunctionComponent<ContextProps> = ({ children, conf
             case ActionType.CHANGE_ROUTE:
                 newState = {
                     ...state,
-                    use_modal: action.payload.opts?.use_modal === true,
                     nav: {
                         ...state.nav,
                         current_route: action.payload.route,
@@ -240,6 +239,14 @@ const GlobalContextProvider: FunctionComponent<ContextProps> = ({ children, conf
             case ActionType.LOGIN_SUCCESS:
                 // storage.setItem('auth', JSON.stringify(action.payload));
                 decodedToken = jwt_decode(action.payload.access_token);
+
+                // Ensure this token is for this app
+                if (action.payload.app_id !== state.app.id) {
+                    return {
+                        ...state,
+                    }
+                }
+
                 newState = {
                     ...state,
                     auth: {
@@ -325,9 +332,9 @@ const GlobalContextProvider: FunctionComponent<ContextProps> = ({ children, conf
             case ActionType.SET_USER_DATA_FIELD:
                 // Dispatch a USER_DATA_SAVED event to satisfy event listeners when the data
                 // was not changed and no request to Rownd was ever made.
-                // if (state.user.data[action.payload.field] === action.payload.value) {
-                //     events.dispatch(EventType.USER_DATA_SAVED, state.user.data);
-                // }
+                if (state.user.data[action.payload.field] === action.payload.value) {
+                    events.dispatch(EventType.USER_DATA_SAVED, state.user.data);
+                }
 
                 newState = {
                     ...state,
@@ -344,9 +351,9 @@ const GlobalContextProvider: FunctionComponent<ContextProps> = ({ children, conf
             case ActionType.SET_USER_DATA:
                 // Dispatch a USER_DATA_SAVED event to satisfy event listeners when the data
                 // was not changed and no request to Rownd was ever made.
-                // if (isEqual(pick(state.user.data, Object.keys(action.payload.data)), action.payload.data)) {
-                //     events.dispatch(EventType.USER_DATA_SAVED, state.user.data);
-                // }
+                if (isEqual(pick(state.user.data, Object.keys(action.payload.data)), action.payload.data)) {
+                    events.dispatch(EventType.USER_DATA_SAVED, state.user.data);
+                }
 
                 newState = {
                     ...state,

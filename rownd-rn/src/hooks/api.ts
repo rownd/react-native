@@ -4,7 +4,10 @@ import jwt_decode, { JwtPayload } from "jwt-decode";
 import { useGlobalContext, GlobalState } from '../components/GlobalContext';
 import AutoQueue from '../utils/queue';
 import { useRef, useEffect } from 'react';
+import { Platform } from 'react-native';
 import { ActionType } from '../data/actions';
+
+import packageJson from '../../../package.json';
 
 type RefreshTokenResp = {
     access_token: string;
@@ -12,6 +15,8 @@ type RefreshTokenResp = {
 }
 
 const refreshQueue = new AutoQueue<RefreshTokenResp>();
+
+export const DEFAULT_USER_AGENT = `Rownd SDK for React Native/${packageJson.version} (Language: TypeScript/JavaScript; Platform=${Platform.OS};)`;
 
 export default function useApi() {
     const { state, dispatch } = useGlobalContext();
@@ -92,6 +97,7 @@ export default function useApi() {
         prefixUrl: state.config?.apiUrl,
         headers: {
             'Content-Type': 'application/json',
+            'User-Agent': DEFAULT_USER_AGENT,
         },
         retry: {
             limit: 2,
