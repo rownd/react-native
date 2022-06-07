@@ -26,7 +26,7 @@ export function HomeScreen() {
             let body = await ky.get('https://blog.rownd.io/feed').text();
             let feed = await rssParser.parse(body);
             setFeed(feed.items);
-            console.log(feed.items[0]);
+            // console.log(feed.items[0]);
         })();
     }, []);
 
@@ -35,11 +35,13 @@ export function HomeScreen() {
         Linking.openURL(url);
     }
 
+    function signOutHandler() {
+        console.log('signing out');
+        signOut();
+    }
+
     return (
         <>
-            <Swoop1SVG style={[styles.swoop, styles.swoop1]} fill="#5B13Df" width={width} />
-            <Swoop2SVG style={[styles.swoop, styles.swoop2]} fill="#5B13Df" width={width} />
-            <Swoop3SVG style={[styles.swoop, styles.swoop3]} fill="#5B13Df" width={width} />
             <View style={styles.wrapper}>
                 <ScrollView contentContainerStyle={styles.container}>
                     <ImageHomeBanner height={150} width={width} />
@@ -60,19 +62,18 @@ export function HomeScreen() {
                             </Button>
                         )}
                         {auth.access_token && (
-                            <>
-                                <View style={styles.signedInMessage}>
-                                    <Text>You are signed in as {user?.data?.email}</Text>
-                                </View>
-                                <Button onPress={signOut}>
+                            
+                                <Button onPress={() => signOutHandler()} style={{zIndex: 1000 }}>
                                     <Text style={tw.style('buttonContent')}>Sign out</Text>
                                 </Button>
-                            </>
+                            
                         )}
                     </View>
-
                 </ScrollView>
             </View>
+            {/* <Swoop1SVG style={[styles.swoop, styles.swoop1]} fill="#5B13Df" width={width} />
+            <Swoop2SVG style={[styles.swoop, styles.swoop2]} fill="#5B13Df" width={width} />
+            <Swoop3SVG style={[styles.swoop, styles.swoop3]} fill="#5B13Df" width={width} /> */}
             <StatusBar style="auto" />
         </>
     )
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-        zIndex: 2,
+        zIndex: 3,
     },
     swoop: {
         position: 'absolute',
@@ -112,7 +113,8 @@ const styles = StyleSheet.create({
     },
     signInArea: {
         padding: 25,
-        width: '100%'
+        width: '100%',
+        zIndex: 100
     },
     button: {
         color: '#5b0ae0',
