@@ -20,8 +20,8 @@ export function ProfileScreen() {
     const isFocused = useIsFocused();
 
     const { user } = useRownd();
-    const { handleSubmit, register, setValue, formState: { errors } } = useForm<FormData>({
-        defaultValues: user.data
+    const { handleSubmit, register, setValue, control, formState: { errors } } = useForm<FormData>({
+        defaultValues: user.data,
     });
 
     const onSubmit = (data: FormData) => {
@@ -36,11 +36,11 @@ export function ProfileScreen() {
                 <View style={styles.container}>
                     <Text style={styles.title}>Update your profile!</Text>
                     <View style={styles.formContainer}>
-                        <Form {...{ register, setValue, validation, errors }}>
-                            <Input name="first_name" label="First name" autoCapitalize='words' defaultValue={user.data.first_name} />
-                            <Input name="last_name" label="Last name" autoCapitalize='words' defaultValue={user.data.last_name} />
-                            <Input name="email" label="Email" keyboardType="email-address" autoCorrect={false} spellCheck={false} defaultValue={user.data.email || ''} />
-                            <Input name="phone_number" label="Phone number" keyboardType="phone-pad" defaultValue={user.data.phone_number} />
+                        <Form {...{ register, setValue, validation, errors, control }}>
+                            <Input name="first_name" label="First name" autoCapitalize='words' />
+                            <Input name="last_name" label="Last name" autoCapitalize='words' />
+                            <Input name="email" label="Email" keyboardType="email-address" autoCorrect={false} spellCheck={false} />
+                            <Input name="phone_number" label="Phone number" keyboardType="phone-pad" />
                             <Button title="Save" onPress={handleSubmit(onSubmit)} />
                         </Form>
                     </View>
