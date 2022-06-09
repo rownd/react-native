@@ -1,4 +1,10 @@
 {
   "name": "ReactNativeExample",
-  "displayName": "ReactNative Example"
+  "displayName": "ReactNative Example",
+  "android": {
+    "package": "io.rownd.reactnativeexample"
+  },
+  "ios": {
+    "bundleIdentifier": "io.rownd.reactnativeexample"
+  }
 }
