@@ -1,5 +1,6 @@
 import ky from 'ky';
 import jwt_decode, { JwtPayload } from 'jwt-decode';
+import path from 'path';
 
 import { useGlobalContext, GlobalState } from '../components/GlobalContext';
 import AutoQueue from '../utils/queue';
@@ -7,7 +8,7 @@ import { useRef, useEffect } from 'react';
 import { Platform } from 'react-native';
 import { ActionType } from '../data/actions';
 
-import packageJson from '../../package.json';
+const packageJson = require(path.join(__dirname, '../../package.json'));
 
 type RefreshTokenResp = {
   access_token: string;
