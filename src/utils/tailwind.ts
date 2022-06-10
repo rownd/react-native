@@ -1,5 +1,5 @@
 import { create } from 'twrnc';
-import twConfig from '../../tailwind.config.js';
+import twConfig from '../../tailwind.config';
 
 const tw = create(twConfig);
 
