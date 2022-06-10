@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
-    "@rownd/react-native": "^0.1.1",
+    "@rownd/react-native": "^0.1.2",
     "react": "17.0.2",
     "react-native": "0.68.2"
   },

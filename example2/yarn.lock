@@ -1964,10 +1964,10 @@
   "resolved" "https://registry.npmjs.org/@react-native/polyfills/-/polyfills-2.0.0.tgz"
   "version" "2.0.0"
 
-"@rownd/react-native@^0.1.1":
-  "integrity" "sha512-IxUgE+l9Fa4ukaMR8T/tyjEbNFzFcxVuxfGmukabOEoFuZnYLvwPK0M34OgDdpynhlfnmRgp0g7MPcD8DdSBTg=="
-  "resolved" "https://registry.npmjs.org/@rownd/react-native/-/react-native-0.1.1.tgz"
-  "version" "0.1.1"
+"@rownd/react-native@^0.1.2":
+  "integrity" "sha512-cz9EGmSMZv3lo3QeD4dvVhpvxx2EJrh6cJBEwe0+k+N+FM/WrJt/aEgrZ5FU7V7mduMuCuz7TChvIPYO89eckg=="
+  "resolved" "https://registry.npmjs.org/@rownd/react-native/-/react-native-0.1.2.tgz"
+  "version" "0.1.2"
   dependencies:
     "@expo/vector-icons" "^13.0.0"
     "@gorhom/bottom-sheet" "^4.3.1"
