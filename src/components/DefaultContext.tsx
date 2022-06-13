@@ -6,7 +6,7 @@ import type { IConfig } from '../utils/config';
 import { useGlobalContext } from './GlobalContext';
 import { ActionType } from '../data/actions';
 import ky from 'ky';
-import * as Clipboard from 'expo-clipboard';
+import Clipboard from '@react-native-clipboard/clipboard';
 import base64 from 'react-native-base64';
 import { Linking } from 'react-native';
 import { events, EventType } from '../utils/events';
@@ -71,7 +71,7 @@ export function DefaultContext({ config }: DefaultContextProps) {
         let authData = null;
 
         let authLink =
-          (await Linking.getInitialURL()) || (await Clipboard.getStringAsync());
+          (await Linking.getInitialURL()) || (await Clipboard.getString());
         if (authLink.includes('rownd.link')) {
           dispatch({
             type: ActionType.CHANGE_ROUTE,
@@ -98,7 +98,7 @@ export function DefaultContext({ config }: DefaultContextProps) {
         }
 
         // Clear the clipboard value so we don't leak any creds
-        await Clipboard.setStringAsync('');
+        Clipboard.setString('');
 
         dispatch({
           type: ActionType.LOGIN_SUCCESS,
