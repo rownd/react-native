@@ -9,13 +9,13 @@ import React, {
 import { differenceInMinutes } from 'date-fns';
 import {
   View,
-  Text,
   StyleSheet,
   Pressable,
   Image,
   ActivityIndicator,
   Linking,
 } from 'react-native';
+import Text from './DarkText';
 import { SvgCssUri } from 'react-native-svg';
 import tw from '../utils/tailwind';
 import phone, { type PhoneResult } from 'phone';
