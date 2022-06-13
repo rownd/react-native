@@ -1,6 +1,6 @@
 {
   "name": "@rownd/react-native",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Rownd bindings for React Native",
   "private": false,
   "main": "lib/commonjs/index",
