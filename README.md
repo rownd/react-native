@@ -7,8 +7,22 @@ You must be using React Native v0.64 or higher.
 
 ## Installation
 
+First, install the Rownd SDK for React Native.
+
 ```sh
 npm install @rownd/react-native
+```
+
+Due to some native peer-dependencies, you'll also need to run the following command to get modules with native code working properly.
+
+```sh
+npm install @gorhom/bottom-sheet react-native-device-info \ react-native-gesture-handler react-native-mmkv react-native-reanimated \ react-native-sha256 react-native-svg
+```
+
+Once those are installed, run this command to ensure the iOS build can find the native components.
+
+```sh
+npx pod-install
 ```
 
 ## Setup
