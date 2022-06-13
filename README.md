@@ -16,7 +16,9 @@ npm install @rownd/react-native
 Due to some native peer-dependencies, you'll also need to run the following command to get modules with native code working properly.
 
 ```sh
-npm install @gorhom/bottom-sheet react-native-device-info \ react-native-gesture-handler react-native-mmkv react-native-reanimated \ react-native-sha256 react-native-svg
+npm install @gorhom/bottom-sheet @react-native-clipboard/clipboard \
+react-native-device-info react-native-gesture-handler react-native-mmkv \
+react-native-reanimated react-native-sha256 react-native-svg
 ```
 
 Once those are installed, run this command to ensure the iOS build can find the native components.
@@ -26,17 +28,19 @@ npx pod-install
 ```
 
 ## Setup
-Rownd's React Native library uses several Expo modules to improve the overall experience. Some of these modules
-have native bindings, so you won't be able to use a fully-managed Expo-based app. If you're running a bare project
-or have used `expo prebuild`, then you should be fine.
 
-### Install Expo
-Run `npx install-expo-modules@latest` to ensure that dependent Expo modules are configured correctly.
+### Enable deep linking
+Rownd supports automatically signing-in users when they initially install your
+app or when they click a sign-in link when the app is already installed.
 
-### Install Gesture Handler
-If you don't already use it, run `npx expo install react-native-gesture-handler`.
+In order to enable the latter case, the Rownd SDK needs to know which URL
+triggered the app to launch, in case it was one of the special sign-in links.
 
-Include it within your app's root, wrapping your component tree like this:
+To enable this functionality, follow [the instructions for configuring a
+React Native app to receive deep links.](https://reactnative.dev/docs/linking)
+### Add Gesture Handler
+
+Unless you already use `react-native-gesture-handler', include it within your app's root, wrapping your component tree like this:
 
 ```tsx
 import { GestureHandlerRootView } from 'react-native-gesture-handler';

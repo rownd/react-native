@@ -1,4 +1,3 @@
-import * as Linking from 'expo-linking';
 import React, {
   useCallback,
   useEffect,
@@ -15,6 +14,7 @@ import {
   Pressable,
   Image,
   ActivityIndicator,
+  Linking,
 } from 'react-native';
 import { SvgCssUri } from 'react-native-svg';
 import tw from '../utils/tailwind';
