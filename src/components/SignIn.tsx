@@ -33,9 +33,9 @@ import { ActionType } from '../data/actions';
 import { renderField } from '../utils/form';
 
 // Image imports
-import ImageEmailVerifyWaiting from '../assets/images/email-verify-waiting.svg';
-import ImagePhoneVerifyWaiting from '../assets/images/phone-verify-waiting.svg';
-import ImageCheckmarkFilled from '../assets/images/checkmark--filled.svg';
+import ImageEmailVerifyWaiting from './images/EmailVerifyWaiting';
+import ImagePhoneVerifyWaiting from './images/PhoneVerifyWaiting';
+import ImageCheckmarkFilled from './images/CheckmarkFilled';
 
 enum LoginStep {
   INIT = 'init',
