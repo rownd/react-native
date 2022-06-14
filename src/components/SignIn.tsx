@@ -14,8 +14,9 @@ import {
   Image,
   ActivityIndicator,
   Linking,
+  Text,
 } from 'react-native';
-import Text from './DarkText';
+// import Text from './DarkText';
 import { SvgCssUri } from 'react-native-svg';
 import tw from '../utils/tailwind';
 import phone, { type PhoneResult } from 'phone';
