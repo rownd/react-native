@@ -10,7 +10,7 @@ import { differenceInMinutes } from 'date-fns';
 import {
   View,
   StyleSheet,
-  Pressable,
+  TouchableOpacity,
   Image,
   ActivityIndicator,
   Linking,
@@ -25,8 +25,9 @@ import {
   BottomSheetBackdrop,
   BottomSheetBackdropProps,
   BottomSheetModal,
-  BottomSheetTextInput,
 } from '@gorhom/bottom-sheet';
+import BottomSheetTextInput from './BottomSheetTextInput';
+import bottomSheetMeta from '@gorhom/bottom-sheet/package.json';
 
 import { useApi, useInterval, useNav, useDeviceFingerprint } from '../hooks';
 import { useGlobalContext } from './GlobalContext';
@@ -483,17 +484,23 @@ export function SignIn() {
     []
   );
 
+  let extraBottomSheetProps: any = {};
+  if (bottomSheetMeta.version.startsWith('4')) {
+    extraBottomSheetProps.keyboardBehavior = 'fillParent';
+    extraBottomSheetProps.android_keyboardInputMode = 'adjustResize';
+    extraBottomSheetProps.enablePanDownToClose =
+      state.nav.options.type === 'error';
+  }
+
   return (
     <BottomSheetModal
       snapPoints={snapPoints}
       index={1}
       backdropComponent={renderBackdrop}
-      keyboardBehavior="fillParent"
-      android_keyboardInputMode="adjustResize"
-      enablePanDownToClose={true}
       onDismiss={handleClose}
       style={styles.bottomSheet}
       ref={bottomSheetModalRef}
+      {...extraBottomSheetProps}
     >
       <View style={styles.innerContainer}>
         {step === LoginStep.INIT && (
@@ -516,7 +523,7 @@ export function SignIn() {
               returnKeyType="go"
               enablesReturnKeyAutomatically={true}
               autoCapitalize="none"
-              onChangeText={(text) => setUserIdentifier(text.trim())}
+              onChangeText={(text: string) => setUserIdentifier(text.trim())}
               onBlur={validateInput}
               value={userIdentifier}
               onSubmitEditing={initSignIn}
@@ -531,20 +538,17 @@ export function SignIn() {
                     : 'onChange']: handleAddlFieldChange,
                 });
               })}
-            <Pressable
-              style={({ pressed }: { pressed: boolean }) => [
-                styles.button,
-                !isValidUserIdentifier && styles.buttonDisabled,
-                pressed && styles.buttonPressed,
-                isSubmitting && styles.buttonSubmitting,
-              ]}
+            <TouchableOpacity
               disabled={!isValidUserIdentifier || isSubmitting}
               onPress={initSignIn}
             >
-              <Text>
-                {isSubmitting && (
-                  <ActivityIndicator size="small" color="#efefef" />
-                )}
+              <View
+                style={{
+                  ...styles.button,
+                  ...(!isValidUserIdentifier && styles.buttonDisabled),
+                  ...(isSubmitting && styles.buttonSubmitting),
+                }}
+              >
                 <View style={styles.buttonText}>
                   <Text
                     style={
@@ -556,11 +560,18 @@ export function SignIn() {
                           }
                     }
                   >
+                    {isSubmitting && (
+                      <ActivityIndicator
+                        size="small"
+                        color="#efefef"
+                        style={styles.loadingIndicator}
+                      />
+                    )}
                     {isSubmitting ? 'Just a sec...' : 'Continue'}
                   </Text>
                 </View>
-              </Text>
-            </Pressable>
+              </View>
+            </TouchableOpacity>
             <Text style={styles.signInNoticeText}>
               By continuing, you're agreeing to the terms of service that govern
               this app and to receive email or text messages for verification
@@ -595,18 +606,15 @@ export function SignIn() {
               )}
             </View>
 
-            <Pressable
-              style={({ pressed }: { pressed: boolean }) => [
-                styles.button,
-                pressed && styles.buttonPressed,
-              ]}
+            <TouchableOpacity
+              style={[styles.button]}
               onPress={() => setStep(LoginStep.INIT)}
             >
               <Text style={styles.buttonContent}>
                 Try a different{' '}
                 {loginType === 'phone' ? 'phone number' : 'email'}
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </>
         )}
 
@@ -621,12 +629,12 @@ export function SignIn() {
         {step === LoginStep.FAILURE && (
           <>
             <Text style={tw.style('text-base')}>Whoops, that didn't work!</Text>
-            <Pressable
+            <TouchableOpacity
               style={styles.button}
               onPress={() => setStep(LoginStep.INIT)}
             >
               <Text style={styles.buttonContent}>Try again</Text>
-            </Pressable>
+            </TouchableOpacity>
           </>
         )}
 
@@ -636,12 +644,12 @@ export function SignIn() {
               An error occurred while signing you in.
             </Text>
             {!!error && <Text style={tw.style('text-rose-800')}>{error}</Text>}
-            <Pressable
+            <TouchableOpacity
               style={styles.button}
               onPress={() => setStep(LoginStep.INIT)}
             >
               <Text style={styles.buttonContent}>Try again</Text>
-            </Pressable>
+            </TouchableOpacity>
           </>
         )}
         <Text>
@@ -723,9 +731,11 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     elevation: 0,
     backgroundColor: '#5b0ae0',
+    color: '#fff',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    // height: 45,
   },
   buttonDisabled: {
     backgroundColor: '#eee',
@@ -739,9 +749,10 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   buttonText: {
-    marginLeft: 10,
-    paddingLeft: 10,
-    fontSize: 18,
+    // marginHorizontal: 10,
+    // paddingHorizontal: 10,
+    // fontSize: 18,
+    // color: '#fff',
   },
   buttonTextInner: {
     fontSize: 18,
@@ -754,9 +765,7 @@ const styles = StyleSheet.create({
     color: '#c7c7c7',
   },
   loadingIndicator: {
-    textAlignVertical: 'center',
-    padding: 20,
-    margin: 20,
+    marginRight: 10,
   },
   signInNoticeText: {
     fontSize: 12,

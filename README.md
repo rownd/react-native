@@ -3,7 +3,7 @@
 Rownd bindings for React Native
 
 ## Prerequisites
-You must be using React Native v0.64 or higher.
+You must be using React Native v0.61 or higher.
 
 ## Installation
 
@@ -15,11 +15,20 @@ npm install @rownd/react-native
 
 Due to some native peer-dependencies, you'll also need to run the following command to get modules with native code working properly.
 
-```sh
-npm install @gorhom/bottom-sheet @react-native-clipboard/clipboard \
-react-native-device-info react-native-gesture-handler react-native-mmkv \
-react-native-reanimated react-native-sha256 react-native-svg
-```
+> If you already use `react-native-gesture-handler` and/or `react-native-reanimated` run the following command:
+  ```sh
+  npm install @gorhom/bottom-sheet@2 @react-native-clipboard/clipboard \
+  react-native-device-info react-native-gesture-handler@1 react-native-mmkv \
+  react-native-reanimated@1 react-native-sha256 react-native-svg
+  ```
+
+> If you **do not** use the aforementioned libraries _or_ are on v2.x, run this command instead:
+    ```sh
+  npm install @gorhom/bottom-sheet @react-native-clipboard/clipboard \
+  react-native-device-info react-native-gesture-handler react-native-mmkv \
+  react-native-reanimated react-native-sha256 react-native-svg
+  ```
+
 
 Once those are installed, run this command to ensure the iOS build can find the native components.
 

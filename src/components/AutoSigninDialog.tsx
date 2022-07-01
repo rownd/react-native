@@ -5,11 +5,13 @@ import {
   BottomSheetBackdropProps,
   BottomSheetModal,
 } from '@gorhom/bottom-sheet';
+import bottomSheetMeta from '@gorhom/bottom-sheet/package.json';
 import { useTimeout } from 'usehooks-ts';
-import { MaterialIcons } from '@expo/vector-icons';
 
 import { useNav } from '../hooks';
 import { useGlobalContext } from './GlobalContext';
+
+import ErrorIcon from './images/ErrorIcon';
 
 export function AutoSigninDialog() {
   const navTo = useNav();
@@ -46,27 +48,28 @@ export function AutoSigninDialog() {
     []
   );
 
+  let extraBottomSheetProps: any = {};
+  if (bottomSheetMeta.version.startsWith('4')) {
+    extraBottomSheetProps.keyboardBehavior = 'fillParent';
+    extraBottomSheetProps.android_keyboardInputMode = 'adjustResize';
+    extraBottomSheetProps.enablePanDownToClose =
+      state.nav.options.type === 'error';
+  }
+
   return (
     <BottomSheetModal
       snapPoints={snapPoints}
       index={0}
       backdropComponent={renderBackdrop}
-      keyboardBehavior="fillParent"
-      android_keyboardInputMode="adjustResize"
-      enablePanDownToClose={state.nav.options.type === 'error'}
       onDismiss={handleClose}
       style={styles.bottomSheet}
       ref={bottomSheetModalRef}
+      {...extraBottomSheetProps}
     >
       <View style={styles.innerContainer}>
         {state.nav.options.type === 'error' && (
           <>
-            <MaterialIcons
-              name="error"
-              size={24}
-              color="#DA1E28"
-              style={styles.errorIcon}
-            />
+            <ErrorIcon />
             <Text style={styles.errorMessage}>
               {state.nav.options.message ||
                 'An error occurred. Please try again.'}
@@ -121,5 +124,8 @@ const styles = StyleSheet.create({
   },
   errorIcon: {
     textAlign: 'center',
+    color: '#DA1E28',
+    height: 24,
+    width: 24,
   },
 });
