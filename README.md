@@ -16,6 +16,7 @@ npm install @rownd/react-native
 Due to some native peer-dependencies, you'll also need to run the following command to get modules with native code working properly.
 
 > If you already use `react-native-gesture-handler` and/or `react-native-reanimated` run the following command:
+
   ```sh
   npm install @gorhom/bottom-sheet@2 @react-native-clipboard/clipboard \
   react-native-device-info react-native-gesture-handler@1 react-native-mmkv \
@@ -23,7 +24,8 @@ Due to some native peer-dependencies, you'll also need to run the following comm
   ```
 
 > If you **do not** use the aforementioned libraries _or_ are on v2.x, run this command instead:
-    ```sh
+
+  ```sh
   npm install @gorhom/bottom-sheet @react-native-clipboard/clipboard \
   react-native-device-info react-native-gesture-handler react-native-mmkv \
   react-native-reanimated react-native-sha256 react-native-svg
