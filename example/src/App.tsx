@@ -1,4 +1,3 @@
-import 'react-native-gesture-handler';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { RowndProvider } from '../rownd-rn/src';
 import App from './components';
