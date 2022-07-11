@@ -18,7 +18,6 @@ import {
 } from 'react-native';
 // import Text from './DarkText';
 import { SvgCssUri } from 'react-native-svg';
-import tw from '../utils/tailwind';
 import phone, { PhoneResult } from 'phone';
 import jwt_decode from 'jwt-decode';
 import {
@@ -586,10 +585,10 @@ export function SignIn() {
               Thanks! Verify your{' '}
               {loginType === 'phone' ? 'phone number' : 'email'} to finish
             </Text>
-            <Text style={tw.style('py-6')}>
+            <Text style={styles.py6}>
               Click the link in the message we just sent to{' '}
-              <Text style={tw.style('italic')}>{userIdentifier}</Text> to verify
-              and finish.
+              <Text style={styles.italic}>{userIdentifier}</Text> to verify and
+              finish.
               <Text
                 style={[styles.link]}
                 onPress={() => setStep(LoginStep.INIT)}
@@ -628,7 +627,7 @@ export function SignIn() {
 
         {step === LoginStep.FAILURE && (
           <>
-            <Text style={tw.style('text-base')}>Whoops, that didn't work!</Text>
+            <Text style={styles.textBase}>Whoops, that didn't work!</Text>
             <TouchableOpacity
               style={styles.button}
               onPress={() => setStep(LoginStep.INIT)}
@@ -640,10 +639,10 @@ export function SignIn() {
 
         {step === LoginStep.ERROR && (
           <>
-            <Text style={tw.style('text-base')}>
+            <Text style={styles.textBase}>
               An error occurred while signing you in.
             </Text>
-            {!!error && <Text style={tw.style('text-rose-800')}>{error}</Text>}
+            {!!error && <Text style={styles.textRose800}>{error}</Text>}
             <TouchableOpacity
               style={styles.button}
               onPress={() => setStep(LoginStep.INIT)}
@@ -776,5 +775,18 @@ const styles = StyleSheet.create({
   },
   link: {
     color: '#6114e1',
+  },
+  py6: {
+    paddingVertical: 6,
+  },
+  italic: {
+    fontStyle: 'italic',
+  },
+  textBase: {
+    fontSize: 16,
+    lineHeight: 24,
+  },
+  textRose800: {
+    color: 'rgb(159, 18, 57)',
   },
 });
