@@ -3,11 +3,11 @@ import { useReducer, useContext } from 'react';
 import isEqual from 'lodash-es/isEqual';
 import pick from 'lodash-es/pick';
 import jwt_decode from 'jwt-decode';
-import type { IConfig } from '../utils/config';
+import { IConfig } from '../utils/config';
 import storage from '../utils/storage';
 import { events, EventType } from '../utils/events';
 
-import { type TAction, ActionType } from '../data/actions';
+import { TAction, ActionType } from '../data/actions';
 
 type Dispatch = (action: TAction) => void;
 

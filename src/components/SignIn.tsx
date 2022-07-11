@@ -19,7 +19,7 @@ import {
 // import Text from './DarkText';
 import { SvgCssUri } from 'react-native-svg';
 import tw from '../utils/tailwind';
-import phone, { type PhoneResult } from 'phone';
+import phone, { PhoneResult } from 'phone';
 import jwt_decode from 'jwt-decode';
 import {
   BottomSheetBackdrop,
@@ -489,7 +489,7 @@ export function SignIn() {
     extraBottomSheetProps.keyboardBehavior = 'fillParent';
     extraBottomSheetProps.android_keyboardInputMode = 'adjustResize';
     extraBottomSheetProps.enablePanDownToClose =
-      state.nav.options.type === 'error';
+      state?.nav?.options?.type === 'error';
   }
 
   return (

@@ -2,7 +2,7 @@ import { useEffect, useCallback, useRef } from 'react';
 import isEqual from 'lodash-es/isEqual';
 import { useDebounce, useApi, useDeviceFingerprint } from '../hooks';
 import { DEFAULT_USER_AGENT } from '../hooks/api';
-import type { IConfig } from '../utils/config';
+import { IConfig } from '../utils/config';
 import { useGlobalContext } from './GlobalContext';
 import { ActionType } from '../data/actions';
 import ky from 'ky';

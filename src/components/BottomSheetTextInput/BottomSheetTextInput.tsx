@@ -1,6 +1,6 @@
 import React, { memo, useCallback, forwardRef } from 'react';
 import { TextInput } from 'react-native-gesture-handler';
-import type { BottomSheetTextInputProps } from './types';
+import { BottomSheetTextInputProps } from './types';
 
 // @ts-ignore
 const {

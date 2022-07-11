@@ -19,7 +19,7 @@ export function AutoSigninDialog() {
 
   // Let the user know they're auto signing-in, then close when done
   useTimeout(() => {
-    if (state.nav.options.type === 'error') {
+    if (state?.nav?.options?.type === 'error') {
       return;
     }
 
@@ -53,7 +53,7 @@ export function AutoSigninDialog() {
     extraBottomSheetProps.keyboardBehavior = 'fillParent';
     extraBottomSheetProps.android_keyboardInputMode = 'adjustResize';
     extraBottomSheetProps.enablePanDownToClose =
-      state.nav.options.type === 'error';
+      state?.nav?.options?.type === 'error';
   }
 
   return (
@@ -67,7 +67,7 @@ export function AutoSigninDialog() {
       {...extraBottomSheetProps}
     >
       <View style={styles.innerContainer}>
-        {state.nav.options.type === 'error' && (
+        {state?.nav?.options?.type === 'error' && (
           <>
             <ErrorIcon />
             <Text style={styles.errorMessage}>
@@ -77,7 +77,7 @@ export function AutoSigninDialog() {
           </>
         )}
 
-        {state.nav.options.type === 'sign-in' && (
+        {state?.nav?.options?.type === 'sign-in' && (
           <>
             <ActivityIndicator size="large" color="#5b0ae0" />
             <Text style={styles.signInMessage}>
