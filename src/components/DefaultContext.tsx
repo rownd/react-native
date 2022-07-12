@@ -44,7 +44,7 @@ export function DefaultContext({ config }: DefaultContextProps) {
           .json();
 
         if (resp?.app?.icon) {
-          const iconMeta = await ky.head(resp.app.icon);
+          const iconMeta = await ky.get(resp.app.icon);
           resp.app.icon_content_type = iconMeta.headers.get('content-type');
         }
 
