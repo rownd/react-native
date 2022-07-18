@@ -524,8 +524,9 @@ export function SignIn() {
               autoCapitalize="none"
               onChangeText={(text: string) => setUserIdentifier(text.trim())}
               onBlur={validateInput}
-              value={userIdentifier}
+              // value={userIdentifier}
               onSubmitEditing={initSignIn}
+              autoCorrect={false}
             />
             {requiresAdditionalFields &&
               app?.config?.hub?.auth?.additional_fields.map((field) => {
