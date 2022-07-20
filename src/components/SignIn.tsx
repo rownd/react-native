@@ -524,7 +524,7 @@ export function SignIn() {
               autoCapitalize="none"
               onChangeText={(text: string) => setUserIdentifier(text.trim())}
               onBlur={validateInput}
-              // value={userIdentifier}
+              // value={userIdentifier} // managed inputs that modify values cause strange issues on Android :-(
               onSubmitEditing={initSignIn}
               autoCorrect={false}
             />
@@ -561,11 +561,13 @@ export function SignIn() {
                     }
                   >
                     {isSubmitting && (
+                      // <View width={25} height={25}>
                       <ActivityIndicator
                         size="small"
                         color="#efefef"
                         style={styles.loadingIndicator}
                       />
+                      // </View>
                     )}
                     {isSubmitting ? 'Just a sec...' : 'Continue'}
                   </Text>
@@ -766,6 +768,8 @@ const styles = StyleSheet.create({
   },
   loadingIndicator: {
     marginRight: 10,
+    width: 25,
+    height: 25,
   },
   signInNoticeText: {
     fontSize: 12,
