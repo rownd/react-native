@@ -92,7 +92,7 @@ Later on within your app's components, you can use the Rownd hook to access the 
 
 ```tsx
 import { View, Text } from 'react-native';
-import { useRownd } from '@rownd/react';
+import { useRownd } from '@rownd/react-native';
 
 export default function MyProtectedComponent(props) {
   const { is_authenticated, user, requestSignIn, getAccessToken } = useRownd();
