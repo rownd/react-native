@@ -1,13 +1,20 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+plugin 'cocoapods-user-defined-build-types'
 
-platform :ios, '11.0'
+enable_user_defined_build_types!
+
+platform :ios, '14.0'
 install! 'cocoapods', :deterministic_uuids => false
 
 ENV['RCT_NEW_ARCH_ENABLED'] = '0'
 
 target 'ReactNativeExample' do
   config = use_native_modules!
+
+  pod 'Rownd', :path => '/Users/michaelmurray/Documents/iOS/ios'
+  pod 'Sodium', :build_type => :dynamic_framework
+  pod 'LBBottomSheet', :path => '/Users/michaelmurray/Documents/iOS/LBBottomSheet'
 
   # Flags change depending on the env values.
   flags = get_default_flags()
@@ -25,7 +32,7 @@ target 'ReactNativeExample' do
   #
   # Note that if you have use_frameworks! enabled, Flipper will not work and
   # you should disable the next line.
-  use_flipper!()
+  #use_flipper!()
 
   post_install do |installer|
     react_native_post_install(installer)
