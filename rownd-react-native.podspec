@@ -20,6 +20,8 @@ Pod::Spec.new do |s|
   s.dependency "Rownd"
   s.dependency "Sodium"
   s.dependency "LBBottomSheet"
+  s.dependency "Get"
+  s.dependency "CodeScanner_Rownd"
 
   # Don't install the dependencies when we run `pod install` in the old architecture.
   if ENV['RCT_NEW_ARCH_ENABLED'] == '1' then

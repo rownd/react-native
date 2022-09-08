@@ -14,7 +14,9 @@ target 'ReactNativeExample' do
 
   pod 'Rownd', :path => '/Users/michaelmurray/Documents/iOS/ios'
   pod 'Sodium', :build_type => :dynamic_framework
+  pod "Get", :path => '/Users/michaelmurray/Documents/iOS/Get'
   pod 'LBBottomSheet', :path => '/Users/michaelmurray/Documents/iOS/LBBottomSheet'
+  pod 'CodeScanner_Rownd', :path => '/Users/michaelmurray/Documents/iOS/CodeScanner'
 
   # Flags change depending on the env values.
   flags = get_default_flags()
