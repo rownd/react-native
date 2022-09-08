@@ -43,6 +43,7 @@
   },
   "homepage": "https://github.com/rownd/react-native__native-modules",
   "publishConfig": {
+    "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
