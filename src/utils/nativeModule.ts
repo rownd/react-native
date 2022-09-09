@@ -28,7 +28,6 @@ export const RowndEventEmitter = NativeModules.RowndPluginEventEmitter
       }
     );
 
-
 export function multiply(a: number, b: number): Promise<number> {
   return Rownd.multiply(a, b);
 }
@@ -42,10 +41,25 @@ export function requestSignIn() {
 }
 
 export function signOut() {
-    return Rownd.signOut();
+  return Rownd.signOut();
 }
 
-  
+export function manageUser() {
+  return Rownd.manageUser();
+}
+
 export function hello() {
   return Rownd.hello();
+}
+
+export function getAccessToken(): Promise<string> {
+  return Rownd.getAccessToken();
+}
+
+export function setUserDataValue(key: string, value: any) {
+  return Rownd.setUserDataValue(key, value);
+}
+
+export function setUserData(data: any) {
+  return Rownd.setUserData(data);
 }

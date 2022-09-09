@@ -1,6 +1,7 @@
 import Rownd
 import SwiftUI
 import Combine
+import AnyCodable
 
 @objc(RowndPlugin)
 class RowndPlugin: NSObject {
@@ -11,14 +12,6 @@ class RowndPlugin: NSObject {
     
     override init() {
         super.init()
-        
-        state.$current.sink { newState in
-            do {
-                RowndPluginEventEmitter.emitter.sendEvent(withName: "update_state", body: try newState.toDictionary())
-            } catch {
-                print("Failed to encode Rownd state: \(String(describing: error))")
-            }
-        }
         
         stateCancellable = state.$current.sink { newState in
             do {
@@ -37,8 +30,7 @@ class RowndPlugin: NSObject {
     @objc(configure:withResolver:withRejecter:)
     func configure(appKey: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) -> Void {
         Task.init {
-            let value = await Rownd.configure(launchOptions: nil, appKey: "b9cba8b0-4285-42fd-81ac-8afbe95cb8c5")
-            print(value)
+            await Rownd.configure(launchOptions: nil, appKey: appKey)
         }
         resolve(appKey)
     }
@@ -58,11 +50,49 @@ class RowndPlugin: NSObject {
     }
     
     @objc
+    func manageUser() -> Void {
+        DispatchQueue.main.async {
+            Rownd.manageUser()
+        }
+    }
+    
+    @objc(getAccessToken:withResolver:)
+    func getAccessToken(resolve: @escaping RCTPromiseResolveBlock) async -> Void {
+        let accessToken = await Rownd.getAccessToken()
+        resolve(accessToken)
+    }
+    
+    @objc
     func hello() -> Void {
         do {
+            print(try state.current.toDictionary())
             RowndPluginEventEmitter.emitter.sendEvent(withName: "update_state", body: try state.current.toDictionary())
         } catch {
             print("Failed to encode Rownd state: \(String(describing: error))")
         }
+    }
+    
+    @objc(setUserData:)
+    func setUserData(data: Dictionary<String, Any>) -> Void {
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+            let decoder = JSONDecoder()
+            let dictionary = try! decoder.decode([String: AnyCodable].self, from: jsonData)
+            
+            Rownd.user.set(data: dictionary)
+        } catch {
+            print("FAILED TO SET USER DATA: ",error)
+        }
+    }
+    
+    @objc(setUserDataValue:withValue:)
+    func setUserDataValue(key: String, value: Any) -> Void {
+        let json = """
+        "\(value)"
+        """.data(using: .utf8)!
+
+        let decoder = JSONDecoder()
+        let dictionary = try! decoder.decode(AnyCodable.self, from: json)
+        Rownd.user.set(field: key, value: dictionary)
     }
 }

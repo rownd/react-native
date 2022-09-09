@@ -18,8 +18,6 @@ Pod::Spec.new do |s|
 
   s.dependency "React-Core"
   s.dependency "Rownd"
-  s.dependency "Sodium"
-  s.dependency "LBBottomSheet"
 
   # Don't install the dependencies when we run `pod install` in the old architecture.
   if ENV['RCT_NEW_ARCH_ENABLED'] == '1' then

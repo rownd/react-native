@@ -51,15 +51,15 @@ export function rowndReducer(state: GlobalState, action: TAction): GlobalState {
           // },
           user: {
             data: {
+              ...action.payload?.user?.data,
               email: action.payload?.user?.data?.email,
-              id: 'randomid123'
             },
             // needs_refresh: false,
             // redacted: [],
           },
           auth: {
-            access_token: action.payload?.auth?.access_tokens,
-            refresh_token: action.payload?.auth?.refresh_tokens,
+            access_token: action.payload?.auth?.access_token,
+            refresh_token: action.payload?.auth?.refresh_token,
             app_id: null,
           },
           app: {

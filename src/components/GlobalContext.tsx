@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useContext,
 } from 'react';
-import { NativeEventEmitter } from 'react-native';
+import { NativeEventEmitter, LogBox } from 'react-native';
 import { initialRowndState, rowndReducer } from '../reducer/rowndReducer';
 
 import * as NativeRowndModules from '../utils/nativeModule';
@@ -13,6 +13,8 @@ import { RowndEventEmitter } from '../utils/nativeModule';
 import type { ContextProps, GlobalState } from './GlobalContext.types';
 import type { TAction } from '../constants/action';
 import { ActionType } from '../constants/action';
+
+LogBox.ignoreLogs(['Sending `update_state` with no listeners registered.']);
 
 export const GlobalContext = createContext<
   { state: GlobalState; dispatch: React.Dispatch<TAction> } | undefined
@@ -28,7 +30,7 @@ const RowndProvider: FunctionComponent<ContextProps> = ({
   const value = { state, dispatch };
 
   useEffect(() => {
-    NativeRowndModules.configure('123ABCDEFG');
+    NativeRowndModules.configure(config.appKey);
   }, []);
 
 
@@ -40,6 +42,8 @@ const RowndProvider: FunctionComponent<ContextProps> = ({
       'update_state',
       onSessionConnect
     );
+
+    if (!subscription) return;
 
     return () => {
       subscription.remove()

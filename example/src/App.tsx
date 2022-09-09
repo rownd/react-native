@@ -13,7 +13,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <RowndProvider config={{ appKey: 'q21312312' }}>
+      <RowndProvider config={{ appKey: 'b9cba8b0-4285-42fd-81ac-8afbe95cb8c5' }}>
         <Text>Result: {result}</Text>
         <Button onPress={()=> hello()} title="Hello"/>
         <Main />
