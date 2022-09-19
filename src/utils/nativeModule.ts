@@ -28,10 +28,6 @@ export const RowndEventEmitter = NativeModules.RowndPluginEventEmitter
       }
     );
 
-export function multiply(a: number, b: number): Promise<number> {
-  return Rownd.multiply(a, b);
-}
-
 export function configure(appKey: string): Promise<string> {
   return Rownd.configure(appKey);
 }
@@ -44,12 +40,8 @@ export function signOut() {
   return Rownd.signOut();
 }
 
-export function manageUser() {
-  return Rownd.manageUser();
-}
-
-export function hello() {
-  return Rownd.hello();
+export function manageAccount() {
+  return Rownd.manageAccount();
 }
 
 export function getAccessToken(): Promise<string> {

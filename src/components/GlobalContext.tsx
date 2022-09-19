@@ -31,8 +31,7 @@ const RowndProvider: FunctionComponent<ContextProps> = ({
 
   useEffect(() => {
     NativeRowndModules.configure(config.appKey);
-  }, []);
-
+  }, [config.appKey]);
 
   useEffect(() => {
     const onSessionConnect = (event: object) => {
@@ -46,9 +45,9 @@ const RowndProvider: FunctionComponent<ContextProps> = ({
     if (!subscription) return;
 
     return () => {
-      subscription.remove()
-    }
-  },[])
+      subscription.remove();
+    };
+  }, []);
 
   return (
     <GlobalContext.Provider value={value}>{children}</GlobalContext.Provider>

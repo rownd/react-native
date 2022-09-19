@@ -1,7 +1,6 @@
 import type { TAction } from '../constants/action';
 import type { IConfig } from '../utils/config';
 
-
 export type ContextProps = {
   config: IConfig;
 };
@@ -48,7 +47,6 @@ export type GlobalState = {
   // is_saving_user_data: boolean;
   config?: IConfig;
 };
-
 
 type AppSchema = Record<string, SchemaField>;
 

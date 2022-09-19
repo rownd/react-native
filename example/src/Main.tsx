@@ -1,9 +1,9 @@
-import { useRownd } from '@rownd/react-native';
+import { useRownd } from '../../src/index';
 import React from 'react';
 import { View, Button, Text } from 'react-native';
 
 export default function Main() {
-  const { requestSignIn, signOut, user, manageUser } = useRownd();
+  const { requestSignIn, signOut, user, manageAccount } = useRownd();
 
   console.log({ user });
 
@@ -16,7 +16,7 @@ export default function Main() {
       {user.data?.birth_day && <Text>Birth Day: {user.data?.birth_day}</Text>}
       <Button title="Sign In" onPress={() => requestSignIn()} />
       <Button title="Sign Out" onPress={() => signOut()} />
-      <Button title="Manage User" onPress={() => manageUser()} />
+      <Button title="Manage User" onPress={() => manageAccount()} />
       <Button
         title="Set First Name"
         onPress={() => user.setValue('first_name', 'Michael')}

@@ -21,11 +21,6 @@ class RowndPlugin: NSObject {
             }
         }
     }
-
-    @objc(multiply:withB:withResolver:withRejecter:)
-        func multiply(a: Float, b: Float, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) -> Void {
-            resolve(a*b)
-    }
     
     @objc(configure:withResolver:withRejecter:)
     func configure(appKey: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) -> Void {
@@ -50,9 +45,9 @@ class RowndPlugin: NSObject {
     }
     
     @objc
-    func manageUser() -> Void {
+    func manageAccount() -> Void {
         DispatchQueue.main.async {
-            Rownd.manageUser()
+            Rownd.manageAccount()
         }
     }
     
@@ -60,16 +55,6 @@ class RowndPlugin: NSObject {
     func getAccessToken(resolve: @escaping RCTPromiseResolveBlock) async -> Void {
         let accessToken = await Rownd.getAccessToken()
         resolve(accessToken)
-    }
-    
-    @objc
-    func hello() -> Void {
-        do {
-            print(try state.current.toDictionary())
-            RowndPluginEventEmitter.emitter.sendEvent(withName: "update_state", body: try state.current.toDictionary())
-        } catch {
-            print("Failed to encode Rownd state: \(String(describing: error))")
-        }
     }
     
     @objc(setUserData:)

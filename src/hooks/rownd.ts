@@ -1,17 +1,17 @@
 import {
   requestSignIn,
   signOut,
-  manageUser,
+  manageAccount,
   getAccessToken,
   setUserDataValue,
-  setUserData
+  setUserData,
 } from '../utils/nativeModule';
 import { useRowndContext } from '../components/GlobalContext';
 
 export type TRowndContext = {
   requestSignIn: (opts?: RequestSignInOpts) => void;
   signOut: () => void;
-  manageUser: () => void;
+  manageAccount: () => void;
   getAccessToken: () => Promise<string>;
   user: UserContext;
   is_authenticated: boolean;
@@ -51,7 +51,7 @@ export function useRownd(): TRowndContext {
   return {
     requestSignIn,
     signOut,
-    manageUser,
+    manageAccount,
     getAccessToken,
     user: {
       data: state.user.data,

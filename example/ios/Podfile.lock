@@ -2,7 +2,7 @@ PODS:
   - AnyCodable-FlightSchool (0.6.5)
   - boost (1.76.0)
   - CocoaAsyncSocket (7.6.5)
-  - CodeScanner_Rownd (1.0.3)
+  - CodeScanner_Rownd (2.2.1)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.68.2)
   - FBReactNativeSpec (0.68.2):
@@ -74,7 +74,7 @@ PODS:
     - FlipperKit/Core
     - FlipperKit/FlipperKitNetworkPlugin
   - fmt (6.2.1)
-  - Get (1.0.2)
+  - Get (2.0.1)
   - glog (0.3.5)
   - hermes-engine (0.11.0)
   - JWTDecode (3.0.0)
@@ -376,17 +376,17 @@ PODS:
     - ReSwiftThunk/Core (= 2.0.1)
   - ReSwiftThunk/Core (2.0.1):
     - ReSwift (~> 6.0)
-  - Rownd (1.9.0):
-    - AnyCodable-FlightSchool
-    - CodeScanner_Rownd
-    - Get
-    - JWTDecode
-    - LBBottomSheet
-    - ReSwift
-    - ReSwiftThunk
-    - Sodium
-    - SwiftKeychainWrapper
-  - rownd-react-native (0.1.0):
+  - Rownd (1.8.1):
+    - AnyCodable-FlightSchool (~> 0.6.5)
+    - CodeScanner_Rownd (~> 2.2.1)
+    - Get (~> 2.0.1)
+    - JWTDecode (~> 3.0.0)
+    - LBBottomSheet (~> 1.0.24)
+    - ReSwift (~> 6.1.0)
+    - ReSwiftThunk (~> 2.0.1)
+    - Sodium (~> 0.9.1)
+    - SwiftKeychainWrapper (~> 4.0.1)
+  - rownd-react-native (0.3.0):
     - React-Core
     - Rownd
   - SocketRocket (0.6.0)
@@ -454,6 +454,7 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - Rownd (~> 1.8.1)
   - rownd-react-native (from `../..`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -558,7 +559,7 @@ SPEC CHECKSUMS:
   AnyCodable-FlightSchool: 84b795a9d3ec7ba9e5488673d15cc1b37a566af4
   boost: a7c83b31436843459a1961bfd74b96033dc77234
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
-  CodeScanner_Rownd: c7a61122c144adbf7e7baca52796aeb77e4dff50
+  CodeScanner_Rownd: 43ea1ea198c17653c32c31e797e274c0d7a695ae
   DoubleConversion: 831926d9b8bf8166fd87886c4abab286c2422662
   FBLazyVector: a7a655862f6b09625d11c772296b01cd5164b648
   FBReactNativeSpec: 81ce99032d5b586fddd6a38d450f8595f7e04be4
@@ -572,7 +573,7 @@ SPEC CHECKSUMS:
   Flipper-RSocket: d9d9ade67cbecf6ac10730304bf5607266dd2541
   FlipperKit: cbdee19bdd4e7f05472a66ce290f1b729ba3cb86
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
-  Get: 52a6cdac0658b2dd8b1799f86f4dcaeb06473f8b
+  Get: d2c1fa40936760c47dcd3956e9eb26dc39fd76ba
   glog: 476ee3e89abb49e07f822b48323c51c57124b572
   hermes-engine: 84e3af1ea01dd7351ac5d8689cbbea1f9903ffc3
   JWTDecode: 82480a7173f8a811954e7e14a2b59f688ca4222a
@@ -607,14 +608,14 @@ SPEC CHECKSUMS:
   ReactCommon: 095366164a276d91ea704ce53cb03825c487a3f2
   ReSwift: eab3c01e4279ba81b54a61e4fd6499634d20123a
   ReSwiftThunk: 7ca5145764be6f30b62db88a52d170133954629e
-  Rownd: b41aeae995f0869001999035602cd0ba868d18bd
-  rownd-react-native: f61a291b70efd265bccfedcb07985fa06b0cfad8
+  Rownd: 821f946a189b2a85c3da7c309b4cf43d41e1573a
+  rownd-react-native: 3d372a66fffb53e6c05eb8849c934d1001b1e4d6
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   Sodium: 23d11554ecd556196d313cf6130d406dfe7ac6da
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
   Yoga: 99652481fcd320aefa4a7ef90095b95acd181952
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 98ff1aae6dba64d87b729ca745cd4f45f3d917a2
+PODFILE CHECKSUM: d64ca6f0b26bc835070413f15adf89acce295288
 
 COCOAPODS: 1.11.3
