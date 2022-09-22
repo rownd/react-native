@@ -5,11 +5,11 @@ import React, {
   useEffect,
   useContext,
 } from 'react';
-import { NativeEventEmitter, LogBox } from 'react-native';
+import { NativeEventEmitter, LogBox, Platform } from 'react-native';
 import { initialRowndState, rowndReducer } from '../reducer/rowndReducer';
 
 import * as NativeRowndModules from '../utils/nativeModule';
-import { RowndEventEmitter } from '../utils/nativeModule';
+import { Rownd, IOSRowndEventEmitter } from '../utils/nativeModule';
 import type { ContextProps, GlobalState } from './GlobalContext.types';
 import type { TAction } from '../constants/action';
 import { ActionType } from '../constants/action';
@@ -20,7 +20,7 @@ export const GlobalContext = createContext<
   { state: GlobalState; dispatch: React.Dispatch<TAction> } | undefined
 >(undefined);
 
-const eventEmitter = new NativeEventEmitter(RowndEventEmitter);
+const eventEmitter = new NativeEventEmitter(IOSRowndEventEmitter || Rownd);
 
 const RowndProvider: FunctionComponent<ContextProps> = ({
   children,
@@ -34,8 +34,11 @@ const RowndProvider: FunctionComponent<ContextProps> = ({
   }, [config.appKey]);
 
   useEffect(() => {
-    const onSessionConnect = (event: object) => {
-      dispatch({ type: ActionType.UPDATE_STATE, payload: event });
+    const onSessionConnect = (event: any) => {
+      dispatch({
+        type: ActionType.UPDATE_STATE,
+        payload: Platform.OS === 'android' ? JSON.parse(event.state) : event,
+      });
     };
     const subscription = eventEmitter.addListener(
       'update_state',
