@@ -27,9 +27,9 @@ type UserContext = {
     phone?: string | null;
     [key: string]: any;
   };
-  // set: (data: Record<string, any>) => void;
+  set: (data: Record<string, any>) => void;
   setValue: (key: string, value: any) => void;
-  set: (data: any) => void;
+  //set: (data: any) => void;
 };
 
 type AuthContext = {
