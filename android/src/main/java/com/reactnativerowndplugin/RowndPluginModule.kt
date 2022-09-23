@@ -1,20 +1,16 @@
 package com.reactnativerowndplugin
-import android.app.Application
-import androidx.fragment.app.FragmentActivity
-import com.facebook.react.ReactActivity
-import com.facebook.react.ReactFragment
-import com.facebook.react.bridge.*
-import com.facebook.react.shell.MainReactPackage
-import com.facebook.react.modules.core.DeviceEventManagerModule
-import com.facebook.react.bridge.WritableMap
-import com.facebook.react.bridge.Arguments
-import io.rownd.android.Rownd
-import io.rownd.android.models.repos.GlobalState
-import kotlinx.coroutines.*
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
+
 import android.os.Handler
 import android.os.Looper
+import androidx.fragment.app.FragmentActivity
+import com.facebook.react.bridge.*
+import com.facebook.react.modules.core.DeviceEventManagerModule
+import io.rownd.android.Rownd
+import io.rownd.android.models.repos.GlobalState
+import io.rownd.android.models.repos.UserRepo
+import kotlinx.coroutines.*
+import kotlinx.serialization.json.Json
+
 
 class RowndPluginModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
     private var uiThreadHandler = Handler(Looper.getMainLooper())
@@ -70,6 +66,26 @@ class RowndPluginModule(reactContext: ReactApplicationContext) : ReactContextBas
       Rownd.signOut()
     }
 
+    @ReactMethod
+    fun manageAccount() {
+      Rownd.manageAccount()
+    }
+
+    @ReactMethod
+    fun setUserData(data: ReadableMap) {
+      UserRepo.set(data.toHashMap())
+    }
+
+    @ReactMethod
+    fun setUserDataValue(key: String, array: ReadableMap) {
+      val value = array.toHashMap().entries.find { it.key == "value" }?.value
+      if (value != null) {
+        UserRepo.set(key, value)
+      } else {
+        println("ROWND ANDROID PLUGIN: Missing content for value")
+      }
+    }
+
 //    @ReactMethod
 //    suspend fun getAccessToken(promise: Promise) {
 //      try {
@@ -79,5 +95,4 @@ class RowndPluginModule(reactContext: ReactApplicationContext) : ReactContextBas
 //        promise.reject("GET_ACCESS_TOKEN_ERROR: ", e)
 //      }
 //    }
-
 }

@@ -49,7 +49,6 @@ export function signOut() {
 }
 
 export function manageAccount() {
-  if (isNotAvailableInAndroidYet()) return null;
   return Rownd.manageAccount();
 }
 
@@ -59,11 +58,12 @@ export function getAccessToken(): Promise<string> {
 }
 
 export function setUserDataValue(key: string, value: any) {
-  if (isNotAvailableInAndroidYet()) return null;
-  return Rownd.setUserDataValue(key, value);
+  return Rownd.setUserDataValue(
+    key,
+    Platform.OS === 'android' ? { value } : value
+  );
 }
 
-export function setUserData(data: any) {
-  if (isNotAvailableInAndroidYet()) return null;
+export function setUserData(data: Record<string, any>) {
   return Rownd.setUserData(data);
 }
