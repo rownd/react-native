@@ -1,6 +1,6 @@
 {
-  "name": "@rownd/react-native__native-modules",
-  "version": "0.7.0",
+  "name": "@rownd/react-native",
+  "version": "2.0.0",
   "description": "test",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -35,13 +35,13 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/rownd/react-native__native-modules",
-  "author": "rownd <michael@rownd.io> (https://github.com/rownd/react-native__native-modules)",
+  "repository": "https://github.com/rownd/react-native",
+  "author": "rownd <michael@rownd.io> (https://github.com/rownd/react-native)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rownd/react-native__native-modules"
+    "url": "https://github.com/rownd/react-native"
   },
-  "homepage": "https://github.com/rownd/react-native__native-modules",
+  "homepage": "https://github.com/rownd/react-native",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
