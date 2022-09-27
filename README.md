@@ -50,7 +50,7 @@ import { RowndProvider } from "@rownd/react-native";
 
 export default function Root() {
   return (
-      <RowndProvider appKey="<your app key>">
+      <RowndProvider config={{appKey:"<your app key>"}}>
         <App />
       </RowndProvider>
   );
