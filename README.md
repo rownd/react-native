@@ -24,6 +24,25 @@ cd android
 
 ### iOS
 
+Add the code below to ios/Podfile. Place inside target
+```
+dynamic_frameworks = ['Sodium']
+  pre_install do |installer|
+    installer.pod_targets.each do |pod|
+      if dynamic_frameworks.include?(pod.name)
+        puts "Overriding the dynamic_framework? method for #{pod.name}"
+        def pod.dynamic_framework?;
+          true
+        end
+        def pod.build_type;
+          Pod::BuildType.dynamic_framework
+        end
+      end
+    end
+  end
+```
+On command line run:
+
 ```sh
 cd ios
 ```
