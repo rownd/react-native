@@ -376,17 +376,17 @@ PODS:
     - ReSwiftThunk/Core (= 2.0.1)
   - ReSwiftThunk/Core (2.0.1):
     - ReSwift (~> 6.0)
-  - Rownd (1.8.1):
-    - AnyCodable-FlightSchool (~> 0.6.5)
-    - CodeScanner_Rownd (~> 2.2.1)
-    - Get (~> 2.0.1)
-    - JWTDecode (~> 3.0.0)
-    - LBBottomSheet (~> 1.0.24)
-    - ReSwift (~> 6.1.0)
-    - ReSwiftThunk (~> 2.0.1)
-    - Sodium (~> 0.9.1)
-    - SwiftKeychainWrapper (~> 4.0.1)
-  - rownd-react-native (0.3.0):
+  - Rownd (1.10.0):
+    - AnyCodable-FlightSchool
+    - CodeScanner_Rownd
+    - Get
+    - JWTDecode
+    - LBBottomSheet
+    - ReSwift
+    - ReSwiftThunk
+    - Sodium
+    - SwiftKeychainWrapper
+  - rownd-react-native (2.1.0):
     - React-Core
     - Rownd
   - SocketRocket (0.6.0)
@@ -454,7 +454,6 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - Rownd (~> 1.8.1)
   - rownd-react-native (from `../..`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -608,14 +607,14 @@ SPEC CHECKSUMS:
   ReactCommon: 095366164a276d91ea704ce53cb03825c487a3f2
   ReSwift: eab3c01e4279ba81b54a61e4fd6499634d20123a
   ReSwiftThunk: 7ca5145764be6f30b62db88a52d170133954629e
-  Rownd: 821f946a189b2a85c3da7c309b4cf43d41e1573a
-  rownd-react-native: 3d372a66fffb53e6c05eb8849c934d1001b1e4d6
+  Rownd: 097f76c5295c38a28cfd7fcf1f42790ad44170bb
+  rownd-react-native: 43076f4338d678fb0f22e167762f1b1ebf0d637e
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   Sodium: 23d11554ecd556196d313cf6130d406dfe7ac6da
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
   Yoga: 99652481fcd320aefa4a7ef90095b95acd181952
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: d64ca6f0b26bc835070413f15adf89acce295288
+PODFILE CHECKSUM: c6b9e20c64cf203f052e93d9d0e93c5166f1c3ff
 
 COCOAPODS: 1.11.3
