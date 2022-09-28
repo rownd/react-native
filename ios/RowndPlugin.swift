@@ -47,7 +47,7 @@ class RowndPlugin: NSObject {
     @objc
     func manageAccount() -> Void {
         DispatchQueue.main.async {
-            Rownd.manageAccount()
+            Rownd.manageUser()
         }
     }
     

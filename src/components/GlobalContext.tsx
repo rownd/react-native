@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useContext,
 } from 'react';
-import { NativeEventEmitter, LogBox, Platform } from 'react-native';
+import { NativeEventEmitter, YellowBox, Platform } from 'react-native';
 import { initialRowndState, rowndReducer } from '../reducer/rowndReducer';
 
 import * as NativeRowndModules from '../utils/nativeModule';
@@ -14,7 +14,10 @@ import type { ContextProps, GlobalState } from './GlobalContext.types';
 import type { TAction } from '../constants/action';
 import { ActionType } from '../constants/action';
 
-LogBox.ignoreLogs(['Sending `update_state` with no listeners registered.']);
+YellowBox.ignoreWarnings([
+  'Sending `update_state` with no listeners registered.',
+]);
+YellowBox.ignoreWarnings(['YellowBox has been replaced with LogBox.']);
 
 export const GlobalContext = createContext<
   { state: GlobalState; dispatch: React.Dispatch<TAction> } | undefined
