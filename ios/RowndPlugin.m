@@ -18,6 +18,8 @@ RCT_EXTERN_METHOD(manageAccount)
 RCT_EXTERN_METHOD(getAccessToken:
                   withResolver:(RCTPromiseResolveBlock)resolve)
 
+RCT_EXTERN_METHOD(handleSignInLink:(NSString *)url)
+
 + (BOOL)requiresMainQueueSetup
 {
   return NO;

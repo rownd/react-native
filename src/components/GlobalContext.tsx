@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useContext,
 } from 'react';
-import { NativeEventEmitter, YellowBox, Platform } from 'react-native';
+import { NativeEventEmitter, YellowBox, Platform, Linking } from 'react-native';
 import { initialRowndState, rowndReducer } from '../reducer/rowndReducer';
 
 import * as NativeRowndModules from '../utils/nativeModule';
@@ -53,6 +53,24 @@ const RowndProvider: FunctionComponent<ContextProps> = ({
     return () => {
       subscription.remove();
     };
+  }, []);
+
+  // Handle deep linking
+  useEffect(() => {
+    if (Platform.OS !== 'ios') {
+      return;
+    }
+
+    Linking.addEventListener('url', (event) =>
+      NativeRowndModules.handleSignInLink(event.url)
+    );
+
+    (async () => {
+      const initialUrl = await Linking.getInitialURL();
+      if (initialUrl) {
+        NativeRowndModules.handleSignInLink(initialUrl);
+      }
+    })();
   }, []);
 
   return (

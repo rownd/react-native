@@ -80,4 +80,9 @@ class RowndPlugin: NSObject {
         let dictionary = try! decoder.decode(AnyCodable.self, from: json)
         Rownd.user.set(field: key, value: dictionary)
     }
+
+    @objc(handleSignInLink:)
+    func handleSignInLink(url: String) -> Void {
+        Rownd.handleSignInLink(url: URL(string: url))
+    }
 }

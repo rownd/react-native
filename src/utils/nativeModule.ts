@@ -18,7 +18,7 @@ export const Rownd = NativeModules.RowndPlugin
     );
 
 export const IOSRowndEventEmitter =
-  Platform.OS != 'ios'
+  Platform.OS !== 'ios'
     ? null
     : NativeModules.RowndPluginEventEmitter
     ? NativeModules.RowndPluginEventEmitter
@@ -66,4 +66,8 @@ export function setUserDataValue(key: string, value: any) {
 
 export function setUserData(data: Record<string, any>) {
   return Rownd.setUserData(data);
+}
+
+export function handleSignInLink(url: string) {
+  return Rownd.handleSignInLink(url);
 }
