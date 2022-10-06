@@ -32,7 +32,7 @@ cd android && ./gradlew build
 
 ### iOS
 
-1. Ensure iOS version is at least 14. Code below is the first line of File: *ios/Podfile*
+1. Ensure iOS version is at least 14. File: *ios/Podfile*
 
 ```
 platform :ios, '14.0'
