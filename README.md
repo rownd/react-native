@@ -15,39 +15,50 @@ npm install @rownd/react-native
 
 ### Android
 
-```sh
-cd android
+1. Ensure the Sdk versions match or are above provided versions. File: *android/build.gradle*
 ```
+ext {
+  ...
+  minSdkVersion = 26
+  compileSdkVersion = 32
+  targetSdkVersion = 31
+  ...
+}
+```
+2. Install the Rownd library and dependencies.
 ```sh
-./gradlew build
+cd android && ./gradlew build
 ```
 
 ### iOS
 
-Add the code below to ios/Podfile. Place inside target
+1. Ensure iOS version is at least 14. Code below is the first line of File: *ios/Podfile*
+
+```
+platform :ios, '14.0'
+```
+
+2. Add the code below to install the Sodium pod dependency correctly. Place inside the target. File: *ios/Podfile*
 ```
 dynamic_frameworks = ['Sodium']
-  pre_install do |installer|
-    installer.pod_targets.each do |pod|
-      if dynamic_frameworks.include?(pod.name)
-        puts "Overriding the dynamic_framework? method for #{pod.name}"
-        def pod.dynamic_framework?;
-          true
-        end
-        def pod.build_type;
-          Pod::BuildType.dynamic_framework
-        end
+pre_install do |installer|
+  installer.pod_targets.each do |pod|
+    if dynamic_frameworks.include?(pod.name)
+      puts "Overriding the dynamic_framework? method for #{pod.name}"
+      def pod.dynamic_framework?;
+        true
+      end
+      def pod.build_type;
+        Pod::BuildType.dynamic_framework
       end
     end
   end
+end
 ```
-On command line run:
+3. Install the Rownd pod and it's dependencies
 
 ```sh
-cd ios
-```
-```sh
-pod install
+cd ios && pod install
 ```
 
 ## Setup
