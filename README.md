@@ -154,12 +154,8 @@ Retrieves the active, valid access token for the current user.&#x20;
 ```javascript
 const { getAccessToken } = useRownd();
 
-let accessToken = await getAccessToken({
-    waitForToken: false
-});
+let accessToken = await getAccessToken(=);
 ```
-
-* `waitForToken: boolean` - when `true`, if no access token is present or if it's expired, the promise will not resolve until a valid token is available. While unlikely, this could result in waiting forever.
 
 #### is\_authenticated
 
