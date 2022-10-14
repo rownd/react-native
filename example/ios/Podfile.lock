@@ -391,7 +391,7 @@ PODS:
     - ReSwiftThunk/Core (= 2.0.1)
   - ReSwiftThunk/Core (2.0.1):
     - ReSwift (~> 6.0)
-  - Rownd (1.10.2):
+  - Rownd (1.12.0):
     - AnyCodable-FlightSchool (~> 0.6.5)
     - CodeScanner_Rownd (~> 2.2.1)
     - Get (~> 2.0.1)
@@ -403,9 +403,9 @@ PODS:
     - ReSwiftThunk (~> 2.0.1)
     - Sodium (~> 0.9.1)
     - SwiftKeychainWrapper (~> 4.0.1)
-  - rownd-react-native (2.3.0):
+  - rownd-react-native (2.4.0):
     - React-Core
-    - Rownd (~> 1.10.2)
+    - Rownd (~> 1.12.0)
   - SocketRocket (0.6.0)
   - Sodium (0.9.1)
   - SwiftKeychainWrapper (4.0.1)
@@ -476,10 +476,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
-    - AnyCodable-FlightSchool
-    - AppAuth
     - CocoaAsyncSocket
-    - CodeScanner_Rownd
     - Flipper
     - Flipper-Boost-iOSX
     - Flipper-DoubleConversion
@@ -490,23 +487,27 @@ SPEC REPOS:
     - Flipper-RSocket
     - FlipperKit
     - fmt
+    - hermes-engine
+    - libevent
+    - OpenSSL-Universal
+    - SocketRocket
+    - YogaKit
+  trunk:
+    - AnyCodable-FlightSchool
+    - AppAuth
+    - CodeScanner_Rownd
     - Get
     - GoogleSignIn
     - GTMAppAuth
     - GTMSessionFetcher
-    - hermes-engine
     - JWTDecode
     - LBBottomSheet
-    - libevent
     - lottie-ios
-    - OpenSSL-Universal
     - ReSwift
     - ReSwiftThunk
     - Rownd
-    - SocketRocket
     - Sodium
     - SwiftKeychainWrapper
-    - YogaKit
 
 EXTERNAL SOURCES:
   boost:
@@ -634,14 +635,14 @@ SPEC CHECKSUMS:
   ReactCommon: 095366164a276d91ea704ce53cb03825c487a3f2
   ReSwift: eab3c01e4279ba81b54a61e4fd6499634d20123a
   ReSwiftThunk: 7ca5145764be6f30b62db88a52d170133954629e
-  Rownd: 52d0aa538f5955fb6597294a1ab4267aeb866cbb
-  rownd-react-native: d1e256a15c8ed1572c476b809a7ee6d636f7a5b3
+  Rownd: 3cdbe5ddaf40639b237219d476e731fc96dd7011
+  rownd-react-native: b4678139ea4c92b71dfd77389e83746dea7b06eb
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   Sodium: 23d11554ecd556196d313cf6130d406dfe7ac6da
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
   Yoga: 99652481fcd320aefa4a7ef90095b95acd181952
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: f05260919ea6f0df476f4fb6422a7cba2aa2ca95
+PODFILE CHECKSUM: c6b9e20c64cf203f052e93d9d0e93c5166f1c3ff
 
 COCOAPODS: 1.11.3

@@ -36,6 +36,20 @@ class RowndPlugin: NSObject {
             Rownd.requestSignIn()
         }
     }
+    
+    @objc
+    func requestSignInApple() -> Void {
+        DispatchQueue.main.async {
+            Rownd.requestSignIn(with: RowndSignInHint.appleId)
+        }
+    }
+    
+    @objc
+    func requestSignInGoogle() -> Void {
+        DispatchQueue.main.async {
+            Rownd.requestSignIn(with: RowndSignInHint.googleId)
+        }
+    }
 
     @objc
     func signOut() -> Void {

@@ -38,11 +38,8 @@ type AuthContext = {
   is_verified_user?: boolean;
 };
 
-type RequestSignInOpts = {
-  identifier?: string;
-  auto_sign_in?: boolean;
-  init_data?: Record<string, any>;
-  post_login_redirect?: string;
+export type RequestSignInOpts = {
+  type?: 'google' | 'apple';
 };
 
 export function useRownd(): TRowndContext {

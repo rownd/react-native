@@ -11,6 +11,11 @@ RCT_EXTERN_METHOD(configure:(NSString *)appKey
                  withRejecter:(RCTPromiseRejectBlock)reject)
 
 RCT_EXTERN_METHOD(requestSignIn)
+
+RCT_EXTERN_METHOD(requestSignInApple)
+
+RCT_EXTERN_METHOD(requestSignInGoogle)
+
 RCT_EXTERN_METHOD(signOut)
 
 RCT_EXTERN_METHOD(manageAccount)
