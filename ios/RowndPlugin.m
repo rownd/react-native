@@ -6,11 +6,11 @@
 RCT_EXTERN_METHOD(setUserDataValue:(NSString *)key withValue:(id)value)
 RCT_EXTERN_METHOD(setUserData:(NSDictionary<NSString *, id>)data)
 
-RCT_EXTERN_METHOD(configure:(NSString *)appKey
+RCT_EXTERN_METHOD(configure:(NSDictionary *)config
                  withResolver:(RCTPromiseResolveBlock)resolve
                  withRejecter:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(requestSignIn)
+RCT_EXTERN_METHOD(requestSignIn:(NSDictionary *)signInConfig)
 
 RCT_EXTERN_METHOD(requestSignInApple)
 

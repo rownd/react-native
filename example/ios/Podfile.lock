@@ -1,5 +1,5 @@
 PODS:
-  - AnyCodable-FlightSchool (0.6.5)
+  - AnyCodable-FlightSchool (0.6.7)
   - AppAuth (1.6.0):
     - AppAuth/Core (= 1.6.0)
     - AppAuth/ExternalUserAgent (= 1.6.0)
@@ -391,7 +391,7 @@ PODS:
     - ReSwiftThunk/Core (= 2.0.1)
   - ReSwiftThunk/Core (2.0.1):
     - ReSwift (~> 6.0)
-  - Rownd (1.12.0):
+  - Rownd (1.12.4):
     - AnyCodable-FlightSchool (~> 0.6.5)
     - CodeScanner_Rownd (~> 2.2.1)
     - Get (~> 2.0.1)
@@ -403,9 +403,9 @@ PODS:
     - ReSwiftThunk (~> 2.0.1)
     - Sodium (~> 0.9.1)
     - SwiftKeychainWrapper (~> 4.0.1)
-  - rownd-react-native (2.4.0):
+  - rownd-react-native (2.5.0):
     - React-Core
-    - Rownd (~> 1.12.0)
+    - Rownd (~> 1.12.4)
   - SocketRocket (0.6.0)
   - Sodium (0.9.1)
   - SwiftKeychainWrapper (4.0.1)
@@ -475,8 +475,11 @@ DEPENDENCIES:
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
+    - AnyCodable-FlightSchool
+    - AppAuth
     - CocoaAsyncSocket
+    - CodeScanner_Rownd
     - Flipper
     - Flipper-Boost-iOSX
     - Flipper-DoubleConversion
@@ -487,27 +490,23 @@ SPEC REPOS:
     - Flipper-RSocket
     - FlipperKit
     - fmt
-    - hermes-engine
-    - libevent
-    - OpenSSL-Universal
-    - SocketRocket
-    - YogaKit
-  trunk:
-    - AnyCodable-FlightSchool
-    - AppAuth
-    - CodeScanner_Rownd
     - Get
     - GoogleSignIn
     - GTMAppAuth
     - GTMSessionFetcher
+    - hermes-engine
     - JWTDecode
     - LBBottomSheet
+    - libevent
     - lottie-ios
+    - OpenSSL-Universal
     - ReSwift
     - ReSwiftThunk
     - Rownd
+    - SocketRocket
     - Sodium
     - SwiftKeychainWrapper
+    - YogaKit
 
 EXTERNAL SOURCES:
   boost:
@@ -578,7 +577,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  AnyCodable-FlightSchool: 84b795a9d3ec7ba9e5488673d15cc1b37a566af4
+  AnyCodable-FlightSchool: 261cbe76757802b17d471b9059b21e6fa5edf57b
   AppAuth: 8fca6b5563a5baef2c04bee27538025e4ceb2add
   boost: a7c83b31436843459a1961bfd74b96033dc77234
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
@@ -635,8 +634,8 @@ SPEC CHECKSUMS:
   ReactCommon: 095366164a276d91ea704ce53cb03825c487a3f2
   ReSwift: eab3c01e4279ba81b54a61e4fd6499634d20123a
   ReSwiftThunk: 7ca5145764be6f30b62db88a52d170133954629e
-  Rownd: 3cdbe5ddaf40639b237219d476e731fc96dd7011
-  rownd-react-native: b4678139ea4c92b71dfd77389e83746dea7b06eb
+  Rownd: d257fa928886e40dcaa2a4b3258cdb68bd13e933
+  rownd-react-native: fe2a5f83f6c5c889724bd96546ac857df6981042
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   Sodium: 23d11554ecd556196d313cf6130d406dfe7ac6da
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
