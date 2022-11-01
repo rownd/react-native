@@ -1,5 +1,7 @@
 export interface IConfig {
   appKey: string;
+  sheetBackgroundHexColor?: string;
+  sheetCornerBorderRadius?: number;
 }
 
 export type PostAuthApiSpec = {

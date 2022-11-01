@@ -33,7 +33,7 @@ const RowndProvider: FunctionComponent<ContextProps> = ({
   const value = { state, dispatch };
 
   useEffect(() => {
-    NativeRowndModules.configure(config.appKey);
+    NativeRowndModules.configure({appKey: config.appKey});
   }, [config.appKey]);
 
   useEffect(() => {
