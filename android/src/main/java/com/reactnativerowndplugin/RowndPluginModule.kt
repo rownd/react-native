@@ -1,11 +1,14 @@
 package com.reactnativerowndplugin
 
+import android.app.Application
 import android.os.Handler
 import android.os.Looper
 import androidx.fragment.app.FragmentActivity
 import com.facebook.react.bridge.*
 import com.facebook.react.modules.core.DeviceEventManagerModule
 import io.rownd.android.Rownd
+import io.rownd.android.RowndSignInHint
+import io.rownd.android.RowndSignInOptions
 import io.rownd.android.models.repos.GlobalState
 import io.rownd.android.models.repos.UserRepo
 import kotlinx.coroutines.*
@@ -51,14 +54,37 @@ class RowndPluginModule(reactContext: ReactApplicationContext) : ReactContextBas
     }
 
     @ReactMethod
-    fun configure(appKey: String) {
-      Rownd.configure(reactApplicationContext.currentActivity as FragmentActivity, appKey)
-      isRowndJSInitialized = true
+    fun configure(config: ReadableMap) {
+      val appKey = config.getString("appKey")
+      if (appKey != null) {
+        Rownd.configure(reactApplicationContext.currentActivity as FragmentActivity, appKey)
+        isRowndJSInitialized = true
+      }
     }
 
     @ReactMethod
-    fun requestSignIn() {
-      Rownd.requestSignIn()
+    fun requestSignIn(signInConfig: ReadableMap) {
+      fun requestSignInHub() {
+        val postSignInRedirect = signInConfig.getString("postSignInRedirect")
+        if (postSignInRedirect != null) {
+          Rownd.requestSignIn(RowndSignInOptions(postSignInRedirect))
+        } else {
+          Rownd.requestSignIn()
+        }
+      }
+
+      val method = signInConfig.getString("method")
+      if (method != null) {
+        when (method) {
+          "google" -> Rownd.requestSignIn(RowndSignInHint.Google)
+          "apple" -> println("ROWND: Apple sign in is not setup yet")
+          else -> {
+            requestSignInHub()
+          }
+        }
+      } else {
+        requestSignInHub()
+      }
     }
 
     @ReactMethod
