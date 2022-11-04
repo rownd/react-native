@@ -23,31 +23,44 @@ class RowndPlugin: NSObject {
     }
 
     @objc(configure:withResolver:withRejecter:)
-    func configure(appKey: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) -> Void {
-        Task.init {
-            await Rownd.configure(launchOptions: nil, appKey: appKey)
+    func configure(config: NSDictionary, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) -> Void {
+        if let appKey = config.value(forKey: "appKey") as? String {
+            Task {
+                await Rownd.configure(launchOptions: nil, appKey: appKey);
+            }
+            resolve(appKey)
         }
-        resolve(appKey)
     }
 
-    @objc
-    func requestSignIn() -> Void {
-        DispatchQueue.main.async {
-            Rownd.requestSignIn()
+    @objc(requestSignIn:)
+    func requestSignIn(signInConfig: NSDictionary) -> Void {
+
+        func requestSignInHub() -> Void {
+            if let postSignInRedirect = signInConfig.value(forKey: "postSignInRedirect") as? String {
+                DispatchQueue.main.async {
+                    Rownd.requestSignIn(RowndSignInOptions(postSignInRedirect: postSignInRedirect))
+                }
+            } else {
+                DispatchQueue.main.async {
+                    Rownd.requestSignIn()
+                }
+            }
         }
-    }
-    
-    @objc
-    func requestSignInApple() -> Void {
-        DispatchQueue.main.async {
-            Rownd.requestSignIn(with: RowndSignInHint.appleId)
-        }
-    }
-    
-    @objc
-    func requestSignInGoogle() -> Void {
-        DispatchQueue.main.async {
-            Rownd.requestSignIn(with: RowndSignInHint.googleId)
+        if let method = signInConfig.value(forKey: "method") as? String {
+            switch method {
+            case "apple":
+                DispatchQueue.main.async {
+                    Rownd.requestSignIn(with: RowndSignInHint.appleId)
+                }
+            case "google":
+                DispatchQueue.main.async {
+                    Rownd.requestSignIn(with: RowndSignInHint.googleId)
+                }
+            default:
+                requestSignInHub()
+            }
+        } else {
+            requestSignInHub()
         }
     }
 

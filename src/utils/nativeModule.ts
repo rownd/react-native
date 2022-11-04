@@ -1,5 +1,6 @@
 import { NativeModules, Platform } from 'react-native';
-import type { RequestSignInOpts } from 'src/hooks/rownd';
+import type { RequestSignIn } from 'src/hooks/rownd';
+import type { IConfig } from './config';
 
 export const LINKING_ERROR =
   `The package '@rownd/react-native' doesn't seem to be linked. Make sure: \n\n` +
@@ -37,14 +38,15 @@ const isNotAvailableInAndroidYet = () => {
   return true;
 };
 
-export function configure(appKey: string): Promise<string> {
-  return Rownd.configure(appKey);
+export function configure(config: IConfig): Promise<string> {
+  return Rownd.configure(config);
 }
 
-export function requestSignIn(method?: RequestSignInOpts) {
-  if (method?.type === 'apple') return Rownd.requestSignInApple();
-  if (method?.type === 'google') return Rownd.requestSignInGoogle();
-  return Rownd.requestSignIn();
+export function requestSignIn(config?: RequestSignIn) {
+  if (!config) {
+    Rownd.requestSignIn({method: "default"});
+  }
+  return Rownd.requestSignIn({ method: config?.method || "default", postSignInRedirect: config?.postSignInRedirect || undefined });
 }
 
 export function signOut() {

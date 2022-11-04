@@ -9,7 +9,7 @@ import {
 import { useRowndContext } from '../components/GlobalContext';
 
 export type TRowndContext = {
-  requestSignIn: (opts?: RequestSignInOpts) => void;
+  requestSignIn: (e?: RequestSignIn) => void;
   signOut: () => void;
   manageAccount: () => void;
   getAccessToken: () => Promise<string>;
@@ -38,9 +38,8 @@ type AuthContext = {
   is_verified_user?: boolean;
 };
 
-export type RequestSignInOpts = {
-  type?: 'google' | 'apple';
-};
+export type RequestSignInMethods = 'google' | 'apple' | 'default';
+export type RequestSignIn = {method?: RequestSignInMethods, postSignInRedirect?: string}
 
 export function useRownd(): TRowndContext {
   const { state } = useRowndContext();

@@ -3,9 +3,8 @@ import React from 'react';
 import { View, Button, Text } from 'react-native';
 
 export default function Main() {
-  const { requestSignIn, signOut, user, manageAccount } = useRownd();
-
-  console.log({ user });
+  const { requestSignIn, signOut, user, manageAccount, is_authenticated } =
+    useRownd();
 
   return (
     <View>
@@ -14,8 +13,30 @@ export default function Main() {
         <Text>First Name: {user.data?.first_name}</Text>
       )}
       {user.data?.birth_day && <Text>Birth Day: {user.data?.birth_day}</Text>}
-      <Button title="Sign In" onPress={() => requestSignIn()} />
-      <Button title="Sign Out" onPress={() => signOut()} />
+      {is_authenticated ? (
+        <Button title="Sign Out" onPress={() => signOut()} />
+      ) : (
+        <>
+          <Button
+            title="Sign In"
+            onPress={() =>
+              requestSignIn({
+                method: 'default',
+                postSignInRedirect: 'https://www.espn.com/',
+              })
+            }
+          />
+          <Button
+            title="Sign In (Apple)"
+            onPress={() => requestSignIn({ method: 'apple' })}
+          />
+          <Button
+            title="Sign In (Google)"
+            onPress={() => requestSignIn({ method: 'google' })}
+          />
+        </>
+      )}
+
       <Button title="Manage User" onPress={() => manageAccount()} />
       <Button
         title="Set First Name"
@@ -26,18 +47,9 @@ export default function Main() {
         onPress={() => user.setValue('first_name', 'Steve')}
       />
       <Button
-        title="Set Birth Day"
-        onPress={() => user.setValue('birth_day', 40)}
-      />
-      <Button
-        title="Set different Birth Day"
-        onPress={() => user.setValue('birth_day', 50)}
-      />
-      <Button
         title="Update user data"
         onPress={() =>
           user.set({
-            email: 'michael@rownd.io',
             birth_day: 43,
             user_id: '82f05836-5cfb-4cdd-85ad-4e2823550cfb',
             first_name: 'Richard',
