@@ -28,12 +28,16 @@ const eventEmitter = new NativeEventEmitter(IOSRowndEventEmitter || Rownd);
 const RowndProvider: FunctionComponent<ContextProps> = ({
   children,
   config,
+  customizations
 }) => {
   const [state, dispatch] = useReducer(rowndReducer, initialRowndState);
   const value = { state, dispatch };
 
   useEffect(() => {
-    NativeRowndModules.configure({appKey: config.appKey});
+    NativeRowndModules.configure(config);
+    if (customizations) {
+      NativeRowndModules.customizations(customizations);
+    }
   }, [config.appKey]);
 
   useEffect(() => {

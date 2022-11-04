@@ -1,8 +1,9 @@
 import type { TAction } from '../constants/action';
-import type { IConfig } from '../utils/config';
+import type { Customizations, IConfig } from '../utils/config';
 
 export type ContextProps = {
   config: IConfig;
+  customizations?: Customizations
 };
 
 export type Dispatch = (action: TAction) => void;

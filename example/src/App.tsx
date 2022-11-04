@@ -1,14 +1,16 @@
 import * as React from 'react';
-
 import { StyleSheet, View } from 'react-native';
 import { RowndProvider } from '../../src/index';
 import Main from './Main';
+
+const loadingAnimation = require('../assets/email-success3.json');
 
 export default function App() {
   return (
     <View style={styles.container}>
       <RowndProvider
         config={{ appKey: 'b9cba8b0-4285-42fd-81ac-8afbe95cb8c5' }}
+        customizations={{ sheetBackgroundHexColor: '#4287f5', sheetCornerBorderRadius: 'random', loadingAnimation: JSON.stringify(loadingAnimation) }}
       >
         <Main />
       </RowndProvider>
