@@ -30,10 +30,6 @@ class RowndPlugin: NSObject {
             }
             resolve(appKey)
         }
-        
-        if let backgroundColor = config.value(forKey: "sheetBackgroundHexColor") as? String {
-            print("ROWND: STILL NEED TO LINK BACKGROUNC COLOR: \(backgroundColor)")
-        }
     }
 
     @objc(requestSignIn:)
