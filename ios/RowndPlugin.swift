@@ -31,6 +31,17 @@ class RowndPlugin: NSObject {
             resolve(appKey)
         }
     }
+    
+    @objc(customizations:)
+    func customizations(customizations: NSDictionary) -> Void {
+        let appCustomizations = AppCustomizations()
+        
+        if let sheetBackgroundColor = customizations.value(forKey: "sheetBackgroundHexColor") as? String {
+            appCustomizations.reactNativeSheetBackgroundColor = colorWithHexString(hexString: sheetBackgroundColor)
+        }
+        
+        Rownd.config.customizations = appCustomizations
+    }
 
     @objc(requestSignIn:)
     func requestSignIn(signInConfig: NSDictionary) -> Void {
