@@ -2,6 +2,7 @@ import Rownd
 import SwiftUI
 import Combine
 import AnyCodable
+import Lottie
 
 @objc(RowndPlugin)
 class RowndPlugin: NSObject {
@@ -38,6 +39,24 @@ class RowndPlugin: NSObject {
         
         if let sheetBackgroundColor = customizations.value(forKey: "sheetBackgroundHexColor") as? String {
             appCustomizations.reactNativeSheetBackgroundColor = colorWithHexString(hexString: sheetBackgroundColor)
+        }
+        
+        if let sheetCornerBorderRadius = customizations.value(forKey: "sheetCornerBorderRadius") as? String {
+            if let doubleValue = Double(sheetCornerBorderRadius) {
+                appCustomizations.reactNativeSheetCornerBorderRadius = CGFloat(doubleValue)
+            }
+        }
+        
+        if let loadingAnimation = customizations.value(forKey: "loadingAnimation") as? String {
+            let json = loadingAnimation.data(using: .utf8)!
+            do {
+                let decoder = JSONDecoder()
+                let animation = try decoder.decode(Animation.self, from: json)
+                appCustomizations.reactNativeLoadingAnimation = animation
+            } catch {
+                print("Failed to encode Loading Animation: \(error)")
+            }
+                                             
         }
         
         Rownd.config.customizations = appCustomizations

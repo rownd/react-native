@@ -3,6 +3,9 @@ package com.reactnativerowndplugin
 import android.content.res.Configuration
 import android.os.Handler
 import android.os.Looper
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.fragment.app.FragmentActivity
 import com.facebook.react.bridge.*
 import com.facebook.react.modules.core.DeviceEventManagerModule
@@ -14,9 +17,6 @@ import io.rownd.android.models.repos.GlobalState
 import io.rownd.android.models.repos.UserRepo
 import kotlinx.coroutines.*
 import kotlinx.serialization.json.Json
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 
 class AppCustomizations(app: FragmentActivity) : RowndCustomizations() {
   private var app: FragmentActivity
@@ -60,7 +60,7 @@ class RowndPluginModule(reactContext: ReactApplicationContext) : ReactContextBas
     init {
       coroutineScope = CoroutineScope(Dispatchers.IO).launch {
         Rownd.state.collect {
-          uiThreadHandler.post{
+          uiThreadHandler.post {
             val params = Arguments.createMap().apply {
               putString("state", Json.encodeToString(GlobalState.serializer(), it))
             }
