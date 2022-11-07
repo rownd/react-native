@@ -10,7 +10,11 @@ export default function App() {
     <View style={styles.container}>
       <RowndProvider
         config={{ appKey: 'b9cba8b0-4285-42fd-81ac-8afbe95cb8c5' }}
-        customizations={{ sheetBackgroundHexColor: '#ffedbd', sheetCornerBorderRadius: '5', loadingAnimation: JSON.stringify(loadingAnimation) }}
+        customizations={{
+          sheetBackgroundHexColor: '#ffedbd',
+          sheetCornerBorderRadius: '5',
+          loadingAnimation: JSON.stringify(loadingAnimation),
+        }}
       >
         <Main />
       </RowndProvider>
@@ -23,7 +27,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   box: {
     width: 60,
