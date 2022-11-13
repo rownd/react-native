@@ -112,13 +112,19 @@ class RowndPluginModule(reactContext: ReactApplicationContext) : ReactContextBas
       }
     }
 
-//    @ReactMethod
-//    suspend fun getAccessToken(promise: Promise) {
-//      try {
-//        val accessToken = Rownd.getAccessToken()
-//        promise.resolve(accessToken ?: "")
-//      } catch (e: Throwable) {
-//        promise.reject("GET_ACCESS_TOKEN_ERROR: ", e)
-//      }
-//    }
+    @ReactMethod
+    fun getAccessToken(promise: Promise) {
+      coroutineScope = CoroutineScope(Dispatchers.IO).launch {
+        try {
+          val accessToken = Rownd.getAccessToken()
+          accessToken?.let {
+            promise.resolve(accessToken)
+          } ?: run {
+            promise.reject("ROWND PLUGIN MODULE ERROR: NO ACCESS TOKEN")
+          }
+        } catch (e: Throwable) {
+          promise.reject("ROWND PLUGIN MODULE ERROR: ", e)
+        }
+      }
+    }
 }
