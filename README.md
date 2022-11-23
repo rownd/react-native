@@ -20,7 +20,7 @@ npm install @rownd/react-native
 ext {
   ...
   minSdkVersion = 26
-  compileSdkVersion = 32
+  compileSdkVersion = 33
   targetSdkVersion = 31
   ...
 }
