@@ -33,10 +33,6 @@ export const IOSRowndEventEmitter =
         }
       );
 
-const isNotAvailableInAndroidYet = () => {
-  console.log('ROWND: NOT AVAILABLE IN ANDROID YET');
-  return true;
-};
 
 export function configure(config: IConfig): Promise<string> {
   return Rownd.configure(config);
@@ -58,7 +54,6 @@ export function manageAccount() {
 }
 
 export function getAccessToken(): Promise<string> {
-  if (isNotAvailableInAndroidYet()) return Promise.resolve('');
   return Rownd.getAccessToken();
 }
 

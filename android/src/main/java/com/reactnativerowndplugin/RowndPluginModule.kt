@@ -1,16 +1,13 @@
 package com.reactnativerowndplugin
 
-import android.app.Application
 import android.os.Handler
 import android.os.Looper
 import androidx.fragment.app.FragmentActivity
 import com.facebook.react.bridge.*
 import com.facebook.react.modules.core.DeviceEventManagerModule
+import io.rownd.android.*
 import io.rownd.android.Rownd
-import io.rownd.android.RowndSignInHint
-import io.rownd.android.RowndSignInOptions
 import io.rownd.android.models.repos.GlobalState
-import io.rownd.android.models.repos.UserRepo
 import kotlinx.coroutines.*
 import kotlinx.serialization.json.Json
 
@@ -99,26 +96,27 @@ class RowndPluginModule(reactContext: ReactApplicationContext) : ReactContextBas
 
     @ReactMethod
     fun setUserData(data: ReadableMap) {
-      UserRepo.set(data.toHashMap())
+      Rownd.userRepo.set(data.toHashMap())
     }
 
     @ReactMethod
     fun setUserDataValue(key: String, array: ReadableMap) {
       val value = array.toHashMap().entries.find { it.key == "value" }?.value
       if (value != null) {
-        UserRepo.set(key, value)
+        Rownd.userRepo.set(key, value)
       } else {
         println("ROWND ANDROID PLUGIN: Missing content for value")
       }
     }
 
-//    @ReactMethod
-//    suspend fun getAccessToken(promise: Promise) {
-//      try {
-//        val accessToken = Rownd.getAccessToken()
-//        promise.resolve(accessToken ?: "")
-//      } catch (e: Throwable) {
-//        promise.reject("GET_ACCESS_TOKEN_ERROR: ", e)
-//      }
-//    }
+    @ReactMethod
+    fun getAccessToken(promise: Promise) {
+      coroutineScope = CoroutineScope(Dispatchers.IO).launch {
+        try {
+          promise.resolve(Rownd.getAccessToken() ?: "")
+        } catch (e: Throwable) {
+          promise.reject("ROWND PLUGIN MODULE ERROR: ")
+        }
+      }
+    }
 }
