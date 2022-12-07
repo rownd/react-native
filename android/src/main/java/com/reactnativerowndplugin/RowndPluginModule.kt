@@ -85,7 +85,7 @@ class RowndPluginModule(reactContext: ReactApplicationContext) : ReactContextBas
     fun customizations(config: ReadableMap) {
       var appCustomizations = AppCustomizations(reactApplicationContext.currentActivity as FragmentActivity)
 
-      val sheetBackgroundHexColor = config.getString("sheetBackgroundHexColor")
+      val sheetBackgroundHexColor: String? = config.getString("sheetBackgroundHexColor")
       if (sheetBackgroundHexColor != null) {
         appCustomizations.reactNativeSheetBackgroundColor = Color(android.graphics.Color.parseColor(sheetBackgroundHexColor))
       }
@@ -97,10 +97,8 @@ class RowndPluginModule(reactContext: ReactApplicationContext) : ReactContextBas
 
       val loadingAnimation: String? = config.getString("loadingAnimation")
       if (loadingAnimation != null) {
-        // println("ANNIE $loadingAnimation")
+        appCustomizations.loadingAnimationJsonString = loadingAnimation
       }
-
-
 
       Rownd.config.customizations = appCustomizations
     }
