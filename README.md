@@ -154,7 +154,7 @@ Retrieves the active, valid access token for the current user.&#x20;
 ```javascript
 const { getAccessToken } = useRownd();
 
-let accessToken = await getAccessToken(=);
+let accessToken = await getAccessToken();
 ```
 
 #### is\_authenticated
