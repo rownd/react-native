@@ -12,7 +12,7 @@ export default function App() {
         config={{ appKey: 'b9cba8b0-4285-42fd-81ac-8afbe95cb8c5' }}
         customizations={{
           sheetBackgroundHexColor: '#ffedbd',
-          sheetCornerBorderRadius: '5',
+          sheetCornerBorderRadius: '20',
           loadingAnimation: JSON.stringify(loadingAnimation),
         }}
       >

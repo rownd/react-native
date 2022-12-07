@@ -34,22 +34,7 @@ class AppCustomizations : RowndCustomizations {
             return .white
         }
     }
-    override var sheetCornerBorderRadius: CGFloat {
-        if let borderRadius = reactNativeSheetCornerBorderRadius {
-            return borderRadius
-        }
-        return CGFloat(25.0)
-    }
-    
-    override var loadingAnimation: Lottie.Animation? {
-        if let animation = reactNativeLoadingAnimation {
-            return animation
-        }
-        return nil
-    }
     open var reactNativeSheetBackgroundColor: UIColor? = nil
-    open var reactNativeSheetCornerBorderRadius: CGFloat? = nil
-    open var reactNativeLoadingAnimation: Lottie.Animation? = nil
 }
 
 

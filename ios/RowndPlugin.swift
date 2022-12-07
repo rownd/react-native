@@ -43,20 +43,19 @@ class RowndPlugin: NSObject {
         
         if let sheetCornerBorderRadius = customizations.value(forKey: "sheetCornerBorderRadius") as? String {
             if let doubleValue = Double(sheetCornerBorderRadius) {
-                appCustomizations.reactNativeSheetCornerBorderRadius = CGFloat(doubleValue)
+                appCustomizations.sheetCornerBorderRadius = CGFloat(doubleValue)
             }
         }
-        
+
         if let loadingAnimation = customizations.value(forKey: "loadingAnimation") as? String {
             let json = loadingAnimation.data(using: .utf8)!
             do {
                 let decoder = JSONDecoder()
                 let animation = try decoder.decode(Animation.self, from: json)
-                appCustomizations.reactNativeLoadingAnimation = animation
+                appCustomizations.loadingAnimation = animation
             } catch {
                 print("Failed to encode Loading Animation: \(error)")
             }
-                                             
         }
         
         Rownd.config.customizations = appCustomizations
@@ -110,8 +109,13 @@ class RowndPlugin: NSObject {
 
     @objc(getAccessToken:withResolver:)
     func getAccessToken(resolve: @escaping RCTPromiseResolveBlock) async -> Void {
-        let accessToken = await Rownd.getAccessToken()
-        resolve(accessToken)
+        do {
+            let accessToken = try await Rownd.getAccessToken()
+            resolve(accessToken)
+        } catch {
+            print("Failed to fetch Rownd access token")
+            resolve("")
+        }
     }
 
     @objc(setUserData:)

@@ -33,7 +33,6 @@ export const IOSRowndEventEmitter =
         }
       );
 
-
 export function configure(config: IConfig): Promise<string> {
   return Rownd.configure(config);
 }
@@ -44,9 +43,12 @@ export function customizations(customizationConfig: Customizations) {
 
 export function requestSignIn(config?: RequestSignIn) {
   if (!config) {
-    Rownd.requestSignIn({method: "default"});
+    Rownd.requestSignIn({ method: 'default' });
   }
-  return Rownd.requestSignIn({ method: config?.method || "default", postSignInRedirect: config?.postSignInRedirect || undefined });
+  return Rownd.requestSignIn({
+    method: config?.method || 'default',
+    postSignInRedirect: config?.postSignInRedirect || undefined,
+  });
 }
 
 export function signOut() {
