@@ -127,12 +127,12 @@ export default function MyProtectedComponent(props) {
 ### Customizing the UI
 
 Customizing the UI
-While most customizations are handled via the Rownd dashboard, there are a few things that have to be customized directly in the SDK.
+While most customizations are handled via the [Rownd dashboard](https://app.rownd.io), there are a few things that have to be customized directly in the SDK.
 
 The `customization` prop for `RowndProvider` allows specific customizations to be set:
 
 - `sheetBackgroundHexColor: string` (Hex color) Allows changing the background color underlaying the bottom sheet that appears when signing in, managing the user account, transferring encryption keys, etc.
-- `loadingAnimation: string` (JSON animation) Replace Rownd's use of the system default loading spinner with a custom animation. Any animation compatible with Lottie should work, but will be scaled to fit a 1:1 aspect ratio.
+- `loadingAnimation: string` (JSON animation) Replace Rownd's use of the system default loading spinner with a custom animation. Any animation compatible with [Lottie](https://airbnb.design/lottie/) should work, but will be scaled to fit a 1:1 aspect ratio.
 - `sheetCornerBorderRadius: string` (Number) Modifies the curvature radius of the bottom sheet corners.
 
 ```tsx
