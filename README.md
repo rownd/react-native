@@ -124,6 +124,37 @@ export default function MyProtectedComponent(props) {
 }
 ```
 
+### Customizing the UI
+
+Customizing the UI
+While most customizations are handled via the [Rownd dashboard](https://app.rownd.io), there are a few things that have to be customized directly in the SDK.
+
+The `customization` prop for `RowndProvider` allows specific customizations to be set:
+
+- `sheetBackgroundHexColor: string` (Hex color) Allows changing the background color underlaying the bottom sheet that appears when signing in, managing the user account, transferring encryption keys, etc.
+- `loadingAnimation: string` (JSON animation) Replace Rownd's use of the system default loading spinner with a custom animation. Any animation compatible with [Lottie](https://airbnb.design/lottie/) should work, but will be scaled to fit a 1:1 aspect ratio.
+- `sheetCornerBorderRadius: string` (Number) Modifies the curvature radius of the bottom sheet corners.
+
+```tsx
+const loadingAnimation = require('../assets/loading.json');
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <RowndProvider
+        config={{ appKey: '######-####-####-####-#########' }}
+        customizations={{
+          sheetBackgroundHexColor: '#ffffff',
+          sheetCornerBorderRadius: '20',
+          loadingAnimation: JSON.stringify(loadingAnimation),
+        }}
+      >
+        <Main />
+      </RowndProvider>
+    </View>
+  );
+}
+```
 ## API reference
 
 Most API methods are made available via the Rownd Provider and its associated `useRownd` React hook. Unless otherwise noted, we're assuming that you're using hooks.

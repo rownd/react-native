@@ -12,9 +12,7 @@ RCT_EXTERN_METHOD(configure:(NSDictionary *)config
 
 RCT_EXTERN_METHOD(requestSignIn:(NSDictionary *)signInConfig)
 
-RCT_EXTERN_METHOD(requestSignInApple)
-
-RCT_EXTERN_METHOD(requestSignInGoogle)
+RCT_EXTERN_METHOD(customizations:(NSDictionary *)customizations)
 
 RCT_EXTERN_METHOD(signOut)
 
