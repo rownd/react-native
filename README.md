@@ -90,7 +90,7 @@ export default function Root() {
 Later on within your app's components, you can use the Rownd hook to access the Rownd browser API:
 
 ```tsx
-import { View, Text } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
 import { useRownd } from '@rownd/react-native';
 
 export default function MyProtectedComponent(props) {
