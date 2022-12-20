@@ -108,8 +108,8 @@ export default function MyProtectedComponent(props) {
     <View>
       {is_authenticated ? (
         <>
-          <h1>Welcome {user.data.first_name}</h1>
-          <button onClick={() => getAccessToken()}>Get access token</button>
+          <Text>Welcome {user.data.first_name}</Text>
+          <Pressable onClick={() => getAccessToken()}><Text>Get access token</Text></Pressable>
         </>
       ) : (
         <>
