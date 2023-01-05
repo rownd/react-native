@@ -18,8 +18,8 @@ RCT_EXTERN_METHOD(signOut)
 
 RCT_EXTERN_METHOD(manageAccount)
 
-RCT_EXTERN_METHOD(getAccessToken:
-                  withResolver:(RCTPromiseResolveBlock)resolve)
+RCT_EXTERN_METHOD(getAccessToken:(RCTPromiseResolveBlock)resolve
+                  withRejecter:(RCTPromiseRejectBlock)reject)
 
 RCT_EXTERN_METHOD(handleSignInLink:(NSString *)url)
 

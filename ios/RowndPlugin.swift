@@ -107,14 +107,16 @@ class RowndPlugin: NSObject {
         }
     }
 
-    @objc(getAccessToken:withResolver:)
-    func getAccessToken(resolve: @escaping RCTPromiseResolveBlock) async -> Void {
-        do {
-            let accessToken = try await Rownd.getAccessToken()
-            resolve(accessToken)
-        } catch {
-            print("Failed to fetch Rownd access token")
-            resolve("")
+    @objc(getAccessToken:withRejecter:)
+    func getAccessToken(_ resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+        Task {
+            do {
+                let accessToken = try await Rownd.getAccessToken()
+                resolve(accessToken ?? "")
+            } catch {
+                print("Failed to fetch Rownd access token")
+                resolve("")
+            }
         }
     }
 
