@@ -43,7 +43,7 @@ export function customizations(customizationConfig: Customizations) {
 
 export function requestSignIn(config?: RequestSignIn) {
   if (!config) {
-    Rownd.requestSignIn({ method: 'default' });
+    return Rownd.requestSignIn({ method: 'default' });
   }
   return Rownd.requestSignIn({
     method: config?.method || 'default',
