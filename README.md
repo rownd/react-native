@@ -30,6 +30,8 @@ ext {
 cd android && ./gradlew build
 ```
 
+3. Check and update your ProGuard config using [the rules from our Android SDK](https://github.com/rownd/android/blob/main/README.md#proguard-config).
+
 ### iOS
 
 1. Ensure iOS version is at least 14. File: *ios/Podfile*
