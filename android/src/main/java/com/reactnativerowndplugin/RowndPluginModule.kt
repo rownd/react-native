@@ -74,16 +74,9 @@ class RowndPluginModule(reactContext: ReactApplicationContext) : ReactContextBas
       }
     }
 
-    // Example method
-    // See https://reactnative.dev/docs/native-modules-android
-    @ReactMethod
-    fun multiply(a: Int, b: Int, promise: Promise) {
-         promise.resolve(a * b * 10)
-    }
-
     @ReactMethod
     fun customizations(config: ReadableMap) {
-      var appCustomizations = AppCustomizations(reactApplicationContext.currentActivity as FragmentActivity)
+      val appCustomizations = AppCustomizations(reactApplicationContext.currentActivity as FragmentActivity)
 
       val sheetBackgroundHexColor: String? = config.getString("sheetBackgroundHexColor")
       if (sheetBackgroundHexColor != null) {
@@ -106,6 +99,12 @@ class RowndPluginModule(reactContext: ReactApplicationContext) : ReactContextBas
     @ReactMethod
     fun configure(config: ReadableMap) {
       val appKey = config.getString("appKey")
+      val apiUrl = config.getString("apiUrl")
+
+      if (apiUrl != null) {
+        Rownd.config.apiUrl = apiUrl
+      }
+
       if (appKey != null) {
         Rownd.configure(reactApplicationContext.currentActivity as FragmentActivity, appKey)
         isRowndJSInitialized = true

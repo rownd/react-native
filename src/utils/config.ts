@@ -1,5 +1,6 @@
 export interface IConfig {
   appKey: string;
+  apiUrl?: string;
 }
 
 export interface Customizations {
