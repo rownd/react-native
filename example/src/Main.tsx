@@ -1,5 +1,5 @@
 import { useRownd } from '../../src/index';
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Button, Text } from 'react-native';
 
 export default function Main() {
@@ -9,21 +9,8 @@ export default function Main() {
     user,
     manageAccount,
     is_authenticated,
-    getAccessToken,
+    access_token,
   } = useRownd();
-  const [accessToken, setAccessToken] = useState<string | null>(null);
-
-  const loadAccessToken = () => {
-    getAccessToken()
-      .then((data) => {
-        console.log('SET ACCESS TOKEN: ', data);
-        setAccessToken(data);
-      })
-      .catch((error) => {
-        setAccessToken(null);
-        console.log({ error });
-      });
-  };
 
   return (
     <View>
@@ -32,12 +19,11 @@ export default function Main() {
         <Text>First Name: {user.data?.first_name}</Text>
       )}
       {user.data?.birth_day && <Text>Birth Day: {user.data?.birth_day}</Text>}
-      {accessToken && <Text>Access Token: {accessToken}</Text>}
+      {access_token && <Text>Access Token: {access_token}</Text>}
       {is_authenticated ? (
         <Button
           title="Sign Out"
           onPress={() => {
-            setAccessToken(null);
             signOut();
           }}
         />
@@ -64,7 +50,6 @@ export default function Main() {
       )}
 
       <Button title="Manage User" onPress={() => manageAccount()} />
-      <Button title="Get Access Token" onPress={() => loadAccessToken()} />
       <Button
         title="Set First Name"
         onPress={() => user.setValue('first_name', 'Michael')}
