@@ -19,8 +19,8 @@ buildscript {
     }
     repositories {
         google()
-      mavenLocal()
         mavenCentral()
+        mavenLocal()
     }
     dependencies {
         classpath("com.android.tools.build:gradle:7.0.4")
@@ -31,7 +31,15 @@ buildscript {
     }
 }
 
+def REACT_NATIVE_VERSION = new File(['node', '--print',"JSON.parse(require('fs').readFileSync(require.resolve('react-native/package.json'), 'utf-8')).version"].execute(null, rootDir).text.trim())
+
 allprojects {
+  configurations.all {
+    resolutionStrategy {
+      // Remove this override in 0.66, as a proper fix is included in react-native itself.
+      force "com.facebook.react:react-native:" + REACT_NATIVE_VERSION
+    }
+  }
     repositories {
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
@@ -49,7 +57,7 @@ allprojects {
             }
         }
         google()
-      mavenLocal()
+        mavenLocal()
         maven { url 'https://www.jitpack.io' }
     }
 }
