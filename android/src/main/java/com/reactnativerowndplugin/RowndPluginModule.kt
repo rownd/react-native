@@ -100,9 +100,14 @@ class RowndPluginModule(reactContext: ReactApplicationContext) : ReactContextBas
     fun configure(config: ReadableMap) {
       val appKey = config.getString("appKey")
       val apiUrl = config.getString("apiUrl")
+      val baseUrl = config.getString("baseUrl")
 
       if (apiUrl != null) {
         Rownd.config.apiUrl = apiUrl
+      }
+
+      if (baseUrl != null) {
+        Rownd.config.baseUrl = baseUrl
       }
 
       if (appKey != null) {
