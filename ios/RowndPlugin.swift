@@ -32,15 +32,15 @@ class RowndPlugin: NSObject {
             resolve(appKey)
         }
     }
-    
+
     @objc(customizations:)
     func customizations(customizations: NSDictionary) -> Void {
         let appCustomizations = AppCustomizations()
-        
+
         if let sheetBackgroundColor = customizations.value(forKey: "sheetBackgroundHexColor") as? String {
             appCustomizations.reactNativeSheetBackgroundColor = colorWithHexString(hexString: sheetBackgroundColor)
         }
-        
+
         if let sheetCornerBorderRadius = customizations.value(forKey: "sheetCornerBorderRadius") as? String {
             if let doubleValue = Double(sheetCornerBorderRadius) {
                 appCustomizations.sheetCornerBorderRadius = CGFloat(doubleValue)
@@ -57,7 +57,7 @@ class RowndPlugin: NSObject {
                 print("Failed to encode Loading Animation: \(error)")
             }
         }
-        
+
         Rownd.config.customizations = appCustomizations
     }
 
@@ -107,11 +107,16 @@ class RowndPlugin: NSObject {
         }
     }
 
-    @objc(getAccessToken:withRejecter:)
-    func getAccessToken(_ resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+    @objc(getAccessToken:withResolver:withRejecter:)
+    func getAccessToken(token: String?, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
         Task {
             do {
-                let accessToken = try await Rownd.getAccessToken()
+              var accessToken: String?
+                if let token = token {
+                    accessToken = try await Rownd.getAccessToken(token: token)
+                } else {
+                    accessToken = try await Rownd.getAccessToken()
+                }
                 resolve(accessToken ?? "")
             } catch {
                 print("Failed to fetch Rownd access token")

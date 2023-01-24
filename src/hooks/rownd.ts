@@ -12,7 +12,7 @@ export type TRowndContext = {
   requestSignIn: (e?: RequestSignIn) => void;
   signOut: () => void;
   manageAccount: () => void;
-  getAccessToken: () => Promise<string>;
+  getAccessToken: (token?: string) => Promise<string>;
   user: UserContext;
   is_authenticated: boolean;
   is_initializing: boolean;
