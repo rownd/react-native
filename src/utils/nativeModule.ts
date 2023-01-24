@@ -59,8 +59,8 @@ export function manageAccount() {
   return Rownd.manageAccount();
 }
 
-export function getAccessToken(): Promise<string> {
-  return Rownd.getAccessToken();
+export function getAccessToken(token?: string): Promise<string> {
+  return Rownd.getAccessToken(token || null);
 }
 
 export function setUserDataValue(key: string, value: any) {

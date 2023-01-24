@@ -167,12 +167,16 @@ class RowndPluginModule(reactContext: ReactApplicationContext) : ReactContextBas
     }
 
     @ReactMethod
-    fun getAccessToken(promise: Promise) {
+    fun getAccessToken(token: String?, promise: Promise) {
       coroutineScope = CoroutineScope(Dispatchers.IO).launch {
         try {
-          promise.resolve(Rownd.getAccessToken() ?: "")
+          if (token != null) {
+            promise.resolve(Rownd.getAccessToken(token) ?: "")
+          } else {
+            promise.resolve(Rownd.getAccessToken() ?: "")
+          }
         } catch (e: Throwable) {
-          promise.reject("ROWND PLUGIN MODULE ERROR: ")
+          promise.reject("ROWND PLUGIN MODULE ERROR: ${e.message}")
         }
       }
     }
