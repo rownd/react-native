@@ -15,10 +15,6 @@ export default function Main() {
   return (
     <View>
       {user.data?.email && <Text>Email: {user.data?.email}</Text>}
-      {user.data?.first_name && (
-        <Text>First Name: {user.data?.first_name}</Text>
-      )}
-      {user.data?.birth_day && <Text>Birth Day: {user.data?.birth_day}</Text>}
       {access_token && <Text>Access Token: {access_token}</Text>}
       {is_authenticated ? (
         <Button
@@ -33,8 +29,7 @@ export default function Main() {
             title="Sign In"
             onPress={() =>
               requestSignIn({
-                method: 'default',
-                postSignInRedirect: 'https://www.espn.com/',
+                postSignInRedirect: 'NATIVE_APP',
               })
             }
           />
