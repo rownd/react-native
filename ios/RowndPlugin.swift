@@ -63,27 +63,44 @@ class RowndPlugin: NSObject {
 
     @objc(requestSignIn:)
     func requestSignIn(signInConfig: NSDictionary) -> Void {
+        
+        var rowndSignInOptions = RowndSignInOptions()
+        
+        if let postSignInRedirect = signInConfig.value(forKey: "postSignInRedirect") as? String {
+            rowndSignInOptions.postSignInRedirect = postSignInRedirect
+        }
+        
+        if let intentString = signInConfig.value(forKey: "intent") as? String {
+            if let intent = RowndSignInIntent(rawValue: intentString) {
+                rowndSignInOptions.intent = intent
+            } else {
+                print("Rownd plugin. An incorrect intent type was used: \(intentString)")
+            }
+        }
+        
 
         func requestSignInHub() -> Void {
-            if let postSignInRedirect = signInConfig.value(forKey: "postSignInRedirect") as? String {
-                DispatchQueue.main.async {
-                    Rownd.requestSignIn(RowndSignInOptions(postSignInRedirect: postSignInRedirect))
-                }
-            } else {
-                DispatchQueue.main.async {
-                    Rownd.requestSignIn()
-                }
+            DispatchQueue.main.async {
+                Rownd.requestSignIn(rowndSignInOptions)
             }
         }
         if let method = signInConfig.value(forKey: "method") as? String {
             switch method {
             case "apple":
                 DispatchQueue.main.async {
-                    Rownd.requestSignIn(with: RowndSignInHint.appleId)
+                    Rownd.requestSignIn(with: RowndSignInHint.appleId, signInOptions: rowndSignInOptions)
                 }
             case "google":
                 DispatchQueue.main.async {
-                    Rownd.requestSignIn(with: RowndSignInHint.googleId)
+                    Rownd.requestSignIn(with: RowndSignInHint.googleId, signInOptions: rowndSignInOptions)
+                }
+            case "guest":
+                DispatchQueue.main.async {
+                    Rownd.requestSignIn(with: RowndSignInHint.guest, signInOptions: rowndSignInOptions)
+                }
+            case "passkey":
+                DispatchQueue.main.async {
+                    Rownd.requestSignIn(with: RowndSignInHint.passkey, signInOptions: rowndSignInOptions)
                 }
             default:
                 requestSignInHub()

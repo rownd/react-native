@@ -3,7 +3,8 @@ import type { Customizations, IConfig } from '../utils/config';
 
 export type ContextProps = {
   config: IConfig;
-  customizations?: Customizations
+  customizations?: Customizations;
+  children?: React.ReactNode;
 };
 
 export type Dispatch = (action: TAction) => void;
