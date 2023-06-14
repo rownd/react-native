@@ -41,6 +41,14 @@ export default function Main() {
             title="Sign In (Google)"
             onPress={() => requestSignIn({ method: 'google' })}
           />
+          <Button
+            title="Sign In (Guest)"
+            onPress={() => requestSignIn({ method: 'guest' })}
+          />
+          <Button
+            title="Sign In (Passkey)"
+            onPress={() => requestSignIn({ method: 'passkey' })}
+          />
         </>
       )}
 

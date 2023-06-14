@@ -29,7 +29,6 @@ type UserContext = {
   };
   set: (data: Record<string, any>) => void;
   setValue: (key: string, value: any) => void;
-  //set: (data: any) => void;
 };
 
 type AuthContext = {
@@ -38,8 +37,9 @@ type AuthContext = {
   is_verified_user?: boolean;
 };
 
-export type RequestSignInMethods = 'google' | 'apple' | 'default';
-export type RequestSignIn = {method?: RequestSignInMethods, postSignInRedirect?: string}
+export type RequestSignInMethods = 'google' | 'apple' | 'default' | 'guest' | 'passkey';
+export type RequestSignInIntent = 'sign_in' | 'sign_up';
+export type RequestSignIn = {method?: RequestSignInMethods, postSignInRedirect?: string, intent?: RequestSignInIntent}
 
 export function useRownd(): TRowndContext {
   const { state } = useRowndContext();

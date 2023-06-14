@@ -16,6 +16,7 @@ import io.rownd.android.RowndSignInOptions
 import io.rownd.android.models.RowndCustomizations
 import io.rownd.android.models.repos.GlobalState
 import kotlinx.coroutines.*
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.json.Json
 
 class AppCustomizations(app: FragmentActivity) : RowndCustomizations() {
@@ -118,20 +119,42 @@ class RowndPluginModule(reactContext: ReactApplicationContext) : ReactContextBas
 
     @ReactMethod
     fun requestSignIn(signInConfig: ReadableMap) {
-      fun requestSignInHub() {
-        val postSignInRedirect = signInConfig.getString("postSignInRedirect")
-        if (postSignInRedirect != null) {
-          Rownd.requestSignIn(RowndSignInOptions(postSignInRedirect))
-        } else {
-          Rownd.requestSignIn()
+      val rowndSignInOptions = RowndSignInOptions()
+
+      val intentString = signInConfig.getString("intent")
+      if (intentString != null) {
+        when (intentString) {
+          "sign_in" -> {
+            rowndSignInOptions.intent = RowndSignInIntent.SignIn
+          }
+          "sign_up" -> {
+            rowndSignInOptions.intent = RowndSignInIntent.SignUp
+          }
+          else -> {
+            println("ROWND: Invalid intent type")
+          }
         }
+      }
+
+      val postSignInRedirect = signInConfig.getString("postSignInRedirect")
+      if (postSignInRedirect != null) {
+        rowndSignInOptions.postSignInRedirect = postSignInRedirect
+      }
+
+      fun requestSignInHub() {
+        Rownd.requestSignIn(signInOptions = rowndSignInOptions)
       }
 
       val method = signInConfig.getString("method")
       if (method != null) {
         when (method) {
-          "google" -> Rownd.requestSignIn(RowndSignInHint.Google)
-          "apple" -> println("ROWND: Apple sign in is not setup yet")
+          "google" -> Rownd.requestSignIn(with = RowndSignInHint.Google, signInOptions = rowndSignInOptions)
+          "apple" -> {
+            println("ROWND: Apple sign is setup through the Rownd hub")
+            requestSignInHub()
+          }
+          "guest" -> Rownd.requestSignIn(with = RowndSignInHint.Guest, signInOptions = rowndSignInOptions)
+          "passkey" -> Rownd.requestSignIn(with = RowndSignInHint.Passkey, signInOptions = rowndSignInOptions)
           else -> {
             requestSignInHub()
           }
