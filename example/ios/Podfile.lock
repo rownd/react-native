@@ -93,10 +93,10 @@ PODS:
   - GTMSessionFetcher/Core (3.1.1)
   - hermes-engine (0.11.0)
   - JWTDecode (3.0.1)
-  - Kronos (4.2.1)
+  - Kronos (4.2.2)
   - LBBottomSheet (1.1.7)
   - libevent (2.1.12)
-  - lottie-ios (3.4.4)
+  - lottie-ios (4.2.0)
   - OpenSSL-Universal (1.1.1100)
   - RCT-Folly (2021.06.28.00-v2):
     - boost
@@ -393,7 +393,7 @@ PODS:
     - ReSwiftThunk/Core (= 2.0.1)
   - ReSwiftThunk/Core (2.0.1):
     - ReSwift (~> 6.0)
-  - Rownd (2.6.1):
+  - Rownd (2.7.0):
     - AnyCodable-FlightSchool (~> 0.6.5)
     - CodeScanner_Rownd (~> 2.2.1)
     - Factory (~> 1.2.8)
@@ -402,15 +402,15 @@ PODS:
     - JWTDecode (~> 3.0.0)
     - Kronos (~> 4.2.1)
     - LBBottomSheet (~> 1.1.7)
-    - lottie-ios (~> 3.4.3)
+    - lottie-ios (~> 4.2.0)
     - ReSwift (~> 6.1.0)
     - ReSwiftThunk (~> 2.0.1)
     - Sodium (~> 0.9.1)
     - SwiftKeychainWrapper (~> 4.0.1)
-  - rownd-react-native (2.10.0):
+  - rownd-react-native (2.10.1):
     - React-Core
-    - Rownd (~> 2.6.1)
-  - SocketRocket (0.6.0)
+    - Rownd (~> 2.7.0)
+  - SocketRocket (0.6.1)
   - Sodium (0.9.1)
   - SwiftKeychainWrapper (4.0.1)
   - Yoga (1.14.0)
@@ -609,10 +609,10 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: e8647203b65cee28c5f73d0f473d096653945e72
   hermes-engine: 84e3af1ea01dd7351ac5d8689cbbea1f9903ffc3
   JWTDecode: 2eed97c2fa46ccaf3049a787004eedf0be474a87
-  Kronos: 0ca73a1c00dc9a49a0bab4a6ed42f282562a7058
+  Kronos: dfa27819541f9f1bf6834d5bfefa792f499001bb
   LBBottomSheet: 8ee6d3a86fcfc583bec73aa3bfcb776b2763f59d
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
-  lottie-ios: 8f97d3271e155c2d688875c29cd3c74908aef5f8
+  lottie-ios: 809ecf2d460ed650a6aed7aa88b2ec45fab4779c
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
   RCT-Folly: 4d8508a426467c48885f1151029bc15fa5d7b3b8
   RCTRequired: 3e917ea5377751094f38145fdece525aa90545a0
@@ -642,9 +642,9 @@ SPEC CHECKSUMS:
   ReactCommon: 095366164a276d91ea704ce53cb03825c487a3f2
   ReSwift: 929afd2c897f0d33c76c730710a31bb2d2a66713
   ReSwiftThunk: 7ca5145764be6f30b62db88a52d170133954629e
-  Rownd: 8e3a93a0c4ce46dbab5e73de46b1f62b94929dae
-  rownd-react-native: 6926cec262e2310704733ef8ae994baba076e814
-  SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
+  Rownd: 8b3ec6c34f9d85c6ced190cdef1a462ba45448b9
+  rownd-react-native: 92de72ce5de9e92c8bcb663b43449b392fa3a084
+  SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Sodium: 23d11554ecd556196d313cf6130d406dfe7ac6da
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
   Yoga: 99652481fcd320aefa4a7ef90095b95acd181952
@@ -652,4 +652,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: c6b9e20c64cf203f052e93d9d0e93c5166f1c3ff
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.11.2
