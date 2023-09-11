@@ -22,6 +22,9 @@ RCT_EXTERN_METHOD(getAccessToken:(NSString *)token
                  withResolver:(RCTPromiseResolveBlock)resolve
                  withRejecter:(RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(getFirebaseIdToken:(RCTPromiseResolveBlock)resolve
+                 withRejecter:(RCTPromiseRejectBlock)reject)
+
 RCT_EXTERN_METHOD(handleSignInLink:(NSString *)url)
 
 + (BOOL)requiresMainQueueSetup
