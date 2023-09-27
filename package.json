@@ -1,6 +1,6 @@
 {
   "name": "@rownd/react-native",
-  "version": "2.11.1",
+  "version": "2.11.2",
   "description": "test",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
