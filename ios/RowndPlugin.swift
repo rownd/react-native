@@ -25,6 +25,15 @@ class RowndPlugin: NSObject {
 
     @objc(configure:withResolver:withRejecter:)
     func configure(config: NSDictionary, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) -> Void {
+        
+        if let apiUrl = config.value(forKey: "apiUrl") as? String {
+            Rownd.config.apiUrl = apiUrl
+        }
+        
+        if let baseUrl = config.value(forKey: "baseUrl") as? String {
+            Rownd.config.baseUrl = baseUrl
+        }
+        
         if let appKey = config.value(forKey: "appKey") as? String {
             Task {
                 await Rownd.configure(launchOptions: nil, appKey: appKey);
@@ -51,7 +60,7 @@ class RowndPlugin: NSObject {
             let json = loadingAnimation.data(using: .utf8)!
             do {
                 let decoder = JSONDecoder()
-                let animation = try decoder.decode(LottieAnimation.self, from: json)
+                let animation = try decoder.decode(Lottie.Animation.self, from: json)
                 appCustomizations.loadingAnimation = animation
             } catch {
                 print("Failed to encode Loading Animation: \(error)")
@@ -136,8 +145,19 @@ class RowndPlugin: NSObject {
                 }
                 resolve(accessToken ?? "")
             } catch {
-                print("Failed to fetch Rownd access token")
-                resolve("")
+                reject("Error","\(error)",error)
+            }
+        }
+    }
+    
+    @objc(getFirebaseIdToken:withRejecter:)
+    func getFirebaseIdToken(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+        Task {
+            do {
+                let idToken = try await Rownd.firebase.getIdToken()
+                resolve(idToken)
+            } catch {
+                reject("Error","\(error)",error)
             }
         }
     }

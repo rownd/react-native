@@ -9,7 +9,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <RowndProvider
-        config={{ appKey: 'b9cba8b0-4285-42fd-81ac-8afbe95cb8c5' }}
+        config={{ appKey: 'ROWND_APP_KEY' }}
         customizations={{
           sheetBackgroundHexColor: '#ffedbd',
           sheetCornerBorderRadius: '20',

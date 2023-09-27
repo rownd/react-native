@@ -64,6 +64,10 @@ export function getAccessToken(token?: string): Promise<string> {
   return Rownd.getAccessToken(token || null);
 }
 
+export function getFirebaseIdToken(): Promise<string> {
+  return Rownd.getFirebaseIdToken();
+}
+
 export function setUserDataValue(key: string, value: any) {
   return Rownd.setUserDataValue(
     key,
