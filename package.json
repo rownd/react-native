@@ -149,5 +149,8 @@
         }
       ]
     ]
+  },
+  "dependencies": {
+    "@rownd/react": "1.5.3"
   }
 }
