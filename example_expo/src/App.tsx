@@ -10,7 +10,7 @@ import {
 } from '@rownd/react-native';
 
 const AuthenticatedScreen = () => {
-  const { signOut, user, is_initializing, manageAccount } = useRownd();
+  const { signOut, user, is_initializing, manageAccount, requestSignIn } = useRownd();
 
   if (is_initializing) {
     return <Text>Initializing...</Text>;
@@ -25,6 +25,7 @@ const AuthenticatedScreen = () => {
         <Button title='Set value' onPress={() => user.setValue('last_name','random')} />
       </SignedIn>
       <SignedOut>
+        <Button title='Sign in' onPress={() => requestSignIn()} />
         <RequireSignIn />
       </SignedOut>
     </View>
@@ -33,7 +34,7 @@ const AuthenticatedScreen = () => {
 
 export default function App() {
   return (
-    <RowndProvider config={{ appKey: 'key_bec29kgy4l1zu14vwy63rq62' }}>
+    <RowndProvider config={{ appKey: 'ROWND_APP_KEY' }}>
       <View style={styles.container}>
         <Text>React Native App</Text>
         <AuthenticatedScreen />

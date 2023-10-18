@@ -1,6 +1,6 @@
-import React, { FunctionComponent, useEffect } from 'react';
-import { useRownd } from '..';
-import type { RequestSignIn } from 'src/hooks/rownd';
+import React, { useEffect } from 'react';
+import { useRownd } from '../hooks/rownd';
+import type { RequestSignIn } from '../hooks/rownd';
 import { Platform } from 'react-native';
 
 export type ContextProps = {
@@ -9,7 +9,7 @@ export type ContextProps = {
   signInProps?: RequestSignIn;
 };
 
-const RequireSignIn: FunctionComponent<ContextProps> = ({
+const RequireSignIn: React.FC<ContextProps> = ({
   children,
   initializing,
   signInProps,

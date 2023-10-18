@@ -56,7 +56,7 @@ export function useRownd(): TRowndContext {
       getIdToken: getFirebaseIdToken,
     },
     is_authenticated: !!state.auth.access_token,
-    is_initializing: !!state.auth.app_id,
+    is_initializing: !state.auth.app_id,
     manageAccount,
     requestSignIn,
     signOut,
