@@ -38,7 +38,7 @@ export function rowndReducer(state: GlobalState, action: TAction): GlobalState {
         auth: {
           access_token: action.payload?.auth?.access_token,
           refresh_token: action.payload?.auth?.refresh_token,
-          app_id: null,
+          app_id: action.payload?.appConfig?.id || null,
         },
         app: {
           schema: action.payload.appConfig?.schema,

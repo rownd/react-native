@@ -11,7 +11,7 @@ PODS:
   - DoubleConversion (1.1.6)
   - EXApplication (5.3.1):
     - ExpoModulesCore
-  - EXConstants (14.4.2):
+  - EXConstants (14.5.1):
     - ExpoModulesCore
   - EXFileSystem (15.4.4):
     - ExpoModulesCore
@@ -548,7 +548,7 @@ PODS:
     - ReSwiftThunk (~> 2.0.1)
     - Sodium (~> 0.9.1)
     - SwiftKeychainWrapper (~> 4.0.1)
-  - rownd-react-native (2.11.2):
+  - rownd-react-native (2.11.3):
     - React-Core
     - Rownd (~> 2.8.1)
   - SocketRocket (0.6.1)
@@ -758,7 +758,7 @@ SPEC CHECKSUMS:
   CodeScanner_Rownd: 43ea1ea198c17653c32c31e797e274c0d7a695ae
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   EXApplication: 042aa2e3f05258a16962ea1a9914bf288db9c9a1
-  EXConstants: ce5bbea779da8031ac818c36bea41b10e14d04e1
+  EXConstants: 6cb14c7520a3538d37894fe8f0de9b8196d38455
   EXFileSystem: 2b826a3bf1071a4b80a8457e97124783d1ac860e
   EXFont: 738c44c390953ebcbab075a4848bfbef025fd9ee
   EXJSONUtils: 6802be4282d42b97c51682468ddc1026a06f8276
@@ -822,7 +822,7 @@ SPEC CHECKSUMS:
   ReSwift: 929afd2c897f0d33c76c730710a31bb2d2a66713
   ReSwiftThunk: 7ca5145764be6f30b62db88a52d170133954629e
   Rownd: 8b8b5c5409f464f5faf7e227286575dd671ab438
-  rownd-react-native: be2ab64a695d8784d0fc7290a1b67903c310c371
+  rownd-react-native: 651628d10c192bb4c09b84cdb49874680fc784d7
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Sodium: 23d11554ecd556196d313cf6130d406dfe7ac6da
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
