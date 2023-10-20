@@ -54,7 +54,7 @@ npx expo install expo-build-properties
 }
 ```
 
-4. Install Sodium (iOS Framework). [Step 2 for iOS](https://github.com/rownd/react-native#ios)
+4. Install Sodium (iOS Framework). [Step 2 for iOS](#ios)
 
 5. (optional) Enable Apple sign-in for iOS in your `app.json` file.
 
