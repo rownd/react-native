@@ -534,7 +534,7 @@ PODS:
     - ReSwiftThunk/Core (= 2.0.1)
   - ReSwiftThunk/Core (2.0.1):
     - ReSwift (~> 6.0)
-  - Rownd (2.8.1):
+  - Rownd (2.8.2):
     - AnyCodable-FlightSchool (~> 0.6.5)
     - CodeScanner_Rownd (~> 2.2.1)
     - Factory (~> 1.2.8)
@@ -548,9 +548,9 @@ PODS:
     - ReSwiftThunk (~> 2.0.1)
     - Sodium (~> 0.9.1)
     - SwiftKeychainWrapper (~> 4.0.1)
-  - rownd-react-native (2.11.3):
+  - rownd-react-native (2.11.4):
     - React-Core
-    - Rownd (~> 2.8.1)
+    - Rownd (~> 2.8.2)
   - SocketRocket (0.6.1)
   - Sodium (0.9.1)
   - SwiftKeychainWrapper (4.0.1)
@@ -821,8 +821,8 @@ SPEC CHECKSUMS:
   ReactCommon: 91ece8350ebb3dd2be9cef662abd78b6948233c0
   ReSwift: 929afd2c897f0d33c76c730710a31bb2d2a66713
   ReSwiftThunk: 7ca5145764be6f30b62db88a52d170133954629e
-  Rownd: 8b8b5c5409f464f5faf7e227286575dd671ab438
-  rownd-react-native: 651628d10c192bb4c09b84cdb49874680fc784d7
+  Rownd: 58ea576ab21aaf232e3d9b9f9d0ef8f8bd5f2df1
+  rownd-react-native: 34ebc1df81522a8e1e24b07e09e5379a70c191f5
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Sodium: 23d11554ecd556196d313cf6130d406dfe7ac6da
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c

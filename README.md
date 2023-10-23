@@ -3,6 +3,7 @@
 Rownd bindings for React Native
 
 ## Prerequisites
+
 You must be using React Native v0.61 or higher.
 
 ## Installation
@@ -13,9 +14,78 @@ First, install the Rownd SDK for React Native.
 npm install @rownd/react-native
 ```
 
+### Expo development
+
+1. Add `@rownd/native` as a plugin to your `app.json` file.
+
+```json
+{
+  "expo": {
+    "plugins": ["@rownd/react-native"]
+  }
+}
+```
+
+2. Install [Expo BuildProperties](https://docs.expo.dev/versions/latest/sdk/build-properties/) to set iOS/Android versions
+
+```sh
+npx expo install expo-build-properties
+```
+
+3. Add `expo-build-properties` as a plugin to your `app.json` file. Ensure the Sdk versions match or are above provided iOS/Android versions.
+
+```json
+{
+  "expo": {
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "minSdkVersion": 26
+          },
+          "ios": {
+            "deploymentTarget": "14.0"
+          }
+        }
+      ]
+    ]
+  }
+}
+```
+
+4. Install Sodium (iOS Framework). [Step 2 for iOS](#ios)
+
+5. (optional) Enable Apple sign-in for iOS in your `app.json` file.
+
+```json
+{
+  "ios": {
+    "usesAppleSignIn": true
+  }
+}
+```
+
+6. (optional) Enable Google sign-in for iOS. Add your Google IOS Client ID client as a URL Scheme in your `app.json` file.
+
+```json
+{
+  "infoPlist": {
+    "CFBundleURLTypes": [
+      {
+        "CFBundleURLSchemes": [
+          "com.googleusercontent.apps.xxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxx"
+        ]
+      }
+    ]
+  }
+}
+```
+
 ### Android
 
-1. Ensure the Sdk versions match or are above provided versions. File: *android/build.gradle*
+1. Ensure the Sdk versions match or are above provided versions. File: _android/build.gradle_
+
 ```
 ext {
   ...
@@ -25,14 +95,16 @@ ext {
   ...
 }
 ```
+
 2. Install the Rownd library and dependencies.
+
 ```sh
 cd android && ./gradlew build
 ```
 
 3. Check and update your ProGuard config using [the rules from our Android SDK](https://github.com/rownd/android/blob/main/README.md#proguard-config).
 
-4. Only required for Google Sign-in: Add a Rownd plugin initializer to your MainActivity file. File: *android/app/src/main/java/.../MainActivity.java
+4. Only required for Google Sign-in: Add a Rownd plugin initializer to your MainActivity file. File: \*android/app/src/main/java/.../MainActivity.java
 
 ```
 import android.os.Bundle;
@@ -49,13 +121,14 @@ public class MainActivity extends ReactActivity {
 
 ### iOS
 
-1. Ensure iOS version is at least 14. File: *ios/Podfile*
+1. Ensure iOS version is at least 14. File: _ios/Podfile_
 
 ```
 platform :ios, '14.0'
 ```
 
-2. Add the code below to install the Sodium pod dependency correctly. Place inside the target. File: *ios/Podfile*
+2. Add the code below to install the Sodium pod dependency correctly. Place inside the target. File: _ios/Podfile_
+
 ```
 dynamic_frameworks = ['Sodium']
 pre_install do |installer|
@@ -72,6 +145,7 @@ pre_install do |installer|
   end
 end
 ```
+
 3. Install the Rownd pod and it's dependencies
 
 ```sh
@@ -81,25 +155,26 @@ cd ios && pod install
 ## Setup
 
 ### Enable deep linking
-Rownd supports automatically signing-in users when they initially install your
-app or when they click a sign-in link when the app is already installed. 
 
+Rownd supports automatically signing-in users when they initially install your
+app or when they click a sign-in link when the app is already installed.
 
 ## Usage
+
 The Rownd SDK includes a context provider that will enable any component of your app to access authentication state and user data.
 
 Before you can use the SDK, you'll need to obtain an App Key from the [Rownd Dashboard](https://app.rownd.io).
 
 ```tsx
-import { RowndProvider } from "@rownd/react-native";
+import { RowndProvider } from '@rownd/react-native';
 
 // ...
 
 export default function Root() {
   return (
-      <RowndProvider config={{appKey:"<your app key>"}}>
-        <App />
-      </RowndProvider>
+    <RowndProvider config={{ appKey: '<your app key>' }}>
+      <App />
+    </RowndProvider>
   );
 }
 ```
@@ -126,7 +201,9 @@ export default function MyProtectedComponent(props) {
       {is_authenticated ? (
         <>
           <Text>Welcome {user.data.first_name}</Text>
-          <Pressable onClick={() => getAccessToken()}><Text>Get access token</Text></Pressable>
+          <Pressable onClick={() => getAccessToken()}>
+            <Text>Get access token</Text>
+          </Pressable>
         </>
       ) : (
         <>
@@ -172,6 +249,7 @@ export default function App() {
   );
 }
 ```
+
 ## API reference
 
 Most API methods are made available via the Rownd Provider and its associated `useRownd` React hook. Unless otherwise noted, we're assuming that you're using hooks.
@@ -205,7 +283,7 @@ const { getAccessToken } = useRownd();
 let accessToken = await getAccessToken();
 ```
 
-#### is\_authenticated
+#### is_authenticated
 
 Indicates whether the current user is signed in or not.
 
@@ -220,7 +298,7 @@ return (
 );
 ```
 
-#### access\_token
+#### access_token
 
 Represents the current access token for the user.
 
@@ -262,8 +340,8 @@ return (
 ```javascript
 const { user } = useRownd();
 user.set({
-    first_name: 'Alice',
-    last_name: 'Ranier'
+  first_name: 'Alice',
+  last_name: 'Ranier',
 });
 ```
 
