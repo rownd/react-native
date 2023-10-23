@@ -42,7 +42,7 @@ npx expo install expo-build-properties
         "expo-build-properties",
         {
           "android": {
-            "minSDKVersion": 26
+            "minSdkVersion": 26
           },
           "ios": {
             "deploymentTarget": "14.0"
