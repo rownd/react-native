@@ -14,7 +14,7 @@
     "ios",
     "cpp",
     "rownd-react-native.podspec",
-    "my-plugin.js",
+    "expo",
     "app.plugin.js",
     "!lib/typescript/example",
     "!android/build",

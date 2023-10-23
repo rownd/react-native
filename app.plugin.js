@@ -1,3 +1,3 @@
-const { withRowndSDK } = require('./my-plugin');
+const { withRowndSDK } = require('./expo/plugin');
 
 module.exports = (config) => withRowndSDK(config);
