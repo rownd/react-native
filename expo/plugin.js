@@ -1,4 +1,4 @@
-const { withMainActivity } = require('expo/config-plugins');
+const { withMainActivity, withInfoPlist } = require('expo/config-plugins');
 
 const withRowndMainActivity = (config) => {
   return withMainActivity(config, async (config) => {
@@ -36,4 +36,26 @@ const withRowndMainActivity = (config) => {
   });
 };
 
-module.exports.withRowndSDK = (config) => withRowndMainActivity(config);
+const withRowndPlist = (config) => {
+  return withInfoPlist(config, async (config) => {
+    const LSApplicationQueriesSchemes =
+      config.modResults?.LSApplicationQueriesSchemes || [];
+    const additionalSchemes = ['googlegmail', 'ms-outlook', 'ymail'];
+    additionalSchemes.forEach((scheme) => {
+      if (!LSApplicationQueriesSchemes.includes(scheme)) {
+        LSApplicationQueriesSchemes.push(scheme);
+      }
+    });
+
+    return {
+      ...config,
+      modResults: {
+        ...config?.modResults,
+        LSApplicationQueriesSchemes,
+      },
+    };
+  });
+};
+
+module.exports.withRowndSDK = (config) =>
+  withRowndMainActivity(withRowndPlist(config));
