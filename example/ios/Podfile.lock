@@ -90,7 +90,7 @@ PODS:
   - GTMAppAuth (2.0.0):
     - AppAuth/Core (~> 1.6)
     - GTMSessionFetcher/Core (< 4.0, >= 1.5)
-  - GTMSessionFetcher/Core (3.1.1)
+  - GTMSessionFetcher/Core (3.2.0)
   - hermes-engine (0.11.0)
   - JWTDecode (3.0.1)
   - Kronos (4.2.2)
@@ -393,7 +393,7 @@ PODS:
     - ReSwiftThunk/Core (= 2.0.1)
   - ReSwiftThunk/Core (2.0.1):
     - ReSwift (~> 6.0)
-  - Rownd (2.8.3):
+  - Rownd (3.0.0):
     - AnyCodable-FlightSchool (~> 0.6.5)
     - CodeScanner_Rownd (~> 2.2.1)
     - Factory (~> 1.2.8)
@@ -405,13 +405,11 @@ PODS:
     - lottie-ios (~> 3.4.3)
     - ReSwift (~> 6.1.0)
     - ReSwiftThunk (~> 2.0.1)
-    - Sodium (~> 0.9.1)
     - SwiftKeychainWrapper (~> 4.0.1)
-  - rownd-react-native (2.11.5):
+  - rownd-react-native (2.11.6):
     - React-Core
-    - Rownd (~> 2.8.3)
+    - Rownd (~> 3.0.0)
   - SocketRocket (0.6.1)
-  - Sodium (0.9.1)
   - SwiftKeychainWrapper (4.0.1)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -510,7 +508,6 @@ SPEC REPOS:
     - ReSwiftThunk
     - Rownd
     - SocketRocket
-    - Sodium
     - SwiftKeychainWrapper
     - YogaKit
 
@@ -606,7 +603,7 @@ SPEC CHECKSUMS:
   glog: 476ee3e89abb49e07f822b48323c51c57124b572
   GoogleSignIn: b232380cf495a429b8095d3178a8d5855b42e842
   GTMAppAuth: 99fb010047ba3973b7026e45393f51f27ab965ae
-  GTMSessionFetcher: e8647203b65cee28c5f73d0f473d096653945e72
+  GTMSessionFetcher: 41b9ef0b4c08a6db4b7eb51a21ae5183ec99a2c8
   hermes-engine: 84e3af1ea01dd7351ac5d8689cbbea1f9903ffc3
   JWTDecode: 2eed97c2fa46ccaf3049a787004eedf0be474a87
   Kronos: dfa27819541f9f1bf6834d5bfefa792f499001bb
@@ -642,14 +639,13 @@ SPEC CHECKSUMS:
   ReactCommon: 095366164a276d91ea704ce53cb03825c487a3f2
   ReSwift: 929afd2c897f0d33c76c730710a31bb2d2a66713
   ReSwiftThunk: 7ca5145764be6f30b62db88a52d170133954629e
-  Rownd: fc7f4a3cbcbb011b2f491f60449ae7cfa4520f61
-  rownd-react-native: d475cad368021d2960d796eb44fae0529e16a461
+  Rownd: 63fd73d565bf205ece34c2885d28b9923c15fa16
+  rownd-react-native: 3d6fbe10b1a74ab0dfc42bdd3667ed9be52a9ce0
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
-  Sodium: 23d11554ecd556196d313cf6130d406dfe7ac6da
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
   Yoga: 99652481fcd320aefa4a7ef90095b95acd181952
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: c6b9e20c64cf203f052e93d9d0e93c5166f1c3ff
+PODFILE CHECKSUM: d6ebb87c2d1ea03623d9dc62b217e3779494d825
 
 COCOAPODS: 1.11.2
