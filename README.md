@@ -72,7 +72,7 @@ npx expo install expo-build-properties
 ```json
 {
   "expo": {
-    ios: {
+    "ios": {
       "infoPlist": {
         "CFBundleURLTypes": [
           {
