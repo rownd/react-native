@@ -38,6 +38,7 @@ npx expo install expo-build-properties
 {
   "expo": {
     "plugins": [
+      "@rownd/react-native",
       [
         "expo-build-properties",
         {
@@ -58,8 +59,10 @@ npx expo install expo-build-properties
 
 ```json
 {
-  "ios": {
-    "usesAppleSignIn": true
+  "expo": {
+    "ios": {
+      "usesAppleSignIn": true
+    }
   }
 }
 ```
@@ -68,14 +71,18 @@ npx expo install expo-build-properties
 
 ```json
 {
-  "infoPlist": {
-    "CFBundleURLTypes": [
-      {
-        "CFBundleURLSchemes": [
-          "com.googleusercontent.apps.xxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxx"
+  "expo": {
+    ios: {
+      "infoPlist": {
+        "CFBundleURLTypes": [
+          {
+            "CFBundleURLSchemes": [
+              "com.googleusercontent.apps.xxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxx"
+            ]
+          }
         ]
       }
-    ]
+    }
   }
 }
 ```
