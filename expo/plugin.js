@@ -5,7 +5,7 @@ const withRowndMainActivity = (config) => {
     let mainActivityString = config.modResults.contents;
 
     if (!mainActivityString.includes('RowndPluginPackage.preInit')) {
-      const regex = /super.onCreate\(\w+\)\s*\S/;
+      const regex = /super.onCreate\(\w+\);?/;
       mainActivityString = mainActivityString.replace(
         regex,
         `super.onCreate(savedInstanceState);\n    RowndPluginPackage.preInit(this);\n`
@@ -17,7 +17,7 @@ const withRowndMainActivity = (config) => {
         'com.reactnativerowndplugin.RowndPluginPackage'
       )
     ) {
-      const regex = /import\s+\S+\;/;
+      const regex = /import\s+\S+\n/;
       mainActivityString = mainActivityString.replace(
         regex,
         `import com.reactnativerowndplugin.RowndPluginPackage;\n$&`
