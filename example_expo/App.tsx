@@ -1,15 +1,24 @@
-import { StatusBar } from 'expo-status-bar';
+import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import { RowndProvider, useRownd } from '@rownd/react-native';
 
+const loadingAnimation = require('./assets/loading.json');
+
 const SignIn = () => {
   const { requestSignIn } = useRownd();
-  return <Button title='Sign in' onPress={() => requestSignIn()} />
-}
+  return <Button title="Sign in" onPress={() => requestSignIn()} />;
+};
 
 export default function App() {
   return (
-    <RowndProvider config={{ appKey: 'key_bec29kgy4l1zu14vwy63rq62' }}>
+    <RowndProvider
+      config={{ appKey: 'YOUR_APP_KEY' }}
+      customizations={{
+        sheetBackgroundHexColor: '#ffedbd',
+        sheetCornerBorderRadius: '20',
+        loadingAnimation: JSON.stringify(loadingAnimation),
+      }}
+    >
       <View style={styles.container}>
         <Text>Open up App.tsx to start working on your app!</Text>
         <SignIn />

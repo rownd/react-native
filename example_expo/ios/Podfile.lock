@@ -1,10 +1,10 @@
 PODS:
   - AnyCodable-FlightSchool (0.6.7)
-  - AppAuth (1.7.4):
-    - AppAuth/Core (= 1.7.4)
-    - AppAuth/ExternalUserAgent (= 1.7.4)
-  - AppAuth/Core (1.7.4)
-  - AppAuth/ExternalUserAgent (1.7.4):
+  - AppAuth (1.7.5):
+    - AppAuth/Core (= 1.7.5)
+    - AppAuth/ExternalUserAgent (= 1.7.5)
+  - AppAuth/Core (1.7.5)
+  - AppAuth/ExternalUserAgent (1.7.5):
     - AppAuth/Core
   - boost (1.83.0)
   - CodeScanner_Rownd (2.2.1)
@@ -53,7 +53,12 @@ PODS:
   - Kronos (4.2.2)
   - LBBottomSheet (1.1.7)
   - libevent (2.1.12)
-  - lottie-ios (3.5.0)
+  - lottie-ios (4.3.4)
+  - lottie-react-native (6.5.1):
+    - glog
+    - lottie-ios (~> 4.3.3)
+    - RCT-Folly (= 2022.05.16.00)
+    - React-Core
   - RCT-Folly (2022.05.16.00):
     - boost
     - DoubleConversion
@@ -1098,7 +1103,7 @@ PODS:
     - ReSwiftThunk/Core (= 2.0.1)
   - ReSwiftThunk/Core (2.0.1):
     - ReSwift (~> 6.0)
-  - Rownd (3.0.3):
+  - Rownd (3.1.0):
     - AnyCodable-FlightSchool (~> 0.6.5)
     - CodeScanner_Rownd (~> 2.2.1)
     - Factory (~> 1.2.8)
@@ -1107,13 +1112,13 @@ PODS:
     - JWTDecode (~> 3.0.0)
     - Kronos (~> 4.2.1)
     - LBBottomSheet (~> 1.1.7)
-    - lottie-ios (~> 3.5.0)
+    - lottie-ios (~> 4.3.3)
     - ReSwift (~> 6.1.1)
     - ReSwiftThunk (~> 2.0.1)
     - SwiftKeychainWrapper (~> 4.0.1)
   - rownd-react-native (3.0.1):
     - React-Core
-    - Rownd (~> 3.0.1)
+    - Rownd (~> 3.1.0)
   - SocketRocket (0.6.1)
   - SwiftKeychainWrapper (4.0.1)
   - Yoga (1.14.0)
@@ -1132,6 +1137,7 @@ DEPENDENCIES:
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
   - libevent (~> 2.1.12)
+  - lottie-react-native (from `../node_modules/lottie-react-native`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCT-Folly/Fabric (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
@@ -1226,6 +1232,8 @@ EXTERNAL SOURCES:
   hermes-engine:
     :podspec: "../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec"
     :tag: hermes-2024-02-20-RNv0.73.5-18f99ace4213052c5e7cdbcd39ee9766cd5df7e4
+  lottie-react-native:
+    :path: "../node_modules/lottie-react-native"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTRequired:
@@ -1315,7 +1323,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AnyCodable-FlightSchool: 261cbe76757802b17d471b9059b21e6fa5edf57b
-  AppAuth: 182c5b88630569df5acb672720534756c29b3358
+  AppAuth: 501c04eda8a8d11f179dbe8637b7a91bb7e5d2fa
   boost: d3f49c53809116a5d38da093a8aa78bf551aed09
   CodeScanner_Rownd: 43ea1ea198c17653c32c31e797e274c0d7a695ae
   DoubleConversion: fea03f2699887d960129cc54bba7e52542b6f953
@@ -1339,7 +1347,8 @@ SPEC CHECKSUMS:
   Kronos: dfa27819541f9f1bf6834d5bfefa792f499001bb
   LBBottomSheet: 8ee6d3a86fcfc583bec73aa3bfcb776b2763f59d
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
-  lottie-ios: c55158d67d0629a260625cc2ded2052b829e3c3e
+  lottie-ios: 3d98679b41fa6fd6aff2352b3953dbd3df8a397e
+  lottie-react-native: 47647f2d687cc522179dc473650e4e5101021786
   RCT-Folly: 7169b2b1c44399c76a47b5deaaba715eeeb476c0
   RCTRequired: ca1d7414aba0b27efcfa2ccd37637edb1ab77d96
   RCTTypeSafety: 678e344fb976ff98343ca61dc62e151f3a042292
@@ -1383,8 +1392,8 @@ SPEC CHECKSUMS:
   ReactCommon: 2aa35648354bd4c4665b9a5084a7d37097b89c10
   ReSwift: 929afd2c897f0d33c76c730710a31bb2d2a66713
   ReSwiftThunk: 7ca5145764be6f30b62db88a52d170133954629e
-  Rownd: 428789a26322f526dd50107858543b8c03889816
-  rownd-react-native: 9aa38fc2af42ebd2a8c4a2e33c4186af8dd028b5
+  Rownd: 44ad0498890089ad0f11885f11fda28073693a59
+  rownd-react-native: dece2b48473592b13884ecd5d8ca36836a16c2bc
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
   Yoga: d17d2cc8105eed528474683b42e2ea310e1daf61
