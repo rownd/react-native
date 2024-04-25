@@ -60,7 +60,7 @@ class RowndPlugin: NSObject {
             let json = loadingAnimation.data(using: .utf8)!
             do {
                 let decoder = JSONDecoder()
-                let animation = try decoder.decode(Lottie.Animation.self, from: json)
+                let animation = try decoder.decode(LottieAnimation.self, from: json)
                 appCustomizations.loadingAnimation = animation
             } catch {
                 print("Failed to encode Loading Animation: \(error)")
