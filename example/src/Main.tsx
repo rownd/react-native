@@ -1,4 +1,4 @@
-import { SignedIn, SignedOut, useRownd } from '../../src/index';
+import { SignedIn, SignedOut, useRownd } from '@rownd/react-native';
 import React from 'react';
 import { View, Button, Text } from 'react-native';
 
