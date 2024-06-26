@@ -35,6 +35,7 @@ export function useRownd(): TRowndContext {
       data: user.data,
       setValue: setUserValue,
       set: setUser,
+      isLoading: false // Waiting for react sdk update
     },
   };
 }

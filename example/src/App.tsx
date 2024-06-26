@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { RowndProvider } from '../../src/index';
+import { RowndProvider } from '@rownd/react-native';
 import Main from './Main';
 
 const loadingAnimation = require('../assets/loading.json');
@@ -9,7 +9,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <RowndProvider
-        config={{ appKey: 'ROWND_APP_KEY' }}
+        config={{ appKey: 'key_znpwrk9mnvfd0m4suwkxi06h' }}
         customizations={{
           sheetBackgroundHexColor: '#ffedbd',
           sheetCornerBorderRadius: '20',

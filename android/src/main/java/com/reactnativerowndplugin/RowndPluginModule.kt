@@ -181,14 +181,14 @@ class RowndPluginModule(reactContext: ReactApplicationContext) : ReactContextBas
 
     @ReactMethod
     fun setUserData(data: ReadableMap) {
-      Rownd.userRepo.set(data.toHashMap())
+      Rownd.user.set(data.toHashMap())
     }
 
     @ReactMethod
     fun setUserDataValue(key: String, array: ReadableMap) {
       val value = array.toHashMap().entries.find { it.key == "value" }?.value
       if (value != null) {
-        Rownd.userRepo.set(key, value)
+        Rownd.user.set(key, value)
       } else {
         println("ROWND ANDROID PLUGIN: Missing content for value")
       }

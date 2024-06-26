@@ -26,6 +26,7 @@ export type GlobalState = {
       email?: string | null;
       [key: string]: any;
     };
+    isLoading: boolean;
     // needs_refresh?: boolean;
     // redacted: string[];
   };
