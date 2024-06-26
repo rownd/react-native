@@ -7,6 +7,7 @@ export const initialRowndState: GlobalState = {
     data: {
       email: null,
     },
+    isLoading: false
     // meta: {}
   },
   auth: {
@@ -33,6 +34,7 @@ export function rowndReducer(state: GlobalState, action: TAction): GlobalState {
             ...action.payload?.user?.data,
             email: action.payload?.user?.data?.email,
           },
+          isLoading: Boolean(action.payload?.user?.isLoading)
           // meta: {}
         },
         auth: {
