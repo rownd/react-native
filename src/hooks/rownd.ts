@@ -33,6 +33,7 @@ type UserContext = {
   };
   set: (data: Record<string, any>) => void;
   setValue: (key: string, value: any) => void;
+  isLoading: boolean;
 };
 
 type AuthContext = {
@@ -64,6 +65,7 @@ export function useRownd(): TRowndContext {
       data: state.user.data,
       setValue: setUserDataValue,
       set: setUserData,
+      isLoading: state.user.isLoading
     },  
   };
 }

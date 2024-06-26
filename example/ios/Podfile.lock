@@ -12,7 +12,7 @@ PODS:
   - Factory (1.2.9)
   - FBLazyVector (0.74.2)
   - fmt (9.1.0)
-  - Get (2.0.1)
+  - Get (2.2.0)
   - glog (0.3.5)
   - GoogleSignIn (7.0.0):
     - AppAuth (~> 1.5)
@@ -1192,11 +1192,11 @@ PODS:
     - ReSwiftThunk/Core (= 2.0.1)
   - ReSwiftThunk/Core (2.0.1):
     - ReSwift (~> 6.0)
-  - Rownd (3.1.0):
+  - Rownd (3.5.0):
     - AnyCodable-FlightSchool (~> 0.6.5)
     - CodeScanner_Rownd (~> 2.2.1)
     - Factory (~> 1.2.8)
-    - Get (~> 2.0.1)
+    - Get (~> 2.2.0)
     - GoogleSignIn (~> 7.0.0)
     - JWTDecode (~> 3.0.0)
     - Kronos (~> 4.2.1)
@@ -1207,7 +1207,7 @@ PODS:
     - SwiftKeychainWrapper (~> 4.0.1)
   - rownd-react-native (3.1.0):
     - React-Core
-    - Rownd (~> 3.1.0)
+    - Rownd (~> 3.5.0)
   - SocketRocket (0.7.0)
   - SwiftKeychainWrapper (4.0.1)
   - Yoga (0.0.0)
@@ -1413,7 +1413,7 @@ SPEC CHECKSUMS:
   Factory: 883df5a392a7f4110597c42652b8db9c07618a09
   FBLazyVector: 4bc164e5b5e6cfc288d2b5ff28643ea15fa1a589
   fmt: 4c2741a687cc09f0634a2e2c72a838b99f1ff120
-  Get: d2c1fa40936760c47dcd3956e9eb26dc39fd76ba
+  Get: 2520611f6ecded3230efe12f73f8eb22b0fde3ed
   glog: fdfdfe5479092de0c4bdbebedd9056951f092c4f
   GoogleSignIn: b232380cf495a429b8095d3178a8d5855b42e842
   GTMAppAuth: 99fb010047ba3973b7026e45393f51f27ab965ae
@@ -1472,8 +1472,8 @@ SPEC CHECKSUMS:
   ReactCommon: ecad995f26e0d1e24061f60f4e5d74782f003f12
   ReSwift: 929afd2c897f0d33c76c730710a31bb2d2a66713
   ReSwiftThunk: 7ca5145764be6f30b62db88a52d170133954629e
-  Rownd: 44ad0498890089ad0f11885f11fda28073693a59
-  rownd-react-native: 88955396b949d5fbeaaacbdc39492073d9af6b49
+  Rownd: 8a0ee640e5ea229c389fbf512c2ee65a0fef96d2
+  rownd-react-native: 0d3077aabdeb3a46070661331b83c49c54574965
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
   Yoga: ae3c32c514802d30f687a04a6a35b348506d411f
