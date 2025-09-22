@@ -9,6 +9,24 @@ const SignIn = () => {
   return <Button title="Sign in" onPress={() => requestSignIn()} />;
 };
 
+const SignOut = () => {
+  const { signOut } = useRownd();
+  return <Button title="Sign out" onPress={() => signOut()} />;
+};
+
+const MainView = () => {
+  const { user, access_token, is_authenticated } = useRownd();
+  return (
+    <View style={styles.container}>
+      <Text>Open up App.tsx to start working on your app!</Text>
+      {is_authenticated && <Text>User: {user.data?.email}</Text>}
+      {is_authenticated && <Text>Access Token: {access_token}</Text>}
+      {!is_authenticated && <SignIn />}
+      {is_authenticated && <SignOut />}
+    </View>
+  );
+};
+
 export default function App() {
   return (
     <RowndProvider
@@ -19,10 +37,7 @@ export default function App() {
         loadingAnimation: JSON.stringify(loadingAnimation),
       }}
     >
-      <View style={styles.container}>
-        <Text>Open up App.tsx to start working on your app!</Text>
-        <SignIn />
-      </View>
+      <MainView />
     </RowndProvider>
   );
 }

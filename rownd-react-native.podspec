@@ -17,7 +17,8 @@ Pod::Spec.new do |s|
   s.source_files = "ios/**/*.{h,m,mm,swift}"
 
   s.dependency "React-Core"
-  s.dependency "Rownd", "~> 3.10.7"
+  s.dependency "Rownd", "~> 3.14.2"
+  s.dependency "lottie-ios", "~> 4.3.3"
 
   # Don't install the dependencies when we run `pod install` in the old architecture.
   if ENV['RCT_NEW_ARCH_ENABLED'] == '1' then

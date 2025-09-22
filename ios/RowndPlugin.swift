@@ -1,8 +1,8 @@
+import AnyCodable
+import Combine
+import Lottie
 import Rownd
 import SwiftUI
-import Combine
-import AnyCodable
-import Lottie
 
 @objc(RowndPlugin)
 class RowndPlugin: NSObject {
@@ -16,7 +16,8 @@ class RowndPlugin: NSObject {
 
         stateCancellable = state.$current.sink { newState in
             do {
-                RowndPluginEventEmitter.emitter.sendEvent(withName: "update_state", body: try newState.toDictionary())
+                RowndPluginEventEmitter.emitter.sendEvent(
+                    withName: "update_state", body: try newState.toDictionary())
             } catch {
                 print("Failed to encode Rownd state: \(String(describing: error))")
             }
@@ -24,33 +25,40 @@ class RowndPlugin: NSObject {
     }
 
     @objc(configure:withResolver:withRejecter:)
-    func configure(config: NSDictionary, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) -> Void {
-        
+    func configure(
+        config: NSDictionary, resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock
+    ) {
+
         if let apiUrl = config.value(forKey: "apiUrl") as? String {
             Rownd.config.apiUrl = apiUrl
         }
-        
+
         if let baseUrl = config.value(forKey: "baseUrl") as? String {
             Rownd.config.baseUrl = baseUrl
         }
-        
+
         if let appKey = config.value(forKey: "appKey") as? String {
             Task {
-                await Rownd.configure(launchOptions: nil, appKey: appKey);
+                await Rownd.configure(launchOptions: nil, appKey: appKey)
             }
             resolve(appKey)
         }
     }
 
     @objc(customizations:)
-    func customizations(customizations: NSDictionary) -> Void {
+    func customizations(customizations: NSDictionary) {
         let appCustomizations = AppCustomizations()
 
-        if let sheetBackgroundColor = customizations.value(forKey: "sheetBackgroundHexColor") as? String {
-            appCustomizations.reactNativeSheetBackgroundColor = colorWithHexString(hexString: sheetBackgroundColor)
+        if let sheetBackgroundColor = customizations.value(forKey: "sheetBackgroundHexColor")
+            as? String
+        {
+            appCustomizations.reactNativeSheetBackgroundColor = colorWithHexString(
+                hexString: sheetBackgroundColor)
         }
 
-        if let sheetCornerBorderRadius = customizations.value(forKey: "sheetCornerBorderRadius") as? String {
+        if let sheetCornerBorderRadius = customizations.value(forKey: "sheetCornerBorderRadius")
+            as? String
+        {
             if let doubleValue = Double(sheetCornerBorderRadius) {
                 appCustomizations.sheetCornerBorderRadius = CGFloat(doubleValue)
             }
@@ -71,14 +79,14 @@ class RowndPlugin: NSObject {
     }
 
     @objc(requestSignIn:)
-    func requestSignIn(signInConfig: NSDictionary) -> Void {
-        
+    func requestSignIn(signInConfig: NSDictionary) {
+
         var rowndSignInOptions = RowndSignInOptions()
-        
+
         if let postSignInRedirect = signInConfig.value(forKey: "postSignInRedirect") as? String {
             rowndSignInOptions.postSignInRedirect = postSignInRedirect
         }
-        
+
         if let intentString = signInConfig.value(forKey: "intent") as? String {
             if let intent = RowndSignInIntent(rawValue: intentString) {
                 rowndSignInOptions.intent = intent
@@ -86,9 +94,8 @@ class RowndPlugin: NSObject {
                 print("Rownd plugin. An incorrect intent type was used: \(intentString)")
             }
         }
-        
 
-        func requestSignInHub() -> Void {
+        func requestSignInHub() {
             DispatchQueue.main.async {
                 Rownd.requestSignIn(rowndSignInOptions)
             }
@@ -97,19 +104,23 @@ class RowndPlugin: NSObject {
             switch method {
             case "apple":
                 DispatchQueue.main.async {
-                    Rownd.requestSignIn(with: RowndSignInHint.appleId, signInOptions: rowndSignInOptions)
+                    Rownd.requestSignIn(
+                        with: RowndSignInHint.appleId, signInOptions: rowndSignInOptions)
                 }
             case "google":
                 DispatchQueue.main.async {
-                    Rownd.requestSignIn(with: RowndSignInHint.googleId, signInOptions: rowndSignInOptions)
+                    Rownd.requestSignIn(
+                        with: RowndSignInHint.googleId, signInOptions: rowndSignInOptions)
                 }
             case "guest":
                 DispatchQueue.main.async {
-                    Rownd.requestSignIn(with: RowndSignInHint.guest, signInOptions: rowndSignInOptions)
+                    Rownd.requestSignIn(
+                        with: RowndSignInHint.guest, signInOptions: rowndSignInOptions)
                 }
             case "passkey":
                 DispatchQueue.main.async {
-                    Rownd.requestSignIn(with: RowndSignInHint.passkey, signInOptions: rowndSignInOptions)
+                    Rownd.requestSignIn(
+                        with: RowndSignInHint.passkey, signInOptions: rowndSignInOptions)
                 }
             default:
                 requestSignInHub()
@@ -120,24 +131,27 @@ class RowndPlugin: NSObject {
     }
 
     @objc
-    func signOut() -> Void {
+    func signOut() {
         DispatchQueue.main.async {
             Rownd.signOut()
         }
     }
 
     @objc
-    func manageAccount() -> Void {
+    func manageAccount() {
         DispatchQueue.main.async {
             Rownd.manageAccount()
         }
     }
 
     @objc(getAccessToken:withResolver:withRejecter:)
-    func getAccessToken(token: String?, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+    func getAccessToken(
+        token: String?, resolve: @escaping RCTPromiseResolveBlock,
+        reject: @escaping RCTPromiseRejectBlock
+    ) {
         Task {
             do {
-              var accessToken: String?
+                var accessToken: String?
                 if let token = token {
                     accessToken = try await Rownd.getAccessToken(token: token)
                 } else {
@@ -145,49 +159,52 @@ class RowndPlugin: NSObject {
                 }
                 resolve(accessToken ?? "")
             } catch {
-                reject("Error","\(error)",error)
+                reject("Error", "\(error)", error)
             }
         }
     }
-    
+
     @objc(getFirebaseIdToken:withRejecter:)
-    func getFirebaseIdToken(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+    func getFirebaseIdToken(
+        resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock
+    ) {
         Task {
             do {
                 let idToken = try await Rownd.firebase.getIdToken()
                 resolve(idToken)
             } catch {
-                reject("Error","\(error)",error)
+                reject("Error", "\(error)", error)
             }
         }
     }
 
     @objc(setUserData:)
-    func setUserData(data: Dictionary<String, Any>) -> Void {
+    func setUserData(data: [String: Any]) {
         do {
-            let jsonData = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
-            let decoder = JSONDecoder()
-            let dictionary = try! decoder.decode([String: AnyCodable].self, from: jsonData)
+            // Convert to JSON and back to get proper types
+            let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
+            let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: [])
 
-            Rownd.user.set(data: dictionary)
+            // Try to cast to the expected type
+            if let dictionary = jsonObject as? [String: Any] {
+                // Convert each value to AnyCodable and set individually
+                for (key, value) in dictionary {
+                    Rownd.user.set(field: key, value: AnyCodable(value))
+                }
+            }
         } catch {
-            print("FAILED TO SET USER DATA: ",error)
+            print("FAILED TO SET USER DATA: ", error)
         }
     }
 
     @objc(setUserDataValue:withValue:)
-    func setUserDataValue(key: String, value: Any) -> Void {
-        let json = """
-        "\(value)"
-        """.data(using: .utf8)!
-
-        let decoder = JSONDecoder()
-        let dictionary = try! decoder.decode(AnyCodable.self, from: json)
-        Rownd.user.set(field: key, value: dictionary)
+    func setUserDataValue(key: String, value: Any) {
+        // Convert value to AnyCodable
+        Rownd.user.set(field: key, value: AnyCodable(value))
     }
 
     @objc(handleSignInLink:)
-    func handleSignInLink(url: String) -> Void {
-        Rownd.handleSignInLink(url: URL(string: url))
+    func handleSignInLink(url: String) {
+        Rownd.handleSmartLink(url: URL(string: url))
     }
 }
