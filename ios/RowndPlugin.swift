@@ -7,21 +7,12 @@ import SwiftUI
 @objc(RowndPlugin)
 class RowndPlugin: NSObject {
 
-    @ObservedObject private var state = Rownd.getInstance().state().subscribe { $0 }
+    private var state: ObservableState<RowndState>? = nil
 
     private var stateCancellable: AnyCancellable?
 
     override init() {
         super.init()
-
-        stateCancellable = state.$current.sink { newState in
-            do {
-                RowndPluginEventEmitter.emitter.sendEvent(
-                    withName: "update_state", body: try newState.toDictionary())
-            } catch {
-                print("Failed to encode Rownd state: \(String(describing: error))")
-            }
-        }
     }
 
     @objc(configure:withResolver:withRejecter:)
@@ -42,6 +33,20 @@ class RowndPlugin: NSObject {
                 await Rownd.configure(launchOptions: nil, appKey: appKey)
             }
             resolve(appKey)
+            
+            // Initialize state and sink after Rownd is configured
+            if self.state == nil {
+                let initializedState = Rownd.getInstance().state().subscribe { $0 }
+                self.state = initializedState
+                self.stateCancellable = initializedState.$current.sink { newState in
+                    do {
+                        RowndPluginEventEmitter.emitter.sendEvent(
+                            withName: "update_state", body: try newState.toDictionary())
+                    } catch {
+                        print("Failed to encode Rownd state: \(String(describing: error))")
+                    }
+                }
+            }
         }
     }
 
