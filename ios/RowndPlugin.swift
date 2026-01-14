@@ -15,6 +15,11 @@ class RowndPlugin: NSObject {
         super.init()
     }
 
+    deinit {
+        // Cancel the state subscription to prevent memory leaks
+        stateCancellable?.cancel()
+    }
+
     @objc(configure:withResolver:withRejecter:)
     func configure(
         config: NSDictionary, resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock
@@ -34,7 +39,9 @@ class RowndPlugin: NSObject {
             }
             resolve(appKey)
             
-            // Initialize state and sink after Rownd is configured
+            // Initialize state and sink after Rownd is configured.
+            // Note: Subsequent calls to configure() will not reinitialize the state subscription
+            // if it has already been initialized. This is intentional to prevent duplicate subscriptions.
             if self.state == nil {
                 let initializedState = Rownd.getInstance().state().subscribe { $0 }
                 self.state = initializedState
