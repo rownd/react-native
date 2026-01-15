@@ -107,7 +107,10 @@ jobs:
 
       - name: Install Pods
         working-directory: example_expo/ios
-        run: pod install
+        run: |
+          # Clear stale Local Podspecs to avoid version mismatch with freshly prebuilt project
+          rm -rf Pods/Local\ Podspecs
+          pod install
 
       - name: Build iOS Simulator
         working-directory: example_expo/ios
