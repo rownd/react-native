@@ -16,7 +16,7 @@ export type TRowndContext = {
   is_initializing: boolean;
   firebase: {
     getIdToken: () => Promise<string>;
-  }
+  };
   getAccessToken: (token?: string) => Promise<string>;
   manageAccount: () => void;
   requestSignIn: (e?: RequestSignIn) => void;
@@ -42,9 +42,18 @@ type AuthContext = {
   is_verified_user?: boolean;
 };
 
-export type RequestSignInMethods = 'google' | 'apple' | 'default' | 'guest' | 'passkey';
+export type RequestSignInMethods =
+  | 'google'
+  | 'apple'
+  | 'default'
+  | 'guest'
+  | 'passkey';
 export type RequestSignInIntent = 'sign_in' | 'sign_up';
-export type RequestSignIn = {method?: RequestSignInMethods, postSignInRedirect?: string, intent?: RequestSignInIntent}
+export type RequestSignIn = {
+  method?: RequestSignInMethods;
+  postSignInRedirect?: string;
+  intent?: RequestSignInIntent;
+};
 
 export function useRownd(): TRowndContext {
   const { state } = useRowndContext();
@@ -65,7 +74,7 @@ export function useRownd(): TRowndContext {
       data: state.user.data,
       setValue: setUserDataValue,
       set: setUserData,
-      isLoading: state.user.isLoading
-    },  
+      isLoading: state.user.isLoading,
+    },
   };
 }

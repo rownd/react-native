@@ -23,7 +23,7 @@ const RequireSignIn: React.FC<ContextProps> = ({
         ...signInProps,
       });
     }
-  }, [is_authenticated, is_initializing, signInProps]);
+  }, [is_authenticated, is_initializing, signInProps, requestSignIn]);
 
   if (is_initializing && initializing) {
     return <>{initializing}</>;
