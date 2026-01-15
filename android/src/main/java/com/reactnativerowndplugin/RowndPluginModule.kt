@@ -176,8 +176,9 @@ class RowndPluginModule(reactContext: ReactApplicationContext) : ReactContextBas
     }
 
     @ReactMethod
+    @Suppress("UNCHECKED_CAST")
     fun setUserData(data: ReadableMap) {
-      Rownd.user.set(data.toHashMap())
+      Rownd.user.set(data.toHashMap() as Map<String, Any>)
     }
 
     @ReactMethod
