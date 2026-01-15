@@ -3,13 +3,8 @@ import React from 'react';
 import { View, Button, Text } from 'react-native';
 
 export default function Main() {
-  const {
-    requestSignIn,
-    signOut,
-    user,
-    manageAccount,
-    access_token
-  } = useRownd();
+  const { requestSignIn, signOut, user, manageAccount, access_token } =
+    useRownd();
 
   return (
     <View>
