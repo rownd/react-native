@@ -48,7 +48,7 @@ export function requestSignIn(config?: RequestSignIn) {
   return Rownd.requestSignIn({
     method: config?.method,
     postSignInRedirect: config?.postSignInRedirect,
-    intent: config?.intent
+    intent: config?.intent,
   });
 }
 

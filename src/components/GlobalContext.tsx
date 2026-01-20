@@ -14,9 +14,7 @@ import type { ContextProps, GlobalState } from './GlobalContext.types';
 import type { TAction } from '../constants/action';
 import { ActionType } from '../constants/action';
 
-LogBox.ignoreLogs([
-  'Sending `update_state` with no listeners registered.',
-]);
+LogBox.ignoreLogs(['Sending `update_state` with no listeners registered.']);
 LogBox.ignoreLogs(['YellowBox has been replaced with LogBox.']);
 
 export const GlobalContext = createContext<
@@ -28,7 +26,7 @@ const eventEmitter = new NativeEventEmitter(IOSRowndEventEmitter || Rownd);
 const RowndProvider: FunctionComponent<ContextProps> = ({
   children,
   config,
-  customizations
+  customizations,
 }) => {
   const [state, dispatch] = useReducer(rowndReducer, initialRowndState);
   const value = { state, dispatch };
@@ -38,7 +36,7 @@ const RowndProvider: FunctionComponent<ContextProps> = ({
     if (customizations) {
       NativeRowndModules.customizations(customizations);
     }
-  }, [config.appKey]);
+  }, [config, customizations]);
 
   useEffect(() => {
     const onSessionConnect = (event: any) => {

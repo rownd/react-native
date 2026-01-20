@@ -14,13 +14,9 @@ import io.rownd.android.*
 import io.rownd.android.Rownd
 import io.rownd.android.RowndSignInHint
 import io.rownd.android.RowndSignInOptions
-import io.rownd.android.models.ConnectionActionPayload
-import io.rownd.android.models.FirebaseGetIdTokenResponse
 import io.rownd.android.models.RowndCustomizations
 import io.rownd.android.models.repos.GlobalState
-import io.rownd.android.util.RowndException
 import kotlinx.coroutines.*
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.json.Json
 
 class AppCustomizations(app: FragmentActivity) : RowndCustomizations() {
@@ -180,8 +176,9 @@ class RowndPluginModule(reactContext: ReactApplicationContext) : ReactContextBas
     }
 
     @ReactMethod
+    @Suppress("UNCHECKED_CAST")
     fun setUserData(data: ReadableMap) {
-      Rownd.user.set(data.toHashMap())
+      Rownd.user.set(data.toHashMap() as Map<String, Any>)
     }
 
     @ReactMethod

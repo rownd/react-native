@@ -1,43 +1,38 @@
 const path = require('path');
-const escape = require('escape-string-regexp');
-const { getDefaultConfig } = require('@expo/metro-config');
-const exclusionList = require('metro-config/src/defaults/exclusionList');
+const { getDefaultConfig } = require('expo/metro-config');
 const pak = require('../package.json');
 
 const root = path.resolve(__dirname, '..');
 const modules = Object.keys({ ...pak.peerDependencies });
 
-const defaultConfig = getDefaultConfig(__dirname);
+const config = getDefaultConfig(__dirname);
 
-/**
- * Metro configuration
- * https://facebook.github.io/metro/docs/configuration
- *
- * @type {import('metro-config').MetroConfig}
- */
-const config = {
-  ...defaultConfig,
+// Watch the library source directory (not the entire root which includes other examples)
+config.watchFolders = [path.join(root, 'src')];
 
-  projectRoot: __dirname,
-  watchFolders: [root],
+// Ensure we use the example's node_modules for peer dependencies
+config.resolver.extraNodeModules = modules.reduce((acc, name) => {
+  acc[name] = path.join(__dirname, 'node_modules', name);
+  return acc;
+}, {});
 
-  // We need to make sure that only one version is loaded for peerDependencies
-  // So we block them at the root, and alias them to the versions in example's node_modules
-  resolver: {
-    ...defaultConfig.resolver,
+// Also resolve the library itself from the root
+config.resolver.extraNodeModules[pak.name] = root;
 
-    blacklistRE: exclusionList(
-      modules.map(
-        (m) =>
-          new RegExp(`^${escape(path.join(root, 'node_modules', m))}\\/.*$`)
-      )
-    ),
+// Block peer dependencies from root to avoid duplicates
+config.resolver.blockList = [
+  // Block root node_modules for peer deps
+  ...modules.map(
+    (m) =>
+      new RegExp(`^${escapeRegex(path.join(root, 'node_modules', m))}\\/.*$`)
+  ),
+  // Block the other example directory
+  new RegExp(`^${escapeRegex(path.join(root, 'example'))}\\/.*$`),
+];
 
-    extraNodeModules: modules.reduce((acc, name) => {
-      acc[name] = path.join(__dirname, 'node_modules', name);
-      return acc;
-    }, {}),
-  },
-};
+// Helper to escape regex special characters
+function escapeRegex(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
 
 module.exports = config;

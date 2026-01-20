@@ -1,8 +1,8 @@
 const { withMainActivity, withInfoPlist } = require('expo/config-plugins');
 
 const withRowndMainActivity = (config) => {
-  return withMainActivity(config, async (config) => {
-    let mainActivityString = config.modResults.contents;
+  return withMainActivity(config, async (actConfig) => {
+    let mainActivityString = actConfig.modResults.contents;
 
     if (!mainActivityString.includes('RowndPluginPackage.preInit')) {
       const regex = /super.onCreate\(\w+\);?/;
@@ -25,9 +25,9 @@ const withRowndMainActivity = (config) => {
     }
 
     const newConfig = {
-      ...config,
+      ...actConfig,
       modResults: {
-        ...config.modResults,
+        ...actConfig.modResults,
         contents: mainActivityString,
       },
     };
@@ -37,9 +37,9 @@ const withRowndMainActivity = (config) => {
 };
 
 const withRowndPlist = (config) => {
-  return withInfoPlist(config, async (config) => {
+  return withInfoPlist(config, async (actConfig) => {
     const LSApplicationQueriesSchemes =
-      config.modResults?.LSApplicationQueriesSchemes || [];
+      actConfig.modResults?.LSApplicationQueriesSchemes || [];
     const additionalSchemes = ['googlegmail', 'ms-outlook', 'ymail'];
     additionalSchemes.forEach((scheme) => {
       if (!LSApplicationQueriesSchemes.includes(scheme)) {
@@ -48,9 +48,9 @@ const withRowndPlist = (config) => {
     });
 
     return {
-      ...config,
+      ...actConfig,
       modResults: {
-        ...config?.modResults,
+        ...actConfig?.modResults,
         LSApplicationQueriesSchemes,
       },
     };

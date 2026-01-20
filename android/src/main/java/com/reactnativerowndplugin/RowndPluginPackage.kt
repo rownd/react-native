@@ -1,6 +1,4 @@
 package com.reactnativerowndplugin
-import android.app.Application
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.NativeModule

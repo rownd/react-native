@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { useRownd } from '../hooks/rownd';
 
 interface SignedOutProps {
@@ -14,4 +14,4 @@ const SignedOut: React.FC<SignedOutProps> = ({ children }) => {
   return <>{children}</>;
 };
 
-export default SignedOut
+export default SignedOut;
