@@ -22,8 +22,8 @@ Pod::Spec.new do |s|
   s.source_files = "ios/**/*.{h,m,mm,swift}"
 
   s.dependency "React-Core"
-  s.dependency "Rownd", "~> 3.14.2"
-  s.dependency "lottie-ios", "~> 4.3.3"
+  s.dependency "Rownd", "~> 3.14.6"
+  s.dependency "lottie-ios", "~> 4.5.0"
 
   # Use install_modules_dependencies to properly handle New Architecture dependencies
   # See: https://github.com/react-native-community/discussions-and-proposals/discussions/912
