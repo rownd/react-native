@@ -89,7 +89,8 @@
       "tagName": "v${version}"
     },
     "npm": {
-      "publish": true
+      "publish": true,
+      "publishArgs": ["--auth-type=web"]
     },
     "github": {
       "release": true
