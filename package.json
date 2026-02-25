@@ -1,6 +1,6 @@
 {
   "name": "@rownd/react-native",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "test",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -90,7 +90,9 @@
     },
     "npm": {
       "publish": true,
-      "publishArgs": ["--auth-type=web"]
+      "publishArgs": [
+        "--auth-type=web"
+      ]
     },
     "github": {
       "release": true
