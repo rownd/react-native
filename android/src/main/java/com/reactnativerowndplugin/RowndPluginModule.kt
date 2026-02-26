@@ -134,7 +134,7 @@ class RowndPluginModule(reactContext: ReactApplicationContext) : ReactContextBas
         )
         method.invoke(api, activity)
       } catch (e: Exception) {
-        Log.e("RowndPlugin", "handleSignInLink failed: ${e.message}")
+        Log.e("RowndPlugin", "handleSignInLink failed", e)
       }
     }
 
