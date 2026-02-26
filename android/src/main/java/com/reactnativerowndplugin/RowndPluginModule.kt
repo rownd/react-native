@@ -119,6 +119,26 @@ class RowndPluginModule(reactContext: ReactApplicationContext) : ReactContextBas
     }
 
     @ReactMethod
+    fun handleSignInLink(url: String) {
+      val activity = reactApplicationContext.currentActivity ?: return
+      activity.intent = android.content.Intent(
+        android.content.Intent.ACTION_VIEW,
+        android.net.Uri.parse(url)
+      )
+      try {
+        val apiGetter = Rownd.javaClass.getMethod("getSignInLinkApi\$android-release")
+        val api = apiGetter.invoke(Rownd)
+        val method = api.javaClass.getMethod(
+          "signInWithLinkIfPresentOnIntentOrClipboard\$android-release",
+          android.app.Activity::class.java
+        )
+        method.invoke(api, activity)
+      } catch (e: Exception) {
+        Log.e("RowndPlugin", "handleSignInLink failed: ${e.message}")
+      }
+    }
+
+    @ReactMethod
     fun requestSignIn(signInConfig: ReadableMap) {
       val rowndSignInOptions = RowndSignInOptions()
 
