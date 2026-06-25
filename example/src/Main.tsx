@@ -1,4 +1,4 @@
-import { SignedIn, SignedOut, useRownd } from '@rownd/react-native';
+import { SignedIn, SignedOut, useRownd } from '@supertokens/rownd-react-native';
 import React from 'react';
 import { View, Button, Text } from 'react-native';
 
@@ -45,12 +45,12 @@ export default function Main() {
           onPress={() => requestSignIn({ method: 'google' })}
         />
         <Button
-          title="Sign In (Guest)"
-          onPress={() => requestSignIn({ method: 'guest' })}
+          title="Sign In (Anonymous)"
+          onPress={() => requestSignIn({ method: 'anonymous' })}
         />
         <Button
-          title="Sign In (Passkey)"
-          onPress={() => requestSignIn({ method: 'passkey' })}
+          title="Sign In (Guest alias)"
+          onPress={() => requestSignIn({ method: 'guest' })}
         />
       </SignedOut>
     </View>
