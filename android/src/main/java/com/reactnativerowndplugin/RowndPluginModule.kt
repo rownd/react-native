@@ -12,6 +12,7 @@ import com.facebook.react.bridge.*
 import com.facebook.react.modules.core.DeviceEventManagerModule
 import io.rownd.android.*
 import io.rownd.android.Rownd
+import io.rownd.android.RowndConfigureOptions
 import io.rownd.android.RowndSignInHint
 import io.rownd.android.RowndSignInOptions
 import io.rownd.android.models.RowndCustomizations
@@ -101,20 +102,27 @@ class RowndPluginModule(reactContext: ReactApplicationContext) : ReactContextBas
     @ReactMethod
     fun configure(config: ReadableMap) {
       val appKey = config.getString("appKey")
-      val apiUrl = config.getString("apiUrl")
-      val baseUrl = config.getString("baseUrl")
+      val supertokens = if (config.hasKey("supertokens")) config.getMap("supertokens") else null
+      val appInfo = if (supertokens?.hasKey("appInfo") == true) supertokens.getMap("appInfo") else null
+      val apiDomain = appInfo?.getString("apiDomain")
+      val apiBasePath = appInfo?.getString("apiBasePath") ?: "/auth"
+      val hubUrlOverride = if (config.hasKey("hubUrlOverride")) config.getString("hubUrlOverride") else null
+      val deepLinkScheme = if (config.hasKey("deepLinkScheme")) config.getString("deepLinkScheme") else "rowndsupertokens"
 
-      if (apiUrl != null) {
-        Rownd.config.apiUrl = apiUrl
-      }
-
-      if (baseUrl != null) {
-        Rownd.config.baseUrl = baseUrl
-      }
-
-      if (appKey != null) {
-        Rownd.configure(reactApplicationContext.currentActivity as FragmentActivity, appKey)
+      if (appKey != null && apiDomain != null) {
+        Rownd.configure(
+          reactApplicationContext.currentActivity as FragmentActivity,
+          RowndConfigureOptions(
+            appKey = appKey,
+            apiDomain = apiDomain,
+            apiBasePath = apiBasePath,
+            hubUrl = hubUrlOverride,
+            deepLinkScheme = deepLinkScheme ?: "rowndsupertokens"
+          )
+        )
         isRowndJSInitialized = true
+      } else {
+        Log.e("RowndPlugin", "config.appKey and config.supertokens.appInfo.apiDomain are required")
       }
     }
 
@@ -174,8 +182,10 @@ class RowndPluginModule(reactContext: ReactApplicationContext) : ReactContextBas
             println("ROWND: Apple sign is setup through the Rownd hub")
             requestSignInHub()
           }
+          "email" -> requestSignInHub()
+          "phone" -> requestSignInHub()
           "guest" -> Rownd.requestSignIn(with = RowndSignInHint.Guest, signInOptions = rowndSignInOptions)
-          "passkey" -> Rownd.requestSignIn(with = RowndSignInHint.Passkey, signInOptions = rowndSignInOptions)
+          "anonymous" -> Rownd.requestSignIn(with = RowndSignInHint.Guest, signInOptions = rowndSignInOptions)
           else -> {
             requestSignInHub()
           }
@@ -215,26 +225,11 @@ class RowndPluginModule(reactContext: ReactApplicationContext) : ReactContextBas
     fun getAccessToken(token: String?, promise: Promise) {
       coroutineScope = CoroutineScope(Dispatchers.IO).launch {
         try {
-          if (token != null) {
-            promise.resolve(Rownd.getAccessToken(token) ?: "")
-          } else {
-            promise.resolve(Rownd.getAccessToken() ?: "")
-          }
+          promise.resolve(Rownd.getAccessToken() ?: "")
         } catch (e: Throwable) {
           promise.reject("ROWND PLUGIN MODULE ERROR: ${e.message}")
         }
       }
     }
 
-  @ReactMethod
-  fun getFirebaseIdToken(promise: Promise) {
-    CoroutineScope(Dispatchers.IO).async {
-      try {
-        val token: String? = Rownd.Firebase().getIdToken().await()
-        promise.resolve(token ?: "")
-      } catch (e: Throwable) {
-        promise.reject("ROWND PLUGIN MODULE ERROR: ${e.message}")
-      }
-    }
-  }
 }

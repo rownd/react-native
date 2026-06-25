@@ -22,26 +22,47 @@ class RowndPlugin: NSObject {
 
     @objc(configure:withResolver:withRejecter:)
     func configure(
-        config: NSDictionary, resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock
+        config: NSDictionary, resolve: @escaping RCTPromiseResolveBlock,
+        reject: @escaping RCTPromiseRejectBlock
     ) {
 
-        if let apiUrl = config.value(forKey: "apiUrl") as? String {
-            Rownd.config.apiUrl = apiUrl
+        if let hubUrlOverride = config.value(forKey: "hubUrlOverride") as? String {
+            Rownd.config.baseUrl = hubUrlOverride
         }
 
-        if let baseUrl = config.value(forKey: "baseUrl") as? String {
-            Rownd.config.baseUrl = baseUrl
+        if let deepLinkScheme = config.value(forKey: "deepLinkScheme") as? String {
+            Rownd.config.deepLinkScheme = deepLinkScheme
         }
 
-        if let appKey = config.value(forKey: "appKey") as? String {
-            Task {
-                await Rownd.configure(launchOptions: nil, appKey: appKey)
-            }
+        guard let appKey = config.value(forKey: "appKey") as? String, !appKey.isEmpty else {
+            reject("Error", "config.appKey is required", nil)
+            return
+        }
+
+        guard let supertokens = config.value(forKey: "supertokens") as? NSDictionary,
+              let appInfo = supertokens.value(forKey: "appInfo") as? NSDictionary,
+              let apiDomain = appInfo.value(forKey: "apiDomain") as? String,
+              !apiDomain.isEmpty else {
+            reject("Error", "config.supertokens.appInfo.apiDomain is required", nil)
+            return
+        }
+
+        let apiBasePath = appInfo.value(forKey: "apiBasePath") as? String ?? "/auth"
+        let appName = appInfo.value(forKey: "appName") as? String ?? "React Native App"
+
+        Task {
+            await Rownd.configure(
+                launchOptions: nil,
+                appKey: appKey,
+                supertokens: RowndSuperTokensConfig(
+                    appName: appName,
+                    apiDomain: apiDomain,
+                    apiBasePath: apiBasePath
+                )
+            )
+
             resolve(appKey)
-            
-            // Initialize state and sink after Rownd is configured.
-            // Note: Subsequent calls to configure() will not reinitialize the state subscription
-            // if it has already been initialized. This is intentional to prevent duplicate subscriptions.
+
             if self.state == nil {
                 let initializedState = Rownd.getInstance().state().subscribe { $0 }
                 self.state = initializedState
@@ -124,15 +145,25 @@ class RowndPlugin: NSObject {
                     Rownd.requestSignIn(
                         with: RowndSignInHint.googleId, signInOptions: rowndSignInOptions)
                 }
+            case "email":
+                DispatchQueue.main.async {
+                    Rownd.requestSignIn(
+                        with: RowndSignInHint.email, signInOptions: rowndSignInOptions)
+                }
+            case "phone":
+                DispatchQueue.main.async {
+                    Rownd.requestSignIn(
+                        with: RowndSignInHint.phone, signInOptions: rowndSignInOptions)
+                }
             case "guest":
                 DispatchQueue.main.async {
                     Rownd.requestSignIn(
                         with: RowndSignInHint.guest, signInOptions: rowndSignInOptions)
                 }
-            case "passkey":
+            case "anonymous":
                 DispatchQueue.main.async {
                     Rownd.requestSignIn(
-                        with: RowndSignInHint.passkey, signInOptions: rowndSignInOptions)
+                        with: RowndSignInHint.anonymous, signInOptions: rowndSignInOptions)
                 }
             default:
                 requestSignInHub()
@@ -163,27 +194,8 @@ class RowndPlugin: NSObject {
     ) {
         Task {
             do {
-                var accessToken: String?
-                if let token = token {
-                    accessToken = try await Rownd.getAccessToken(token: token)
-                } else {
-                    accessToken = try await Rownd.getAccessToken()
-                }
+                let accessToken = try await Rownd.getAccessToken()
                 resolve(accessToken ?? "")
-            } catch {
-                reject("Error", "\(error)", error)
-            }
-        }
-    }
-
-    @objc(getFirebaseIdToken:withRejecter:)
-    func getFirebaseIdToken(
-        resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock
-    ) {
-        Task {
-            do {
-                let idToken = try await Rownd.firebase.getIdToken()
-                resolve(idToken)
             } catch {
                 reject("Error", "\(error)", error)
             }
