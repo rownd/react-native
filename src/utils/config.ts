@@ -1,8 +1,6 @@
-export interface IConfig {
-  appKey: string;
-  apiUrl?: string;
-  baseUrl?: string;
-}
+import type { RowndProviderConfig } from '../types';
+
+export type IConfig = RowndProviderConfig;
 
 export interface Customizations {
   sheetBackgroundHexColor?: string;

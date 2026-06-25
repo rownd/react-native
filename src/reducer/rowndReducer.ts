@@ -28,22 +28,28 @@ export function rowndReducer(state: GlobalState, action: TAction): GlobalState {
 
   switch (action.type) {
     case ActionType.UPDATE_STATE:
+      const user = action.payload?.user || {};
+      const auth = action.payload?.auth || {};
+      const appConfig = action.payload?.appConfig || {};
+
       newState = {
         user: {
           data: {
-            ...action.payload?.user?.data,
-            email: action.payload?.user?.data?.email,
+            ...user.data,
+            email: user.data?.email,
           },
-          isLoading: Boolean(action.payload?.user?.isLoading),
+          isLoading: Boolean(user.isLoading ?? user.is_loading),
           // meta: {}
         },
         auth: {
-          access_token: action.payload?.auth?.access_token,
-          refresh_token: action.payload?.auth?.refresh_token,
-          app_id: action.payload?.appConfig?.id || null,
+          access_token: auth.access_token ?? null,
+          refresh_token: auth.refresh_token ?? null,
+          app_id: appConfig.id || auth.app_id || null,
+          is_verified_user: auth.is_verified_user,
+          auth_level: auth.auth_level ?? user.auth_level ?? null,
         },
         app: {
-          schema: action.payload.appConfig?.schema,
+          schema: appConfig.schema ?? null,
           config: null,
         },
         // is_saving_user_data: false,

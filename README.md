@@ -1,4 +1,4 @@
-# @rownd/react-native
+# @supertokens/rownd-react-native
 
 Rownd bindings for React Native
 
@@ -11,17 +11,17 @@ You must be using React Native v0.61 or higher.
 First, install the Rownd SDK for React Native.
 
 ```sh
-npm install @rownd/react-native
+npm install @supertokens/rownd-react-native
 ```
 
 ### Expo development
 
-1. Add `@rownd/react-native` as a plugin to your `app.json` file.
+1. Add `@supertokens/rownd-react-native` as a plugin to your `app.json` file.
 
 ```json
 {
   "expo": {
-    "plugins": ["@rownd/react-native"]
+    "plugins": ["@supertokens/rownd-react-native"]
   }
 }
 ```
@@ -38,7 +38,7 @@ npx expo install expo-build-properties
 {
   "expo": {
     "plugins": [
-      "@rownd/react-native",
+      "@supertokens/rownd-react-native",
       [
         "expo-build-properties",
         {
@@ -145,6 +145,110 @@ cd ios && pod install
 Rownd supports automatically signing-in users when they initially install your
 app or when they click a sign-in link when the app is already installed.
 
+Magic-link sign-in uses the native deep-link mechanism on both platforms. The
+scheme configured in `RowndProvider` must match the scheme registered by your
+host app.
+
+```tsx
+<RowndProvider
+  config={{
+    appKey: '<your app key>',
+    supertokens: {
+      appInfo: {
+        appName: 'My App',
+        apiDomain: 'https://api.example.com',
+        apiBasePath: '/auth',
+      },
+    },
+    deepLinkScheme: 'rowndsupertokens',
+  }}
+>
+  <App />
+</RowndProvider>
+```
+
+#### iOS
+
+Register the scheme in `ios/<AppName>/Info.plist`.
+
+```xml
+<key>CFBundleURLTypes</key>
+<array>
+  <dict>
+    <key>CFBundleURLSchemes</key>
+    <array>
+      <string>rowndsupertokens</string>
+    </array>
+  </dict>
+</array>
+```
+
+Forward URL opens to React Native `Linking` from your app delegate. The Rownd
+provider listens for those events and passes the link to the native SDK.
+
+Objective-C:
+
+```objc
+#import <React/RCTLinkingManager.h>
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+{
+  return [RCTLinkingManager application:application openURL:url options:options];
+}
+```
+
+Swift:
+
+```swift
+import React
+
+override func application(
+  _ app: UIApplication,
+  open url: URL,
+  options: [UIApplication.OpenURLOptionsKey: Any] = [:]
+) -> Bool {
+  return RCTLinkingManager.application(app, open: url, options: options)
+}
+```
+
+#### Android
+
+Register the scheme on the activity that hosts React Native. The activity should
+use `singleTask` so links opened while the app is running are delivered to the
+existing activity.
+
+```xml
+<activity
+  android:name=".MainActivity"
+  android:exported="true"
+  android:launchMode="singleTask">
+  <intent-filter>
+    <action android:name="android.intent.action.VIEW" />
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+    <data android:scheme="rowndsupertokens" />
+  </intent-filter>
+</activity>
+```
+
+#### Expo
+
+For Expo apps, set the same scheme in app config and use a development build or
+prebuild so native URL scheme configuration is generated.
+
+```json
+{
+  "expo": {
+    "scheme": "rowndsupertokens"
+  }
+}
+```
+
+If you customize native iOS or Android files after prebuild, keep the generated
+scheme aligned with `config.deepLinkScheme`.
+
 ## Usage
 
 The Rownd SDK includes a context provider that will enable any component of your app to access authentication state and user data.
@@ -152,13 +256,25 @@ The Rownd SDK includes a context provider that will enable any component of your
 Before you can use the SDK, you'll need to obtain an App Key from the [Rownd Dashboard](https://app.rownd.io).
 
 ```tsx
-import { RowndProvider } from '@rownd/react-native';
+import { RowndProvider } from '@supertokens/rownd-react-native';
 
 // ...
 
 export default function Root() {
   return (
-    <RowndProvider config={{ appKey: '<your app key>' }}>
+    <RowndProvider
+      config={{
+        appKey: '<your app key>',
+        supertokens: {
+          appInfo: {
+            appName: 'My App',
+            apiDomain: 'https://api.example.com',
+            apiBasePath: '/auth',
+          },
+        },
+        deepLinkScheme: 'rowndsupertokens',
+      }}
+    >
       <App />
     </RowndProvider>
   );
@@ -169,7 +285,7 @@ Later on within your app's components, you can use the Rownd hook to access the 
 
 ```tsx
 import { View, Text, Pressable } from 'react-native';
-import { useRownd } from '@rownd/react-native';
+import { useRownd } from '@supertokens/rownd-react-native';
 
 export default function MyProtectedComponent(props) {
   const { is_authenticated, user, requestSignIn, getAccessToken } = useRownd();
@@ -222,7 +338,17 @@ export default function App() {
   return (
     <View style={styles.container}>
       <RowndProvider
-        config={{ appKey: '######-####-####-####-#########' }}
+        config={{
+          appKey: '######-####-####-####-#########',
+          supertokens: {
+            appInfo: {
+              appName: 'My App',
+              apiDomain: 'https://api.example.com',
+              apiBasePath: '/auth',
+            },
+          },
+          deepLinkScheme: 'rowndsupertokens',
+        }}
         customizations={{
           sheetBackgroundHexColor: '#ffffff',
           sheetCornerBorderRadius: '20',

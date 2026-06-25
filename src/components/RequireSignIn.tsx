@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useRownd } from '../hooks/rownd';
-import type { RequestSignIn } from '../hooks/rownd';
+import type { RequestSignIn } from '../types';
 import { Platform } from 'react-native';
 
 export type ContextProps = {

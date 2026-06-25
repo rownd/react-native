@@ -1,9 +1,9 @@
 import { NativeModules, Platform } from 'react-native';
-import type { RequestSignIn } from 'src/hooks/rownd';
+import type { RequestSignIn } from '../types';
 import type { Customizations, IConfig } from './config';
 
 export const LINKING_ERROR =
-  `The package '@rownd/react-native' doesn't seem to be linked. Make sure: \n\n` +
+  `The package '@supertokens/rownd-react-native' doesn't seem to be linked. Make sure: \n\n` +
   Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo managed workflow\n';
@@ -42,11 +42,14 @@ export function customizations(customizationConfig: Customizations) {
 }
 
 export function requestSignIn(config?: RequestSignIn) {
+  const method = config?.method === 'guest' ? 'anonymous' : config?.method;
+
   if (!config) {
     return Rownd.requestSignIn({ method: 'default' });
   }
+
   return Rownd.requestSignIn({
-    method: config?.method,
+    method: method || 'default',
     postSignInRedirect: config?.postSignInRedirect,
     intent: config?.intent,
   });
@@ -62,10 +65,6 @@ export function manageAccount() {
 
 export function getAccessToken(token?: string): Promise<string> {
   return Rownd.getAccessToken(token || null);
-}
-
-export function getFirebaseIdToken(): Promise<string> {
-  return Rownd.getFirebaseIdToken();
 }
 
 export function setUserDataValue(key: string, value: any) {

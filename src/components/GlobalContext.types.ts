@@ -32,10 +32,11 @@ export type GlobalState = {
   };
   auth: {
     access_token: string | null;
-    refresh_token: string | null;
+    refresh_token?: string | null;
     app_id: string | null;
     init_data?: Record<string, any>;
     is_verified_user?: boolean;
+    auth_level?: string | null;
   };
   app: {
     id?: string;

@@ -59,11 +59,7 @@ const RowndProvider: FunctionComponent<ContextProps> = ({
 
   // Handle deep linking
   useEffect(() => {
-    if (Platform.OS !== 'ios') {
-      return;
-    }
-
-    Linking.addEventListener('url', (event) =>
+    const subscription = Linking.addEventListener('url', (event) =>
       NativeRowndModules.handleSignInLink(event.url)
     );
 
@@ -73,6 +69,8 @@ const RowndProvider: FunctionComponent<ContextProps> = ({
         NativeRowndModules.handleSignInLink(initialUrl);
       }
     })();
+
+    return () => subscription.remove();
   }, []);
 
   return (

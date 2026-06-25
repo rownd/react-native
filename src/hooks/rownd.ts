@@ -3,20 +3,23 @@ import {
   signOut,
   manageAccount,
   getAccessToken,
-  getFirebaseIdToken,
   setUserDataValue,
   setUserData,
 } from '../utils/nativeModule';
 import { useRowndContext } from '../components/GlobalContext';
+import type {
+  RequestSignIn,
+  RequestSignInMethods,
+  RequestSignInIntent,
+} from '../types';
+
+export type { RequestSignIn, RequestSignInMethods, RequestSignInIntent };
 
 export type TRowndContext = {
   access_token: string | null;
   auth: AuthContext;
   is_authenticated: boolean;
   is_initializing: boolean;
-  firebase: {
-    getIdToken: () => Promise<string>;
-  };
   getAccessToken: (token?: string) => Promise<string>;
   manageAccount: () => void;
   requestSignIn: (e?: RequestSignIn) => void;
@@ -40,19 +43,7 @@ type AuthContext = {
   access_token: string | null;
   app_id: string | null;
   is_verified_user?: boolean;
-};
-
-export type RequestSignInMethods =
-  | 'google'
-  | 'apple'
-  | 'default'
-  | 'guest'
-  | 'passkey';
-export type RequestSignInIntent = 'sign_in' | 'sign_up';
-export type RequestSignIn = {
-  method?: RequestSignInMethods;
-  postSignInRedirect?: string;
-  intent?: RequestSignInIntent;
+  auth_level?: string | null;
 };
 
 export function useRownd(): TRowndContext {
@@ -62,9 +53,6 @@ export function useRownd(): TRowndContext {
     access_token: state.auth.access_token,
     auth: state.auth,
     getAccessToken,
-    firebase: {
-      getIdToken: getFirebaseIdToken,
-    },
     is_authenticated: !!state.auth.access_token,
     is_initializing: !state.auth.app_id,
     manageAccount,

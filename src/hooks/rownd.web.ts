@@ -1,5 +1,20 @@
-import { useRownd as useReactRownd } from '@rownd/react';
+import { useRownd as useReactRownd } from '@supertokens/rownd-react';
 import type { TRowndContext } from './rownd';
+import type { RequestSignIn } from '../types';
+
+function toWebSignInOptions(opts?: RequestSignIn) {
+  if (!opts) {
+    return undefined;
+  }
+
+  const method = opts.method === 'guest' ? 'anonymous' : opts.method;
+
+  return {
+    ...opts,
+    method,
+    post_login_redirect: opts.postSignInRedirect,
+  };
+}
 
 export function useRownd(): TRowndContext {
   const {
@@ -14,7 +29,7 @@ export function useRownd(): TRowndContext {
     manageAccount,
     setUser,
     setUserValue,
-  } = useReactRownd();
+  } = useReactRownd() as any;
 
   return {
     access_token,
@@ -22,20 +37,20 @@ export function useRownd(): TRowndContext {
       access_token,
       app_id: auth.app_id || null,
       is_verified_user: auth.is_verified_user,
+      auth_level: auth.auth_level,
     },
     // @ts-ignore
     getAccessToken,
     is_authenticated,
     is_initializing,
     manageAccount,
-    requestSignIn: (opts) =>
-      requestSignIn({ ...opts, post_login_redirect: opts?.postSignInRedirect }),
+    requestSignIn: (opts) => requestSignIn(toWebSignInOptions(opts)),
     signOut,
     user: {
       data: user.data,
       setValue: setUserValue,
       set: setUser,
-      isLoading: false, // Waiting for react sdk update
+      isLoading: Boolean(user.isLoading ?? user.is_loading),
     },
   };
 }
