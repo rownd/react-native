@@ -4,20 +4,35 @@ import { RowndProvider } from '@supertokens/rownd-react-native';
 import Main from './Main';
 
 const loadingAnimation = require('../assets/loading.json');
+const defaultApiDomain = 'https://trout-uncouple-geriatric.ngrok-free.dev';
+const defaultHubUrl = 'https://rownd-hub.supertokens.com';
 
-export default function App() {
+type AppProps = {
+  appKey?: string;
+  apiDomain?: string;
+  apiBasePath?: string;
+  hubUrlOverride?: string;
+};
+
+export default function App({
+  appKey = 'test_app_key',
+  apiDomain = defaultApiDomain,
+  apiBasePath = '/auth',
+  hubUrlOverride = defaultHubUrl,
+}: AppProps) {
   return (
     <View style={styles.container}>
       <RowndProvider
         config={{
-          appKey: 'key_znpwrk9mnvfd0m4suwkxi06h',
+          appKey,
           supertokens: {
             appInfo: {
               appName: 'React Native Example',
-              apiDomain: 'http://localhost:3001',
-              apiBasePath: '/auth',
+              apiDomain,
+              apiBasePath,
             },
           },
+          hubUrlOverride,
           deepLinkScheme: 'rowndsupertokens',
         }}
         customizations={{

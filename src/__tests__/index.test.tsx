@@ -4,6 +4,7 @@ import { initialRowndState, rowndReducer } from '../reducer/rowndReducer';
 import type { RequestSignIn } from '../types';
 
 const mockRequestSignIn = jest.fn();
+const mockGetAccessToken = jest.fn();
 
 function loadNativeModule() {
   jest.resetModules();
@@ -14,7 +15,7 @@ function loadNativeModule() {
     requestSignIn: mockRequestSignIn,
     signOut: jest.fn(),
     manageAccount: jest.fn(),
-    getAccessToken: jest.fn(),
+    getAccessToken: mockGetAccessToken,
     setUserDataValue: jest.fn(),
     setUserData: jest.fn(),
     handleSignInLink: jest.fn(),
@@ -28,6 +29,7 @@ function loadNativeModule() {
 describe('native module auth forwarding', () => {
   beforeEach(() => {
     mockRequestSignIn.mockClear();
+    mockGetAccessToken.mockClear();
   });
 
   it('defaults requestSignIn to the Hub default method', () => {
@@ -54,6 +56,14 @@ describe('native module auth forwarding', () => {
       postSignInRedirect: undefined,
       intent: undefined,
     });
+  });
+
+  it('does not forward legacy token input when requesting an access token', () => {
+    const { getAccessToken } = loadNativeModule();
+
+    getAccessToken();
+
+    expect(mockGetAccessToken).toHaveBeenCalledWith();
   });
 });
 
@@ -98,6 +108,9 @@ describe('rowndReducer', () => {
 function assertRemovedTypes(rownd: TRowndContext) {
   // @ts-expect-error Firebase is no longer part of the public API.
   rownd.firebase;
+
+  // @ts-expect-error getAccessToken no longer accepts a legacy Rownd token.
+  rownd.getAccessToken('legacy-rownd-token');
 
   // @ts-expect-error Passkeys are not supported by the SuperTokens-backed RN SDK.
   const passkeyRequest: RequestSignIn = { method: 'passkey' };

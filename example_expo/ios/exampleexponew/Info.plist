@@ -28,6 +28,7 @@
         <key>CFBundleURLSchemes</key>
         <array>
           <string>newexample</string>
+          <string>rowndsupertokens</string>
         </array>
       </dict>
     </array>

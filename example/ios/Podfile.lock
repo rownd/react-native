@@ -1536,21 +1536,6 @@ PODS:
     - ReSwiftThunk/Core (= 2.0.1)
   - ReSwiftThunk/Core (2.0.1):
     - ReSwift (~> 6.0)
-  - Rownd (3.14.10):
-    - AnyCodable
-    - Factory (~> 1.2.8)
-    - Get (~> 2.2.0)
-    - GoogleSignIn (~> 7.0.0)
-    - GzipSwift
-    - JWTDecode (~> 3.0.0)
-    - LBBottomSheet
-    - lottie-ios (~> 4.5.0)
-    - ReSwift (~> 6.1.1)
-    - ReSwiftThunk (~> 2.0.1)
-    - Rownd/AnyCodable (= 3.14.10)
-    - Rownd/LBBottomSheet (= 3.14.10)
-    - SuperTokensIOS (~> 0.4.2)
-    - SwiftKeychainWrapper (~> 4.0.1)
   - rownd-react-native (4.0.2):
     - DoubleConversion
     - glog
@@ -1572,9 +1557,9 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - Rownd
+    - RowndSupertokens (~> 0.1.1)
     - Yoga
-  - Rownd/AnyCodable (3.14.10):
+  - RowndSupertokens (0.1.1):
     - AnyCodable
     - Factory (~> 1.2.8)
     - Get (~> 2.2.0)
@@ -1585,9 +1570,11 @@ PODS:
     - lottie-ios (~> 4.5.0)
     - ReSwift (~> 6.1.1)
     - ReSwiftThunk (~> 2.0.1)
-    - SuperTokensIOS (~> 0.4.2)
+    - RowndSupertokens/AnyCodable (= 0.1.1)
+    - RowndSupertokens/LBBottomSheet (= 0.1.1)
+    - SuperTokensIOS (~> 0.5.0)
     - SwiftKeychainWrapper (~> 4.0.1)
-  - Rownd/LBBottomSheet (3.14.10):
+  - RowndSupertokens/AnyCodable (0.1.1):
     - AnyCodable
     - Factory (~> 1.2.8)
     - Get (~> 2.2.0)
@@ -1598,10 +1585,23 @@ PODS:
     - lottie-ios (~> 4.5.0)
     - ReSwift (~> 6.1.1)
     - ReSwiftThunk (~> 2.0.1)
-    - SuperTokensIOS (~> 0.4.2)
+    - SuperTokensIOS (~> 0.5.0)
+    - SwiftKeychainWrapper (~> 4.0.1)
+  - RowndSupertokens/LBBottomSheet (0.1.1):
+    - AnyCodable
+    - Factory (~> 1.2.8)
+    - Get (~> 2.2.0)
+    - GoogleSignIn (~> 7.0.0)
+    - GzipSwift
+    - JWTDecode (~> 3.0.0)
+    - LBBottomSheet
+    - lottie-ios (~> 4.5.0)
+    - ReSwift (~> 6.1.1)
+    - ReSwiftThunk (~> 2.0.1)
+    - SuperTokensIOS (~> 0.5.0)
     - SwiftKeychainWrapper (~> 4.0.1)
   - SocketRocket (0.7.1)
-  - SuperTokensIOS (0.4.2)
+  - SuperTokensIOS (0.5.0)
   - SwiftKeychainWrapper (4.0.1)
   - Yoga (0.0.0)
 
@@ -1670,8 +1670,8 @@ DEPENDENCIES:
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCodegen (from `build/generated/ios`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - Rownd (from `../../../supertokens-rownd-ios`)
   - rownd-react-native (from `../..`)
+  - RowndSupertokens (from `https://github.com/supertokens/supertokens-rownd-ios.git`, tag `v0.1.1`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -1819,12 +1819,18 @@ EXTERNAL SOURCES:
     :path: build/generated/ios
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
-  Rownd:
-    :path: "../../../supertokens-rownd-ios"
   rownd-react-native:
     :path: "../.."
+  RowndSupertokens:
+    :git: https://github.com/supertokens/supertokens-rownd-ios.git
+    :tag: v0.1.1
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
+
+CHECKOUT OPTIONS:
+  RowndSupertokens:
+    :git: https://github.com/supertokens/supertokens-rownd-ios.git
+    :tag: v0.1.1
 
 SPEC CHECKSUMS:
   AnyCodable: bb05e19c676899e0fd511652f2d83bfa044e2503
@@ -1902,13 +1908,13 @@ SPEC CHECKSUMS:
   ReactCommon: 3c1c8c6d777103c0e60e37c6c5f08e828e2a77c9
   ReSwift: 929afd2c897f0d33c76c730710a31bb2d2a66713
   ReSwiftThunk: 7ca5145764be6f30b62db88a52d170133954629e
-  Rownd: 16b502270b8d841e7cf2258ec45bb6ffbebbe54d
-  rownd-react-native: f5169ffa50931fff5f3d1a2b9fd890a94a738dd8
+  rownd-react-native: 6cd7e8507b055ae80371a11dcb419bbbf990777f
+  RowndSupertokens: 0e11a5d0e8e47238de9c69e17a3a862b43e1e2ac
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
-  SuperTokensIOS: 5d2a1a68fdbde91184a5d81925aa9eeba8677e9f
+  SuperTokensIOS: b129b66057a20eb2eee27c2f967b71a1f3666875
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
   Yoga: be6f55a028e86c83ae066f018e9b5d24ffc45436
 
-PODFILE CHECKSUM: 0779aa09e77cc41ecfd58df9ae2147b70713bd27
+PODFILE CHECKSUM: 4ac17c0a2cbc584f01b3c3e779f0eb51985fa794
 
 COCOAPODS: 1.16.2

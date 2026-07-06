@@ -1,8 +1,10 @@
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
-import { RowndProvider, useRownd } from '@rownd/react-native';
+import { RowndProvider, useRownd } from '@supertokens/rownd-react-native';
 
 const loadingAnimation = require('./assets/loading.json');
+const apiDomain = 'https://trout-uncouple-geriatric.ngrok-free.dev';
+const hubUrlOverride = 'https://rownd-hub.supertokens.com';
 
 const SignIn = () => {
   const { requestSignIn } = useRownd();
@@ -30,7 +32,18 @@ const MainView = () => {
 export default function App() {
   return (
     <RowndProvider
-      config={{ appKey: 'YOUR_APP_KEY' }}
+      config={{
+        appKey: 'test_app_key',
+        supertokens: {
+          appInfo: {
+            appName: 'Expo Example',
+            apiDomain,
+            apiBasePath: '/auth',
+          },
+        },
+        hubUrlOverride,
+        deepLinkScheme: 'rowndsupertokens',
+      }}
       customizations={{
         sheetBackgroundHexColor: '#ffedbd',
         sheetCornerBorderRadius: '20',

@@ -132,7 +132,33 @@ public class MainActivity extends ReactActivity {
 platform :ios, '14.0'
 ```
 
-2. Install the Rownd pod and it's dependencies
+2. Install the SuperTokens Rownd iOS SDK pod.
+
+This package depends on `RowndSupertokens` `0.1.1`, which exposes the Swift module as `Rownd`. CocoaPods installs it automatically through `rownd-react-native.podspec`. If you want to pin it explicitly in your app, add this before `use_native_modules!`:
+
+```ruby
+target '<YourApp>' do
+  pod 'RowndSupertokens', '~> 0.1.1'
+
+  config = use_native_modules!
+  # ...
+end
+```
+
+If CocoaPods trunk shows `RowndSupertokens` `0.1.1` but CDN name resolution has not propagated yet, temporarily source it from the release tag instead:
+
+```ruby
+target '<YourApp>' do
+  pod 'RowndSupertokens',
+    :git => 'https://github.com/supertokens/supertokens-rownd-ios.git',
+    :tag => 'v0.1.1'
+
+  config = use_native_modules!
+  # ...
+end
+```
+
+3. Install the Rownd pod and its dependencies.
 
 ```sh
 cd ios && pod install
@@ -361,6 +387,65 @@ export default function App() {
   );
 }
 ```
+
+## Running the examples
+
+The plain React Native and Expo examples use `example-server/`, a local
+`supertokens-node` backend configured with `@supertokens-plugins/rownd-nodejs`.
+The examples default to the production Hub at `https://rownd-hub.supertokens.com`.
+
+Create the backend env file and fill in your Rownd/SuperTokens credentials:
+
+```sh
+cp example-server/.env.example example-server/.env
+```
+
+Run the backend from this repo root:
+
+```sh
+npm run example:server
+```
+
+The apps use `http://10.0.2.2:3137` on Android emulator and
+`http://127.0.0.1:3137` on iOS simulator. See `example/README.md` and
+`example_expo/README.md` for app-specific commands.
+
+## Integration testing
+
+The React Native example can run Android instrumentation tests against the same
+SuperTokens/Rownd harness used by the Android SDK. This gives the RN bridge a
+real backend, hub URL, app key, and deep-link configuration without adding a
+separate test server.
+
+Start the harness manually when debugging:
+
+```sh
+npm run test:integration:harness
+```
+
+Build the Android instrumentation APK without requiring a running emulator:
+
+```sh
+npm run test:integration:android:build
+```
+
+Run the Android integration tests on a connected emulator or device:
+
+```sh
+npm run test:integration:android
+```
+
+The harness runner passes these values to the Android test process:
+
+- `ANDROID_HARNESS_URL`: harness URL reachable from the emulator
+- `ANDROID_API_URL`: SuperTokens API domain for native SDK configuration
+- `ANDROID_HUB_URL`: Hub URL for native sign-in UI
+- `ANDROID_APP_KEY`: test Rownd app key
+
+Current Android instrumentation coverage verifies that the harness is reachable
+and that `rowndsupertokens://` magic links resolve to the React Native host
+activity. Extend this suite for runtime auth flows such as anonymous sign-in,
+magic-link completion, access-token retrieval, and sign-out.
 
 ## API reference
 

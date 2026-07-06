@@ -15,7 +15,9 @@ if linkage != nil
 end
 
 target 'AwesomeModuleExample' do
-  pod 'Rownd', :path => '../../../supertokens-rownd-ios'
+  pod 'RowndSupertokens',
+    :git => 'https://github.com/supertokens/supertokens-rownd-ios.git',
+    :tag => 'v0.1.1'
 
   config = use_native_modules!
 

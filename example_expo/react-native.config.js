@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   dependencies: {
-    '@rownd/react-native': {
+    '@supertokens/rownd-react-native': {
       root: path.join(__dirname, '..'),
     },
   },

@@ -21,6 +21,10 @@ platform :ios, podfile_properties['ios.deploymentTarget'] || '15.1'
 prepare_react_native_project!
 
 target 'exampleexponew' do
+  pod 'RowndSupertokens',
+    :git => 'https://github.com/supertokens/supertokens-rownd-ios.git',
+    :tag => 'v0.1.1'
+
   use_expo_modules!
 
   if ENV['EXPO_USE_COMMUNITY_AUTOLINKING'] == '1'
